@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lasen.Home_pageController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="80.0" fitWidth="105.0" layoutX="107.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/gray_line1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="115.0" fitWidth="105.0" layoutX="134.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/gray_line2.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="dimonds" layoutX="-5.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Engravers MT" size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="83.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/dimonds.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Text fill="WHITE" layoutX="16.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="59.999998189508915">
+         <font>
+            <Font name="Engravers MT" size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="coins" layoutX="-5.0" layoutY="93.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Engravers MT" size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/coins.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Text fill="WHITE" layoutX="18.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" textAlignment="CENTER" wrappingWidth="59.999998189508915">
+         <font>
+            <Font name="Engravers MT" size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="certification" layoutX="1.0" layoutY="178.0" mnemonicParsing="false" onAction="#to_show_certification" onMouseEntered="#enlarge_certification" onMouseExited="#minimize_certification" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/disable_certification.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="setting" layoutX="308.0" layoutY="10.0" mnemonicParsing="false" onAction="#to_setting_page" onMouseEntered="#enlarge_setting" onMouseExited="#minimize_setting" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/setting.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="instructions" layoutX="-5.0" layoutY="720.0" mnemonicParsing="false" onAction="#to_instructions" onMouseEntered="#enlarge_instructions" onMouseExited="#minimize_instructions" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/instructions_2.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="first_level" layoutX="77.0" layoutY="597.0" mnemonicParsing="false" onAction="#to_first_level" onMouseEntered="#enlarge_first" onMouseExited="#minimize_first" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/1_unlocked.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="second_level" layoutX="163.0" layoutY="529.0" mnemonicParsing="false" onAction="#to_second_level" onMouseEntered="#enlarge_second" onMouseExited="#minimize_second" prefHeight="55.0" prefWidth="55.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/2_locked.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="third_level" layoutX="154.0" layoutY="424.0" mnemonicParsing="false" onAction="#to_third_level" onMouseEntered="#enlarge_third" onMouseExited="#minimize_third" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/3_locked.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fx:id="mark" fitHeight="45.0" fitWidth="31.0" layoutX="61.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@image/Exclamation_mark.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="pop_wind" prefHeight="800.0" prefWidth="400.0" visible="false">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#543315" height="800.0" opacity="0.5" stroke="#543315" strokeType="INSIDE" width="400.0" />
+            <ImageView fitHeight="374.0" fitWidth="372.0" layoutX="14.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/pop_wind.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#81a2ab" height="302.0" layoutX="46.0" layoutY="218.0" opacity="0.6" stroke="#81a2ab" strokeType="INSIDE" width="308.0">
+               <effect>
+                  <Shadow color="#82a3ab" height="102.22" radius="50.61" width="102.22" />
+               </effect>
+            </Rectangle>
+            <Button fx:id="exit" layoutX="334.0" layoutY="174.0" mnemonicParsing="false" onAction="#unvisiable" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/exit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="57.0" layoutY="237.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="287.0" style="-fx-background-color: #FFD08C; -fx-background-radius: 30;">
+               <effect>
+                  <DropShadow color="#ffcf8cb7" radius="10.26" width="22.04" />
+               </effect>
+            </Button>
+            <Slider fx:id="music_slider" layoutX="102.0" layoutY="229.0" prefHeight="62.0" prefWidth="238.0" />
+            <Button layoutX="57.0" layoutY="307.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="287.0" style="-fx-background-color: #FFD08C; -fx-background-radius: 30;">
+               <effect>
+                  <DropShadow color="#ffcf8cb7" radius="10.26" width="22.04" />
+               </effect>
+            </Button>
+            <Button fx:id="profile" layoutX="57.0" layoutY="377.0" mnemonicParsing="false" onAction="#to_profile" prefHeight="45.0" prefWidth="287.0" style="-fx-background-color: #FFD08C; -fx-background-radius: 30;" text="الصفحة الشخصية" textFill="#543315">
+               <effect>
+                  <DropShadow color="#ffcf8cb7" radius="10.26" width="22.04" />
+               </effect>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="sign_out" layoutX="57.0" layoutY="447.0" mnemonicParsing="false" onAction="#to_sign_in" prefHeight="45.0" prefWidth="287.0" style="-fx-background-color: #FFD08C; -fx-background-radius: 30;" text="تسجيل خروج" textFill="#543315">
+               <effect>
+                  <DropShadow color="#ffcf8cb7" radius="10.26" width="22.04" />
+               </effect>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="38.0" layoutY="369.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/profile_1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="38.0" layoutY="439.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/sign_out.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="38.0" layoutY="299.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/blocked_sound.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="38.0" layoutY="229.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/blocked_music.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Slider fx:id="sound_slider" layoutX="102.0" layoutY="299.0" prefHeight="62.0" prefWidth="238.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
