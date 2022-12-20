@@ -65,6 +65,7 @@ public class Home_pageController implements Initializable {
     private Parent root;
     
     String st ;
+    String Ra;
 
     /**
      * Initializes the controller class.
