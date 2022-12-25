@@ -83,18 +83,18 @@
          <children>
             <HBox prefHeight="200.0" prefWidth="307.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="card_1" mnemonicParsing="false" onAction="#display_img_1" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fitHeight="300.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img_1" fitHeight="300.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@image/background.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="card_2" mnemonicParsing="false" onAction="#display_img_2" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fitHeight="300.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img_2" fitHeight="300.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@image/background.png" />
                            </image>
@@ -105,18 +105,18 @@
             </HBox>
             <HBox prefHeight="200.0" prefWidth="307.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="card_3" mnemonicParsing="false" onAction="#display_img_3" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fitHeight="300.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img_3" fitHeight="300.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@image/background.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="card_4" mnemonicParsing="false" onAction="#display_img_4" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fitHeight="300.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img_4" fitHeight="300.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@image/background.png" />
                            </image>
