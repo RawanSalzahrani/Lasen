@@ -26,7 +26,7 @@ public class Lasen extends Application {
     public void start(Stage primaryStage) throws IOException {
         
         //view main page                
-        Parent root = FXMLLoader.load(getClass().getResource("sign_up.fxml"));              
+        Parent root = FXMLLoader.load(getClass().getResource("main_page.fxml"));              
 	Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Lasen");     
