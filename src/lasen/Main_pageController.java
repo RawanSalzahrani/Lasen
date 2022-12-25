@@ -31,6 +31,7 @@ public class Main_pageController implements Initializable {
     private Scene scene;
     private Parent root;
     public int x;
+    public int y;
 
     @FXML
     private Button sign_in_bt;
