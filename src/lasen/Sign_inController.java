@@ -7,6 +7,7 @@ package lasen;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -24,6 +26,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -54,6 +58,8 @@ public class Sign_inController implements Initializable {
     private Text forget_pass;
     @FXML
     private TextField email;
+    @FXML
+    private Label label1;
 
     /**
      * Initializes the controller class.
@@ -113,11 +119,62 @@ public class Sign_inController implements Initializable {
 
     @FXML
     private void to_home_page(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("home_page.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<user> sList = null;
+        String queryStr = "from user";
+        Query query = session.createQuery(queryStr);
+        sList = query.list();
+        session.close();
+        
+
+        int index=1;
+        String domain = "";
+        if (email.getText().contains("@")) {
+        index = email.getText().indexOf("@");
+        domain = email.getText().substring(index);
+        }   
+        boolean invalidDomain=!(domain.equals("@gmail.com")) && !(domain.equals("@yahoo.com")) && !(domain.equals("@outlook.com")) && !(domain.equals("@hotmail.com")) && !(domain.equals("@st.uqu.edu.sa"));   
+        if ((invalidDomain && !email.getText().equals("")) || (index-1 <0)) { //index-1= -1 when email like @hotmail.com without name 
+           label1.setText("الرجاء إدخال بريد إلكتروني صحيح");
+           label1.setVisible(true);
+           return;
+        }else //check if fields are empty
+        if (email.getText().equals("") || txt_hide_Password.getText().equals("")){
+            label1.setVisible(true);
+        }
+
+            
+             //now check if email is in the database and if password and email are correct
+                        else{
+                            boolean flag = false;
+                            for(user u: sList){
+                                //if user found 
+                                if(u.getEmail().equals(email.getText())){ flag =true;
+                                    
+                                    if(u.getPassword().equals(txt_hide_Password.getText())){                                        
+                                        userSignInNow.userSignIn = email.getText();
+                                        
+                                        Parent root = FXMLLoader.load(getClass().getResource("home_page.fxml"));
+                                        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                                        scene = new Scene(root);
+                                        stage.setScene(scene);
+                                        stage.show();
+                                        }
+                                    else {
+                                        label1.setText("كلمة المرور غير صحيحة");
+                                        label1.setVisible(true); 
+                                        }  
+                                }
+                            }
+                            if (flag == false){
+                                label1.setText("البريد الإلكتروني غير مسجل, فضلا قم بإنشاء حساب أولا ");
+                                label1.setVisible(true);
+                            }
+                        
+                        }
+        
     }
 
     @FXML

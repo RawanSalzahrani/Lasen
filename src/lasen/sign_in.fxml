@@ -31,7 +31,7 @@
                </font>
             </Label>
             <TextField fx:id="email" alignment="CENTER" layoutX="16.0" layoutY="138.0" prefHeight="45.0" prefWidth="330.0" promptText="Example@outlook.com" style="-fx-background-radius: 20;" />
-            <Button fx:id="sign_in_bt" layoutX="58.0" layoutY="307.0" mnemonicParsing="false" onAction="#to_home_page" onMouseEntered="#enlarge_sign_in" onMouseExited="#minimize_sign_in" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
+            <Button fx:id="sign_in_bt" layoutX="59.0" layoutY="354.0" mnemonicParsing="false" onAction="#to_home_page" onMouseEntered="#enlarge_sign_in" onMouseExited="#minimize_sign_in" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
                <font>
                   <Font name="Led Italic Font" size="24.0" />
                </font>
@@ -43,7 +43,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Text fill="#543315" layoutX="99.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="دخول" textAlignment="CENTER" wrappingWidth="162.7109375">
+            <Text fill="#543315" layoutX="100.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="دخول" textAlignment="CENTER" wrappingWidth="162.7109375">
                <font>
                   <Font name="Led Italic Font" size="24.0" />
                </font>
@@ -65,7 +65,7 @@
                   <Image url="@image/unvisibility.png" />
                </image>
             </ImageView>
-            <Text fx:id="sign_up" fill="#543315" layoutX="54.0" layoutY="399.0" onMouseClicked="#to_sign_up" onMouseEntered="#changeColor" onMouseExited="#changeColor2" strokeType="OUTSIDE" strokeWidth="0.0" text="ليس لديك حساب ؟ تسجيل" textAlignment="CENTER" underline="true" wrappingWidth="251.5" />
+            <Text fx:id="sign_up" fill="#543315" layoutX="55.0" layoutY="446.0" onMouseClicked="#to_sign_up" onMouseEntered="#changeColor" onMouseExited="#changeColor2" strokeType="OUTSIDE" strokeWidth="0.0" text="ليس لديك حساب ؟ تسجيل" textAlignment="CENTER" underline="true" wrappingWidth="251.5" />
             <Text fx:id="forget_pass" fill="#543315" layoutX="22.0" layoutY="283.0" onMouseClicked="#to_forget_pass" onMouseEntered="#changeColor3" onMouseExited="#changeColor4" strokeType="OUTSIDE" strokeWidth="0.0" text="نسيت كلمة المرور" textAlignment="CENTER" wrappingWidth="112.71093487739563">
                <font>
                   <Font size="14.0" />
@@ -73,5 +73,6 @@
             </Text>
          </children>
       </Pane>
+      <Label fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="427.0" prefHeight="57.0" prefWidth="359.0" text="من فضلك قم بإدخال البريد الإلكتروني وكلمة المرور" textAlignment="CENTER" textFill="#ff4141" visible="false" wrapText="true" />
    </children>
 </AnchorPane>

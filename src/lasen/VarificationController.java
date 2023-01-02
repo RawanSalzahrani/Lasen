@@ -8,6 +8,8 @@ package lasen;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +18,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javax.mail.Session; //handles configuration setting and authentication
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Message; //creating a message that will be sent
+import javax.mail.Transport; //a message transport mechanism (will use the SMTP protocol to send the messages)
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.MessagingException;
 
 /**
  * FXML Controller class
@@ -35,6 +46,8 @@ public class VarificationController implements Initializable {
     private TextField code_txt;
     @FXML
     private Button varification_bt;
+    @FXML
+    private Label label1;
 
     /**
      * Initializes the controller class.
@@ -59,12 +72,20 @@ public class VarificationController implements Initializable {
     }
 
     @FXML
-    private void to_sign_in(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    private void to_reset_pass(ActionEvent event) throws IOException {
+        if (code_txt.getText().isEmpty()) {
+            label1.setText("الرجاء إدخال رمز التحقق");
+            label1.setVisible(true);
+        }else if (Integer.parseInt(code_txt.getText()) == JavaMailUtil.random){
+            Parent root = FXMLLoader.load(getClass().getResource("reset_password.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }else {
+            label1.setVisible(true);
+        }
+        
     }
     
 }

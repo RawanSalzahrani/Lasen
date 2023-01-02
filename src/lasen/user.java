@@ -32,21 +32,13 @@ public class user  implements java.io.Serializable {
 
      public user() {
     }
-     
-    public user(String name, String email, int age, String password, int current_balance) {
-        this.name = name;
+
+    public user(String email, String name, int age, String password, int current_balance) {
         this.email = email;
+        this.name = name;
         this.age = age;
         this.password = password;
         this.current_balance = current_balance;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
@@ -55,6 +47,14 @@ public class user  implements java.io.Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getAge() {
@@ -80,8 +80,7 @@ public class user  implements java.io.Serializable {
     public void setCurrent_balance(int current_balance) {
         this.current_balance = current_balance;
     }
-         
-     
+
     
 }
 

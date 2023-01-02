@@ -6,7 +6,6 @@
 package lasen;
 
 import java.io.IOException;
-import static java.lang.String.valueOf;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,14 +32,8 @@ import org.hibernate.Session;
  *
  * @author horre
  */
-public class Profile_settingController implements Initializable {
+public class Reset_passwordController implements Initializable {
 
-    @FXML
-    private TextField name;
-    @FXML
-    private TextField email;
-    @FXML
-    private TextField age;
     @FXML
     private TextField txt_show_passwod;
     @FXML
@@ -59,40 +52,21 @@ public class Profile_settingController implements Initializable {
     private ImageView closeEye2;
     @FXML
     private Button save_bt;
-    
+    @FXML
+    private Label label1;
+
     String password;
     String password2;
     
     private Stage stage;
     private Scene scene;
     private Parent root;
-    @FXML
-    private Label label1;
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Session session1 = HibernateUtil.getSessionFactory().openSession();
-        List<user> user_list = null;
-        String queryStr = "from user";
-        Query query = session1.createQuery(queryStr);
-        user_list =  query.list();
-        session1.close();
-        for(user u: user_list){
-            if (userSignInNow.userSignIn.equals(u.getEmail())){
-            name.setText(u.getName());
-            email.setText(u.getEmail());
-            email.setDisable(true);
-            age.setText(valueOf(u.getAge()));
-            txt_hide_Password.setText(u.getPassword());
-            txt_hide_Password2.setText(u.getPassword());
-            txt_show_passwod.setText(u.getPassword());
-            txt_show_passwod2.setText(u.getPassword());
-            }
-        }
     } 
     
     public  void initialize(){
@@ -175,12 +149,12 @@ public class Profile_settingController implements Initializable {
     }
 
     @FXML
-    private void to_home(ActionEvent event) throws IOException {
-        
+    private void to_sign_in(ActionEvent event) throws IOException {
         password=txt_hide_Password.getText();
         password2=txt_hide_Password2.getText();
         
-        if (name.getText().isEmpty() || age.getText().isEmpty() || password.isEmpty()|| password2.isEmpty())
+        
+        if (password.isEmpty()|| password2.isEmpty())
             {
                 label1.setText("الرجاء تعبئة جميع البيانات المطلوبة");
                 label1.setVisible(true);
@@ -199,17 +173,15 @@ public class Profile_settingController implements Initializable {
                 user_list =  query.list();
                 session1.close();
                 for(user u: user_list){
-                    if(userSignInNow.userSignIn.equals(u.getEmail())){
+                    if(u.getEmail().equals(Forget_passwordController.recepientEmail)){
                         Session session2 = HibernateUtil.getSessionFactory().openSession();
                         session2.beginTransaction();
-                        u.setName(name.getText());
-                        u.setAge(Integer.valueOf(age.getText()));
                         u.setPassword(password);
                         session2.update(u);
                         session2.getTransaction().commit();
                         session2.close();
                         
-                        Parent root = FXMLLoader.load(getClass().getResource("home_page.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
                         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                         scene = new Scene(root);
                         stage.setScene(scene);
@@ -222,8 +194,6 @@ public class Profile_settingController implements Initializable {
         if (dontMatch &&  !txt_hide_Password.getText().equals("") && !txt_hide_Password2.getText().equals("")) {
             label1.setVisible(true);
         }
-            
-        
     }
     
 }

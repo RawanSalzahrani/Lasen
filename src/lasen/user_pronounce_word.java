@@ -20,14 +20,14 @@ public class user_pronounce_word  implements java.io.Serializable {
     @Column(name="email")
      private String email;
     @Id
-     @Column(name="word_id")
+    @Column(name="word_id")
      private int word_id;
     @Id
-     @Column(name="level_no")
+    @Column(name="level_no")
      private int level_no;
-     @Column(name="correct_count")
+    @Column(name="correct_count")
      private int correct_count;
-     @Column(name="incorrect_count")
+    @Column(name="incorrect_count")
      private int incorrect_count;
 
      public user_pronounce_word() {
@@ -80,7 +80,5 @@ public class user_pronounce_word  implements java.io.Serializable {
     public void setIncorrect_count(int incorrect_count) {
         this.incorrect_count = incorrect_count;
     }
-     
-     
-     
+
 }

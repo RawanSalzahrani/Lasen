@@ -14,16 +14,6 @@
             <Image url="@image/2.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@image/cloud_4.gif" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="200.0" fitWidth="250.0" layoutX="200.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@image/cloud_3.gif" />
-         </image>
-      </ImageView>
       <ImageView fitHeight="376.0" fitWidth="385.0" layoutX="12.0" layoutY="-64.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/س.png" />
