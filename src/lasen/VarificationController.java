@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.mail.Session; //handles configuration setting and authentication
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
@@ -30,6 +31,7 @@ import javax.mail.Transport; //a message transport mechanism (will use the SMTP 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
+import static lasen.Lasen.mediaPlayer;
 
 /**
  * FXML Controller class
@@ -73,6 +75,8 @@ public class VarificationController implements Initializable {
 
     @FXML
     private void to_reset_pass(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         if (code_txt.getText().isEmpty()) {
             label1.setText("الرجاء إدخال رمز التحقق");
             label1.setVisible(true);

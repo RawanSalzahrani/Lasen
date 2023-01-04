@@ -30,6 +30,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Duration;
+import static lasen.Lasen.mediaPlayer;
+import static lasen.Lasen.mediaPlayer2;
 
 /**
  * FXML Controller class
@@ -96,7 +99,7 @@ public class First_levelController implements Initializable {
         for (int row = 0; row <2; row++) {
             for (int col = 0; col <2; col++) {
                input = new FileInputStream(
-                       "C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
+                       "src\\lasen\\image\\background.png");
                  
                Image image = new Image(input);
                 ImageView imageView = new ImageView(image);
@@ -141,6 +144,8 @@ public class First_levelController implements Initializable {
 
     @FXML
     private void to_setting_page(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        Lasen.mediaPlayer.play();
         pop_wind.setVisible(true);
         
     }
@@ -161,6 +166,9 @@ public class First_levelController implements Initializable {
 
     @FXML
     private void to_home_page(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        mediaPlayer2.play();
         Parent root = FXMLLoader.load(getClass().getResource("home_page.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -170,11 +178,15 @@ public class First_levelController implements Initializable {
 
     @FXML
     private void unvisiable(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         pop_wind.setVisible(false);
     }
 
     @FXML
     private void to_profile(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("profile_setting.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -184,6 +196,9 @@ public class First_levelController implements Initializable {
 
     @FXML
     private void to_sign_in(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        mediaPlayer2.play();
         Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -193,17 +208,25 @@ public class First_levelController implements Initializable {
 
     @FXML
     private void refresh_cards(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
     }
 
     @FXML
     private void get_help(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
     }
 
     @FXML
     private void record_sound(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
     }
     
      public void cardListener(MouseEvent event) throws FileNotFoundException {
+         mediaPlayer.seek(Duration.seconds(0));
+         mediaPlayer.play();
          
         Node sourceComponent = (Node) event.getSource();
         String rowAndColumn = (String)sourceComponent.getUserData();
@@ -213,7 +236,7 @@ public class First_levelController implements Initializable {
 
         String image = board.board[rowSelected][colSelected].value;
 
-        FileInputStream imageFile = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\"+image+".png");
+        FileInputStream imageFile = new FileInputStream("src\\lasen\\image\\"+image+".png");
 
         Image selectedImage = new Image(imageFile);
         
@@ -237,7 +260,7 @@ public class First_levelController implements Initializable {
             } else {
                 int indexFirstCardInList = (firstCard.row * 2) + firstCard.col;
 
-                FileInputStream questionFile = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
+                FileInputStream questionFile = new FileInputStream("src\\lasen\\image\\background.png");
                 
                 Image questionImage = new Image(questionFile);
                 ((ImageView)gameMatrix.getChildren().get(indexFirstCardInList)).setImage(questionImage);

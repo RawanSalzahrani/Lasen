@@ -26,6 +26,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import static lasen.Lasen.mediaPlayer;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -117,6 +119,8 @@ public class Sign_upController implements Initializable {
 
     @FXML
     private void open_Eye_ClickOnAction(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod.setVisible(false);
         openEye.setVisible(false);
         closeEye.setVisible(true);
@@ -125,6 +129,8 @@ public class Sign_upController implements Initializable {
 
     @FXML
     private void open_Eye_ClickOnAction2(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod2.setVisible(false);
         openEye2.setVisible(false);
         closeEye2.setVisible(true);
@@ -133,6 +139,8 @@ public class Sign_upController implements Initializable {
 
     @FXML
     private void close_Eye_Click_OnAction(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod.setVisible(true);
         openEye.setVisible(true);
         closeEye.setVisible(false);
@@ -141,6 +149,8 @@ public class Sign_upController implements Initializable {
 
     @FXML
     private void close_Eye_Click_OnAction2(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod2.setVisible(true);
         openEye2.setVisible(true);
         closeEye2.setVisible(false);
@@ -163,7 +173,8 @@ public class Sign_upController implements Initializable {
 
     @FXML
     private void to_sign_in(ActionEvent event) throws IOException {
-        
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         password = txt_hide_Password.getText();
         password2 = txt_hide_Password2.getText();
         String domain = "";
@@ -260,6 +271,8 @@ public class Sign_upController implements Initializable {
 
     @FXML
     private void to_sign_in2(MouseEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

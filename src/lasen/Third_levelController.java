@@ -27,6 +27,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import static lasen.Lasen.mediaPlayer;
+import static lasen.Lasen.mediaPlayer2;
 
 /**
  * FXML Controller class
@@ -136,6 +139,8 @@ public class Third_levelController implements Initializable {
 
     @FXML
     private void to_setting_page(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         pop_wind.setVisible(true);
         
     }
@@ -156,6 +161,9 @@ public class Third_levelController implements Initializable {
 
     @FXML
     private void to_home_page(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        mediaPlayer2.play();
         Parent root = FXMLLoader.load(getClass().getResource("home_page.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -165,11 +173,15 @@ public class Third_levelController implements Initializable {
 
     @FXML
     private void unvisiable(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         pop_wind.setVisible(false);
     }
 
     @FXML
     private void to_profile(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("profile_setting.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -179,6 +191,9 @@ public class Third_levelController implements Initializable {
 
     @FXML
     private void to_sign_in(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        mediaPlayer2.play();
         Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -188,18 +203,26 @@ public class Third_levelController implements Initializable {
 
     @FXML
     private void refresh_cards(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
     }
 
     @FXML
     private void get_help(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
     }
 
     @FXML
     private void record_sound(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
     }
     
     public void cardListener(MouseEvent event) throws FileNotFoundException {
-         
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        
         Node sourceComponent = (Node) event.getSource();
         String rowAndColumn = (String)sourceComponent.getUserData();
 

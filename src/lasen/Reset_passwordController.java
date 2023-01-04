@@ -24,6 +24,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import static lasen.Lasen.mediaPlayer;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -104,6 +106,8 @@ public class Reset_passwordController implements Initializable {
 
     @FXML
     private void open_Eye_ClickOnAction(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod.setVisible(false);
         openEye.setVisible(false);
         closeEye.setVisible(true);
@@ -112,6 +116,8 @@ public class Reset_passwordController implements Initializable {
 
     @FXML
     private void open_Eye_ClickOnAction2(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod2.setVisible(false);
         openEye2.setVisible(false);
         closeEye2.setVisible(true);
@@ -120,6 +126,8 @@ public class Reset_passwordController implements Initializable {
 
     @FXML
     private void close_Eye_Click_OnAction(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod.setVisible(true);
         openEye.setVisible(true);
         closeEye.setVisible(false);
@@ -128,6 +136,8 @@ public class Reset_passwordController implements Initializable {
 
     @FXML
     private void close_Eye_Click_OnAction2(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod2.setVisible(true);
         openEye2.setVisible(true);
         closeEye2.setVisible(false);
@@ -150,6 +160,8 @@ public class Reset_passwordController implements Initializable {
 
     @FXML
     private void to_sign_in(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         password=txt_hide_Password.getText();
         password2=txt_hide_Password2.getText();
         

@@ -8,6 +8,8 @@ package lasen;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import static lasen.Lasen.mediaPlayer;
 
 /**
  * FXML Controller class
@@ -71,7 +75,14 @@ public class Home_pageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        music_slider.setValue(mediaPlayer.getVolume()*500);
+        music_slider.valueProperty().addListener(new InvalidationListener(){
+            @Override
+            public void invalidated(Observable observable) {
+              mediaPlayer.setVolume(music_slider.getValue()/100);
+            }
+        });
+    }
 
     @FXML
     private void minimize_certification(MouseEvent event) {
@@ -89,6 +100,8 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_show_certification(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
     }
 
     @FXML
@@ -107,6 +120,8 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_setting_page(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         pop_wind.setVisible(true);
         
     }
@@ -127,6 +142,8 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_instructions(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("instructions.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -150,6 +167,9 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_first_level(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        Lasen.mediaPlayer2.pause();
         Parent root = FXMLLoader.load(getClass().getResource("first_level.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -173,6 +193,9 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_second_level(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        Lasen.mediaPlayer2.pause();
         Parent root = FXMLLoader.load(getClass().getResource("second_level.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -196,6 +219,9 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_third_level(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        Lasen.mediaPlayer2.pause();
         Parent root = FXMLLoader.load(getClass().getResource("third_level.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -205,11 +231,15 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void unvisiable(ActionEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         pop_wind.setVisible(false);
     }
 
     @FXML
     private void to_profile(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("profile_setting.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -219,6 +249,8 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_sign_in(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

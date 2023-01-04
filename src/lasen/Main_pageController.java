@@ -19,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import static lasen.Lasen.mediaPlayer;
 
 /**
  * FXML Controller class
@@ -61,6 +63,8 @@ public class Main_pageController implements Initializable {
 
     @FXML
     private void to_sign_in(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -84,6 +88,8 @@ public class Main_pageController implements Initializable {
 
     @FXML
     private void to_sign_up(ActionEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("sign_up.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

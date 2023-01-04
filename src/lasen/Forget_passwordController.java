@@ -21,7 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.mail.MessagingException;
+import static lasen.Lasen.mediaPlayer;
 import org.hibernate.Query;
 
 
@@ -70,7 +72,8 @@ public class Forget_passwordController implements Initializable {
 
     @FXML
     private void to_verification_page(ActionEvent event) throws IOException, MessagingException {
-        
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         recepientEmail = email.getText();
         
         org.hibernate.Session session = HibernateUtil.getSessionFactory().openSession();

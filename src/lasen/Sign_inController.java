@@ -26,6 +26,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import static lasen.Lasen.mediaPlayer;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -103,6 +105,8 @@ public class Sign_inController implements Initializable {
 
     @FXML
     private void open_Eye_ClickOnAction(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod.setVisible(false);
         openEye.setVisible(false);
         closeEye.setVisible(true);
@@ -111,6 +115,8 @@ public class Sign_inController implements Initializable {
 
     @FXML
     private void close_Eye_Click_OnAction(MouseEvent event) {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         txt_show_passwod.setVisible(true);
         openEye.setVisible(true);
         closeEye.setVisible(false);
@@ -119,7 +125,8 @@ public class Sign_inController implements Initializable {
 
     @FXML
     private void to_home_page(ActionEvent event) throws IOException {
-        
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<user> sList = null;
@@ -189,6 +196,8 @@ public class Sign_inController implements Initializable {
 
     @FXML
     private void to_sign_up(MouseEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("sign_up.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -208,6 +217,8 @@ public class Sign_inController implements Initializable {
 
     @FXML
     private void to_forget_pass(MouseEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("forget_password.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
