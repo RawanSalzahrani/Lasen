@@ -5,6 +5,8 @@
  */
 package lasen;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,9 +19,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -60,13 +70,60 @@ public class First_levelController implements Initializable {
     private Button get_help_bt;
     @FXML
     private Button micerphone_bt;
+    
+     @FXML
+    public GridPane gameMatrix;
+     
+     
+     
+      Board board = new Board();
+     
+    Cell firstCard = null;
+    Cell secondCard = null;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+       
+         board.populateMatrix();
+            
+         FileInputStream input;
+                
+        try {
+            
+       
+        for (int row = 0; row <2; row++) {
+            for (int col = 0; col <2; col++) {
+               input = new FileInputStream(
+                       "C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
+                 
+               Image image = new Image(input);
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(170);
+                imageView.setFitHeight(170);
+                imageView.setUserData(row+","+col);
+                
+                imageView.setOnMouseClicked(event -> {
+                    try {
+                        cardListener(event);}
+                    
+                    catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }});
+                
+                gameMatrix.add(imageView,row, col);
+            }}
+        
+        
+        
+        
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(First_levelController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+      
 
     @FXML
     private void minimize_setting(MouseEvent event) {
@@ -144,6 +201,55 @@ public class First_levelController implements Initializable {
 
     @FXML
     private void record_sound(ActionEvent event) {
+    }
+    
+     public void cardListener(MouseEvent event) throws FileNotFoundException {
+         
+        Node sourceComponent = (Node) event.getSource();
+        String rowAndColumn = (String)sourceComponent.getUserData();
+
+        int rowSelected = Integer.parseInt(rowAndColumn.split(",")[0]);
+        int colSelected = Integer.parseInt(rowAndColumn.split(",")[1]);
+
+        String image = board.board[rowSelected][colSelected].value;
+
+        FileInputStream imageFile = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\"+image+".png");
+
+        Image selectedImage = new Image(imageFile);
+        
+        ((ImageView)sourceComponent).setImage(selectedImage);
+        checkIfMatchingPairWasFound(rowSelected,colSelected);
+
+    }
+     
+     
+      public void checkIfMatchingPairWasFound(int rowSelected, int colSelected) throws FileNotFoundException {
+
+        if(firstCard == null){
+            firstCard = board.board[rowSelected][colSelected];
+        }else if(secondCard ==null){
+            secondCard = board.board[rowSelected][colSelected];
+        }else {
+            if(firstCard.value.equals(secondCard.value)){
+                //matching pair
+                board.board[firstCard.row][firstCard.col].wasGuessed = true;
+                board.board[secondCard.row][secondCard.col].wasGuessed = true;
+            } else {
+                int indexFirstCardInList = (firstCard.row * 2) + firstCard.col;
+
+                FileInputStream questionFile = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
+                
+                Image questionImage = new Image(questionFile);
+                ((ImageView)gameMatrix.getChildren().get(indexFirstCardInList)).setImage(questionImage);
+
+                int indexSecondCardInList = (secondCard.row * 2) + secondCard.col;
+                ((ImageView)gameMatrix.getChildren().get(indexSecondCardInList)).setImage(questionImage);
+            }
+
+            firstCard= board.board[rowSelected][colSelected];
+            secondCard = null;
+
+        }
     }
     
 }
