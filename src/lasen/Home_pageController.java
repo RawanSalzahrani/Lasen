@@ -5,9 +5,13 @@
  */
 package lasen;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -19,12 +23,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import static lasen.Lasen.mediaPlayer;
+import static lasen.Lasen.mediaPlayer2;
 
 /**
  * FXML Controller class
@@ -67,6 +73,10 @@ public class Home_pageController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    @FXML
+    private ImageView sound_img;
+    @FXML
+    private ImageView music_img;
     
 
     /**
@@ -74,14 +84,22 @@ public class Home_pageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        music_slider.setValue(mediaPlayer.getVolume()*500);
+        // TODO                           
+        sound_slider.setValue(mediaPlayer.getVolume()*100);
+        sound_slider.valueProperty().addListener(new InvalidationListener(){
+            @Override
+            public void invalidated(Observable observable) {
+              mediaPlayer.setVolume(sound_slider.getValue()/100);
+            }
+        });
+        
+        music_slider.setValue(mediaPlayer2.getVolume()*400);
         music_slider.valueProperty().addListener(new InvalidationListener(){
             @Override
             public void invalidated(Observable observable) {
-              mediaPlayer.setVolume(music_slider.getValue()/100);
+              mediaPlayer2.setVolume(music_slider.getValue()/100);
             }
-        });
+        });        
     }
 
     @FXML
@@ -256,6 +274,40 @@ public class Home_pageController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void change_music_img(MouseEvent event) {
+        try {
+            FileInputStream muteFile = new FileInputStream("src\\lasen\\image\\blocked_music.png");
+            Image muteImage = new Image(muteFile);
+            if (music_slider.getValue()== 0){                  
+                music_img.setImage(muteImage);                 
+              }else {
+                FileInputStream unmuteFile = new FileInputStream("src\\lasen\\image\\music2.png");
+                Image unmuteImage = new Image(unmuteFile);
+                music_img.setImage(unmuteImage);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void change_sound_img(MouseEvent event) {
+        try {
+            FileInputStream muteFile = new FileInputStream("src\\lasen\\image\\blocked_sound.png");
+            Image muteImage = new Image(muteFile);
+            if (sound_slider.getValue()== 0){                  
+                sound_img.setImage(muteImage);                 
+              }else {
+                FileInputStream unmuteFile = new FileInputStream("src\\lasen\\image\\sound2.png");
+                Image unmuteImage = new Image(unmuteFile);
+                sound_img.setImage(unmuteImage);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

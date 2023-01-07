@@ -12,6 +12,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,11 +82,31 @@ public class Third_levelController implements Initializable {
      
     Cell firstCard = null;
     Cell secondCard = null;
+    @FXML
+    private ImageView sound_img;
+    @FXML
+    private ImageView music_img;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        sound_slider.setValue(mediaPlayer.getVolume()*100);
+        sound_slider.valueProperty().addListener(new InvalidationListener(){
+            @Override
+            public void invalidated(Observable observable) {
+              mediaPlayer.setVolume(sound_slider.getValue()/100);
+            }
+        });
+        
+        music_slider.setValue(mediaPlayer2.getVolume()*400);
+        music_slider.valueProperty().addListener(new InvalidationListener(){
+            @Override
+            public void invalidated(Observable observable) {
+              mediaPlayer2.setVolume(music_slider.getValue()/100);
+            }
+        });
        
          board.populateMatrix();
             
@@ -267,6 +289,40 @@ public class Third_levelController implements Initializable {
             firstCard= board.board[rowSelected][colSelected];
             secondCard = null;
 
+        }
+    }
+
+    @FXML
+    private void change_music_img(MouseEvent event) {
+        try {
+            FileInputStream muteFile = new FileInputStream("src\\lasen\\image\\blocked_music.png");
+            Image muteImage = new Image(muteFile);
+            if (music_slider.getValue()== 0){                  
+                music_img.setImage(muteImage);                 
+              }else {
+                FileInputStream unmuteFile = new FileInputStream("src\\lasen\\image\\music2.png");
+                Image unmuteImage = new Image(unmuteFile);
+                music_img.setImage(unmuteImage);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void change_sound_img(MouseEvent event) {
+        try {
+            FileInputStream muteFile = new FileInputStream("src\\lasen\\image\\blocked_sound.png");
+            Image muteImage = new Image(muteFile);
+            if (sound_slider.getValue()== 0){                  
+                sound_img.setImage(muteImage);                 
+              }else {
+                FileInputStream unmuteFile = new FileInputStream("src\\lasen\\image\\sound2.png");
+                Image unmuteImage = new Image(unmuteFile);
+                sound_img.setImage(unmuteImage);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
