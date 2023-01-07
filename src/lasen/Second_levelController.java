@@ -116,14 +116,14 @@ public class Second_levelController implements Initializable {
         try {
             
        
-        for (int row = 0; row <3; row++) {
-            for (int col = 0; col <2; col++) {
+        for (int row = 0; row <2; row++) {
+            for (int col = 0; col <3; col++) {
                input = new FileInputStream(
                        "C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
                  
                Image image = new Image(input);
                 ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(120);
+                imageView.setFitWidth(150);
                 imageView.setFitHeight(150);
                 imageView.setUserData(row+","+col);
                 
@@ -276,14 +276,14 @@ public class Second_levelController implements Initializable {
                 board.board[firstCard.row][firstCard.col].wasGuessed = true;
                 board.board[secondCard.row][secondCard.col].wasGuessed = true;
             } else {
-                int indexFirstCardInList = (firstCard.row * 2) + firstCard.col;
+                int indexFirstCardInList = (firstCard.row * 3) + firstCard.col;
 
                 FileInputStream questionFile = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
                 
                 Image questionImage = new Image(questionFile);
                 ((ImageView)gameMatrix.getChildren().get(indexFirstCardInList)).setImage(questionImage);
 
-                int indexSecondCardInList = (secondCard.row * 2) + secondCard.col;
+                int indexSecondCardInList = (secondCard.row * 3) + secondCard.col;
                 ((ImageView)gameMatrix.getChildren().get(indexSecondCardInList)).setImage(questionImage);
             }
 

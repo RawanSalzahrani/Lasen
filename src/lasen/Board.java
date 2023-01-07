@@ -24,7 +24,7 @@ public class Board {
         board = new Cell[2][2];
         
         
-        String[] images = {"clock","cup", "honey","lettuce", "potatoes"};
+        String[] images = {"clock","zucchini","washer","toothpick","turtle","cup","tooth","honey","lettuce", "teacher","potatoes","basket","celery","chair","clothes","letter","school","sun","swimming_pool"};
         Random randomGenerator = new Random();
         while(!isBoardFull()){
             
