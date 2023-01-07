@@ -32,13 +32,6 @@ public class Lasen extends Application {
         
         media = new Media(getClass().getResource("/sounds/click.mp3").toExternalForm());
         mediaPlayer = new MediaPlayer(media); 
-//        mediaPlayer.setAutoPlay(true); 
-//        mediaPlayer.setOnEndOfMedia(new Runnable() {
-//        public void run() {
-//         mediaPlayer.seek(Duration.ZERO);
-//       }
-//      });
-        
 
         media2 = new Media(getClass().getResource("/sounds/birds.mp3").toExternalForm());
         mediaPlayer2 = new MediaPlayer(media2);  
