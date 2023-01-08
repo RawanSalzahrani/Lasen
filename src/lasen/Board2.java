@@ -20,12 +20,15 @@ public class Board2 {
 
         board = new Cell[2][3];
         
+        boolean[] index_select ={false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
         
         String[] images = {"clock","zucchini","washer","toothpick","turtle","cup","tooth","honey","lettuce", "teacher","potatoes","basket","celery","chair","clothes","letter","school","sun","swimming_pool"};
         Random randomGenerator = new Random();
         while(!isBoardFull()){
             
             int randomImageIndex = randomGenerator.nextInt(images.length);
+            
+            if(index_select[randomImageIndex]==false){
             String randomImageSelected = images[randomImageIndex];
 
             int randomRow1 = randomGenerator.nextInt(2);
@@ -48,8 +51,14 @@ public class Board2 {
             board[randomRow1][randomCol1] = new Cell(randomImageSelected,randomRow1, randomCol1);
             board[randomRow2][randomCol2] = new Cell(randomImageSelected,randomRow2, randomCol2);
 
+        index_select[randomImageIndex]=true ;
+             
+             //for(int i=0;i< index_select.length;i++){
+               //      System.out.println(index_select[i]);
+                 //}
+             //System.out.println(randomImageIndex);
+                }
         }
-
     }
 
     private boolean isBoardFull() {

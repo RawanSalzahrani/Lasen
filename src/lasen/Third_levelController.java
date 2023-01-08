@@ -115,15 +115,15 @@ public class Third_levelController implements Initializable {
         try {
             
        
-        for (int row = 0; row <4; row++) {
-            for (int col = 0; col <2; col++) {
+        for (int row = 0; row <2; row++) {
+            for (int col = 0; col <4; col++) {
                input = new FileInputStream(
                        "C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
                  
                Image image = new Image(input);
                 ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(120);
-                imageView.setFitHeight(100);
+                imageView.setFitWidth(155);
+                imageView.setFitHeight(118);
                 imageView.setUserData(row+","+col);
                 
                 imageView.setOnMouseClicked(event -> {
@@ -275,7 +275,7 @@ public class Third_levelController implements Initializable {
                 board.board[firstCard.row][firstCard.col].wasGuessed = true;
                 board.board[secondCard.row][secondCard.col].wasGuessed = true;
             } else {
-                int indexFirstCardInList = (firstCard.row * 4) + firstCard.col;
+                int indexFirstCardInList = (firstCard.row *4) + firstCard.col;
 
                 FileInputStream questionFile = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
                 

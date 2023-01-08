@@ -124,7 +124,7 @@ public class Second_levelController implements Initializable {
                Image image = new Image(input);
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(150);
-                imageView.setFitHeight(150);
+                imageView.setFitHeight(130);
                 imageView.setUserData(row+","+col);
                 
                 imageView.setOnMouseClicked(event -> {
