@@ -5,6 +5,7 @@
  */
 package lasen;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,6 +34,13 @@ import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.util.Duration;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.TargetDataLine;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
 
@@ -89,6 +97,12 @@ public class First_levelController implements Initializable {
     private ImageView sound_img;
     @FXML
     private ImageView music_img;
+    
+    TargetDataLine targetLine;  // the line from which audio data is captured
+    AudioFormat audioFormat = new AudioFormat(16000, 16, 1, true, false);
+    DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+    @FXML
+    private ImageView character;
     /**
      * Initializes the controller class.
      */
@@ -241,10 +255,70 @@ public class First_levelController implements Initializable {
         mediaPlayer.play();
     }
 
+    boolean x = true;
+    
+    public void record(String phoneme) throws IOException, LineUnavailableException{
+            if (x){
+            x = false;
+            if(!AudioSystem.isLineSupported(dataInfo))
+           System.out.println("Not supported");
+        targetLine = (TargetDataLine)AudioSystem.getLine(dataInfo);    
+        targetLine.open();    
+        targetLine.start();
+         
+          try{         
+          Thread audioRecorderThread = new Thread()
+          {
+             @Override public void run()
+             {
+                  AudioInputStream recordingStream = new AudioInputStream(targetLine);
+                  File outputFile = new File("record.wav"); // path of the wav file
+                  
+                  try
+                  {
+                      AudioSystem.write(recordingStream, AudioFileFormat.Type.WAVE, outputFile); // start recording
+                  }
+                  catch (IOException ex)
+                  {
+                      System.out.println(ex);
+                  }
+                  System.out.println("Stopped recording");        
+             }
+          };
+          audioRecorderThread.start();
+          
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        } 
+            
+        }else{
+            x = true;
+            targetLine.stop();
+        targetLine.close(); // Closes the target data line to finish capturing and recording
+        CMUSphinx spinx =new CMUSphinx();
+        String result = spinx.getHypotesis();
+        LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
+        int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(phoneme, result);
+        
+        if(Distance==0){
+            character.setVisible(true);
+        }
+        else
+        {
+            character.setVisible(false);
+        }
+        }
+    }
+            
     @FXML
-    private void record_sound(ActionEvent event) {
+    private void record_sound(ActionEvent event) throws LineUnavailableException, IOException {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        
+        
+   
     }
     
      public void cardListener(MouseEvent event) throws FileNotFoundException {
@@ -281,6 +355,7 @@ public class First_levelController implements Initializable {
                    record_pan.setVisible(true);
                 board.board[firstCard.row][firstCard.col].wasGuessed = true;
                 board.board[secondCard.row][secondCard.col].wasGuessed = true;
+                record_pan.setVisible(true);
                 
                
                 

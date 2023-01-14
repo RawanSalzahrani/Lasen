@@ -214,7 +214,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fitHeight="294.0" fitWidth="274.0" layoutX="-43.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="character" fitHeight="294.0" fitWidth="274.0" layoutX="-43.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@image/11.png" />
                </image>

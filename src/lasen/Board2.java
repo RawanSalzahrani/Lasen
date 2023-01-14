@@ -23,6 +23,8 @@ public class Board2 {
         boolean[] index_select ={false,false,false,false,false,false};
         
         String[] images = {"beaver","dictionary","dress","mosquito","Pineapple","sun"};
+        String[] phonemes = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,Z]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,Z]","SHAMS[SH,AE,M,Z]"};
+        String[] phonemes2 = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,S]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,S]","SHAMS[SH,AE,M,Z]"};
         Random randomGenerator = new Random();
       
         while(!isBoardFull()){

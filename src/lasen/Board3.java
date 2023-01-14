@@ -21,6 +21,8 @@ public class Board3 {
         boolean[] index_select ={false,false,false,false,false,false,false,false};
        
         String[] images = {"zucchini","toothpick","school","nail","Mosque","Lion","chair","broom"};
+        String[] phonemes = {"KUSA[K,UW,Z,AH]","MISWAK[M,IH,S,W,AE,K]","MADRASA[M,AE,D,R,AH,S,AH]","MISMAR[M,IH,S,M,AA,R]","MASJID[M,AE,Z,JH,AH,D]","ASAD[AH,S,AE,D]","KURSI[K,AH,R,S,IY]","MAKNASA[M,AE,K,N,AH,S,AH]"};
+        String[] phonemes2 = {"KUSA[K,UW,S,AH]","MISWAK[M,IH,S,W,AE,K]","MADRASA[M,AE,D,R,AH,S,AH]","MISMAR[M,IH,S,M,AA,R]","MASJID[M,AE,S,JH,AH,D]","ASAD[AH,S,AE,D]","KURSI[K,AH,R,S,IY]","MAKNASA[M,AE,K,N,AH,S,AH]"};
         Random randomGenerator = new Random();
         while(!isBoardFull()){
             

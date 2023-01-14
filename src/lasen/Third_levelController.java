@@ -123,7 +123,7 @@ public class Third_levelController implements Initializable {
                Image image = new Image(input);
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(155);
-                imageView.setFitHeight(118);
+                imageView.setFitHeight(120);
                 imageView.setUserData(row+","+col);
                 
                 imageView.setOnMouseClicked(event -> {

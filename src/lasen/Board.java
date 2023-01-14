@@ -28,6 +28,7 @@ public class Board {
         
         
         String[] images = {"car","boat","fish","tooth","squirrel","sword"};
+        String[] phonemes = {"SAYAARA[S,EY,AH,R,AH]","SIFINA[S,IH,F,AH,N,AH]","SAMAKA[S,AE,M,AH,K,AH]","SIN[S,IH,N]","SENJAB[S,EH,N,JH,AE,B]","SAYF[S,EY,F]"};
       
         Random randomGenerator = new Random();
        
