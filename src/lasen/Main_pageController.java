@@ -61,16 +61,6 @@ public class Main_pageController implements Initializable {
         sign_in_bt.setTranslateX(sign_in_bt.getTranslateX()-5);
     }
 
-    @FXML
-    private void to_sign_in(ActionEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     private void minimize_sign_up(MouseEvent event) {
@@ -86,8 +76,20 @@ public class Main_pageController implements Initializable {
         sign_up_bt.setTranslateX(sign_up_bt.getTranslateX()-5);
     }
 
+
     @FXML
-    private void to_sign_up(ActionEvent event) throws IOException {
+    private void Sign_In(MouseEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        Parent root = FXMLLoader.load(getClass().getResource("sign_in.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void Sign_Up(MouseEvent event) throws IOException {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("sign_up.fxml"));

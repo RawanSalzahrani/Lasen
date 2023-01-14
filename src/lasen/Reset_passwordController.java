@@ -159,7 +159,7 @@ public class Reset_passwordController implements Initializable {
     }
 
     @FXML
-    private void to_sign_in(ActionEvent event) throws IOException {
+    private void reset(MouseEvent event) throws IOException {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         password=txt_hide_Password.getText();

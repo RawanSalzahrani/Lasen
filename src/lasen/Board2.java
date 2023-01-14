@@ -20,9 +20,9 @@ public class Board2 {
 
         board = new Cell[2][3];
         
-        boolean[] index_select ={false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+        boolean[] index_select ={false,false,false,false,false,false};
         
-        String[] images = {"clock","zucchini","washer","toothpick","turtle","cup","tooth","honey","lettuce", "teacher","potatoes","basket","celery","chair","clothes","letter","school","sun","swimming_pool"};
+        String[] images = {"beaver","dictionary","dress","mosquito","Pineapple","sun"};
         Random randomGenerator = new Random();
         while(!isBoardFull()){
             

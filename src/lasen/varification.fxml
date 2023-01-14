@@ -31,7 +31,7 @@
          </font>
       </Label>
       <TextField fx:id="code_txt" alignment="CENTER" layoutX="35.0" layoutY="333.0" prefHeight="45.0" prefWidth="330.0" promptText="1234" style="-fx-background-radius: 20;" />
-      <Button fx:id="varification_bt" layoutX="77.0" layoutY="436.0" mnemonicParsing="false" onAction="#to_reset_pass" onMouseEntered="#enlarge_varification_bt" onMouseExited="#minimize_varification_bt" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
+      <Button fx:id="varification_bt" layoutX="77.0" layoutY="436.0" mnemonicParsing="false" onMouseEntered="#enlarge_varification_bt" onMouseExited="#minimize_varification_bt" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
          <font>
             <Font name="Led Italic Font" size="24.0" />
          </font>
@@ -43,9 +43,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="#543315" layoutX="118.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تحقق" textAlignment="CENTER" wrappingWidth="162.7109375">
+      <Text fill="#543315" layoutX="98.0" layoutY="489.0" onMouseClicked="#send" strokeType="OUTSIDE" strokeWidth="0.0" text="تحقق" textAlignment="CENTER" wrappingWidth="205.7109375">
          <font>
-            <Font name="Led Italic Font" size="24.0" />
+            <Font name="Led Italic Font" size="28.0" />
          </font>
       </Text>
       <Label fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="406.0" prefHeight="38.0" prefWidth="359.0" text="رمز التحقق غير صحيح الرجاء التأكد من صحة الرمز" textAlignment="CENTER" textFill="#ff4141" visible="false" wrapText="true" />

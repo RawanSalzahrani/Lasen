@@ -31,7 +31,7 @@
                </font>
             </Label>
             <TextField fx:id="email" alignment="CENTER" layoutX="16.0" layoutY="138.0" prefHeight="45.0" prefWidth="330.0" promptText="Example@outlook.com" style="-fx-background-radius: 20;" />
-            <Button fx:id="sign_in_bt" layoutX="59.0" layoutY="354.0" mnemonicParsing="false" onAction="#to_home_page" onMouseEntered="#enlarge_sign_in" onMouseExited="#minimize_sign_in" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
+            <Button fx:id="sign_in_bt" layoutX="59.0" layoutY="354.0" mnemonicParsing="false" onMouseEntered="#enlarge_sign_in" onMouseExited="#minimize_sign_in" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
                <font>
                   <Font name="Led Italic Font" size="24.0" />
                </font>
@@ -43,9 +43,9 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Text fill="#543315" layoutX="100.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="دخول" textAlignment="CENTER" wrappingWidth="162.7109375">
+            <Text fill="#543315" layoutX="79.0" layoutY="408.0" onMouseClicked="#sign_in" strokeType="OUTSIDE" strokeWidth="0.0" text="دخول" textAlignment="CENTER" wrappingWidth="206.7109375">
                <font>
-                  <Font name="Led Italic Font" size="24.0" />
+                  <Font name="Led Italic Font" size="28.0" />
                </font>
             </Text>
             <Label layoutX="240.0" layoutY="183.0" text="كلمة المرور :" textFill="#543315">

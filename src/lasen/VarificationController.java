@@ -74,7 +74,7 @@ public class VarificationController implements Initializable {
     }
 
     @FXML
-    private void to_reset_pass(ActionEvent event) throws IOException {
+    private void send(MouseEvent event) throws IOException {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         if (code_txt.getText().isEmpty()) {
@@ -89,7 +89,6 @@ public class VarificationController implements Initializable {
         }else {
             label1.setVisible(true);
         }
-        
     }
     
 }

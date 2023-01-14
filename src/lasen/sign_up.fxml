@@ -76,7 +76,7 @@
             <Image url="@image/unvisibility.png" />
          </image>
       </ImageView>
-      <Button fx:id="sign_up_bt" layoutX="87.0" layoutY="543.0" mnemonicParsing="false" onAction="#to_sign_in" onMouseEntered="#enlarge_sign_up" onMouseExited="#minimize_sign_up" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
+      <Button fx:id="sign_up_bt" layoutX="87.0" layoutY="543.0" mnemonicParsing="false" onMouseEntered="#enlarge_sign_up" onMouseExited="#minimize_sign_up" prefHeight="70.0" prefWidth="160.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
          <font>
             <Font name="Led Italic Font" size="24.0" />
          </font>
@@ -89,9 +89,9 @@
          </graphic>
       </Button>
       <Label fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="525.0" prefHeight="25.0" prefWidth="323.0" text="الرجاء تعبئة جميع البيانات" textAlignment="CENTER" textFill="#ff4141" visible="false" />
-      <Text fill="#543315" layoutX="127.0" layoutY="596.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إنشاء" textAlignment="CENTER" wrappingWidth="162.7109375">
+      <Text fill="#543315" layoutX="106.0" layoutY="597.0" onMouseClicked="#sign_up" strokeType="OUTSIDE" strokeWidth="0.0" text="إنشاء" textAlignment="CENTER" wrappingWidth="206.7109375">
          <font>
-            <Font name="Led Italic Font" size="24.0" />
+            <Font name="Led Italic Font" size="28.0" />
          </font>
       </Text>
       <Text fx:id="sign_in" fill="#543315" layoutX="82.0" layoutY="636.0" onMouseClicked="#to_sign_in2" onMouseEntered="#changeColor" onMouseExited="#changeColor2" strokeType="OUTSIDE" strokeWidth="0.0" text="لديك حساب بالفعل !" textAlignment="CENTER" underline="true" wrappingWidth="251.5" />

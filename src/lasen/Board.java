@@ -19,7 +19,7 @@ public class Board {
 
     public Cell[][] board = new Cell[2][2];
     
-     boolean[] index_select ={false,false,false,false,false};
+     boolean[] index_select ={false,false,false,false,false,false};
      
     
     public void populateMatrix(){
@@ -27,7 +27,7 @@ public class Board {
         board = new Cell[2][2];
         
         
-        String[] images = {"clock","washer","toothpick","tooth","lettuce"};
+        String[] images = {"car","boat","fish","tooth","squirrel","sword"};
       
         Random randomGenerator = new Random();
        

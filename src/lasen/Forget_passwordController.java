@@ -70,8 +70,9 @@ public class Forget_passwordController implements Initializable {
         sent_bt.setTranslateX(sent_bt.getTranslateX()-5);
     }
 
+
     @FXML
-    private void to_verification_page(ActionEvent event) throws IOException, MessagingException {
+    private void send(MouseEvent event) throws MessagingException, IOException {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         recepientEmail = email.getText();
@@ -118,5 +119,5 @@ public class Forget_passwordController implements Initializable {
                         
                         }  
     }
-    
 }
+    

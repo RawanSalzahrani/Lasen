@@ -19,7 +19,7 @@
             <Image url="@image/س.png" />
          </image>
       </ImageView>
-      <Button fx:id="sign_in_bt" layoutX="65.0" layoutY="302.0" mnemonicParsing="false" onAction="#to_sign_in" onMouseEntered="#enlarge_sign_in" onMouseExited="#minimize_sign_in" prefHeight="73.0" prefWidth="260.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
+      <Button fx:id="sign_in_bt" layoutX="65.0" layoutY="302.0" mnemonicParsing="false" onMouseEntered="#enlarge_sign_in" onMouseExited="#minimize_sign_in" prefHeight="73.0" prefWidth="260.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
          <font>
             <Font name="Led Italic Font" size="24.0" />
          </font>
@@ -31,12 +31,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="#543315" layoutX="130.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تسجيل دخول" textAlignment="CENTER" wrappingWidth="162.7109375">
+      <Text fill="#543315" layoutX="82.0" layoutY="363.0" onMouseClicked="#Sign_In" strokeType="OUTSIDE" strokeWidth="0.0" text="تسجيل دخول" textAlignment="CENTER" wrappingWidth="251.7109375">
          <font>
-            <Font name="Led Italic Font" size="24.0" />
+            <Font name="Led Italic Font" size="28.0" />
          </font>
       </Text>
-      <Button fx:id="sign_up_bt" layoutX="65.0" layoutY="392.0" mnemonicParsing="false" onAction="#to_sign_up" onMouseEntered="#enlarge_sign_up" onMouseExited="#minimize_sign_up" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
+      <Button fx:id="sign_up_bt" layoutX="65.0" layoutY="392.0" mnemonicParsing="false" onMouseEntered="#enlarge_sign_up" onMouseExited="#minimize_sign_up" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#543315">
          <font>
             <Font name="Led Italic Font" size="24.0" />
          </font>
@@ -48,9 +48,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="#543315" layoutX="130.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="إنشاء حساب" textAlignment="CENTER" wrappingWidth="162.7109375">
+      <Text fill="#543315" layoutX="87.0" layoutY="454.0" onMouseClicked="#Sign_Up" strokeType="OUTSIDE" strokeWidth="0.0" text="إنشاء حساب" textAlignment="CENTER" wrappingWidth="251.71092748641968">
          <font>
-            <Font name="Led Italic Font" size="24.0" />
+            <Font name="Led Italic Font" size="28.0" />
          </font>
       </Text>
    </children>

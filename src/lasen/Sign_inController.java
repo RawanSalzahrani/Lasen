@@ -124,7 +124,49 @@ public class Sign_inController implements Initializable {
     }
 
     @FXML
-    private void to_home_page(ActionEvent event) throws IOException {
+    private void changeColor4(MouseEvent event) {
+        forget_pass.setFill(Color.rgb(84, 51, 21));
+    }
+
+    @FXML
+    private void changeColor3(MouseEvent event) {
+        forget_pass.setFill(Color.rgb(255, 93, 93));
+    }
+
+    @FXML
+    private void to_sign_up(MouseEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        Parent root = FXMLLoader.load(getClass().getResource("sign_up.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void changeColor2(MouseEvent event) {
+        sign_up.setFill(Color.rgb(84, 51, 21));
+    }
+
+    @FXML
+    private void changeColor(MouseEvent event) {
+        sign_up.setFill(Color.rgb(255, 93, 93));
+    }
+
+    @FXML
+    private void to_forget_pass(MouseEvent event) throws IOException {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        Parent root = FXMLLoader.load(getClass().getResource("forget_password.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void sign_in(MouseEvent event) throws IOException {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
 
@@ -181,49 +223,6 @@ public class Sign_inController implements Initializable {
                             }
                         
                         }
-        
-    }
-
-    @FXML
-    private void changeColor4(MouseEvent event) {
-        forget_pass.setFill(Color.rgb(84, 51, 21));
-    }
-
-    @FXML
-    private void changeColor3(MouseEvent event) {
-        forget_pass.setFill(Color.rgb(255, 93, 93));
-    }
-
-    @FXML
-    private void to_sign_up(MouseEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Parent root = FXMLLoader.load(getClass().getResource("sign_up.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    private void changeColor2(MouseEvent event) {
-        sign_up.setFill(Color.rgb(84, 51, 21));
-    }
-
-    @FXML
-    private void changeColor(MouseEvent event) {
-        sign_up.setFill(Color.rgb(255, 93, 93));
-    }
-
-    @FXML
-    private void to_forget_pass(MouseEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Parent root = FXMLLoader.load(getClass().getResource("forget_password.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
     
 }

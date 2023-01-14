@@ -185,7 +185,7 @@ public class Profile_settingController implements Initializable {
     }
 
     @FXML
-    private void to_home(ActionEvent event) throws IOException {
+    private void save(MouseEvent event) throws IOException {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         password=txt_hide_Password.getText();
@@ -233,8 +233,6 @@ public class Profile_settingController implements Initializable {
         if (dontMatch &&  !txt_hide_Password.getText().equals("") && !txt_hide_Password2.getText().equals("")) {
             label1.setVisible(true);
         }
-            
-        
     }
     
 }

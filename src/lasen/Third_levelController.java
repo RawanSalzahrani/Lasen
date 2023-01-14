@@ -118,7 +118,7 @@ public class Third_levelController implements Initializable {
         for (int row = 0; row <2; row++) {
             for (int col = 0; col <4; col++) {
                input = new FileInputStream(
-                       "C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
+                       "src\\lasen\\image\\background.png");
                  
                Image image = new Image(input);
                 ImageView imageView = new ImageView(image);
@@ -253,7 +253,7 @@ public class Third_levelController implements Initializable {
 
         String image = board.board[rowSelected][colSelected].value;
 
-        FileInputStream imageFile = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\"+image+".png");
+        FileInputStream imageFile = new FileInputStream("src\\lasen\\image\\"+image+".png");
 
         Image selectedImage = new Image(imageFile);
         
@@ -277,7 +277,7 @@ public class Third_levelController implements Initializable {
             } else {
                 int indexFirstCardInList = (firstCard.row *4) + firstCard.col;
 
-                FileInputStream questionFile = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
+                FileInputStream questionFile = new FileInputStream("src\\lasen\\image\\background.png");
                 
                 Image questionImage = new Image(questionFile);
                 ((ImageView)gameMatrix.getChildren().get(indexFirstCardInList)).setImage(questionImage);
