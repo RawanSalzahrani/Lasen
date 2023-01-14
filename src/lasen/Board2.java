@@ -24,10 +24,15 @@ public class Board2 {
         
         String[] images = {"beaver","dictionary","dress","mosquito","Pineapple","sun"};
         Random randomGenerator = new Random();
+      
         while(!isBoardFull()){
             
             int randomImageIndex = randomGenerator.nextInt(images.length);
             
+            
+              if(index_select[randomImageIndex]==false){
+                  
+              
             if(index_select[randomImageIndex]==false){
             String randomImageSelected = images[randomImageIndex];
 
@@ -58,6 +63,7 @@ public class Board2 {
                  //}
              //System.out.println(randomImageIndex);
                 }
+              }
         }
     }
 
