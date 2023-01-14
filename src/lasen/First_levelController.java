@@ -278,8 +278,12 @@ public class First_levelController implements Initializable {
         }else {
             if(firstCard.value.equals(secondCard.value)){
                 //matching pair
+                   record_pan.setVisible(true);
                 board.board[firstCard.row][firstCard.col].wasGuessed = true;
                 board.board[secondCard.row][secondCard.col].wasGuessed = true;
+                
+               
+                
             } else {
                 int indexFirstCardInList = (firstCard.row * 2) + firstCard.col;
 
