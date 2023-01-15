@@ -37,7 +37,7 @@ public class CMUSphinx {
                 {
 		    recognizer.stopRecognition();
 		    //return result.getHypothesis();
-                    return result.getResult().getBestPronunciationResult().toString();			
+                    return result.getHypothesis();			
                 }
 			
 		recognizer.stopRecognition();

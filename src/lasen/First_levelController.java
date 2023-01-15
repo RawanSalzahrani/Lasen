@@ -303,6 +303,7 @@ public class First_levelController implements Initializable {
         int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(phoneme, result);
         
         if(Distance==0){
+            System.out.print("true");
             character.setVisible(true);
         }
         else
@@ -316,11 +317,15 @@ public class First_levelController implements Initializable {
     private void record_sound(ActionEvent event) throws LineUnavailableException, IOException {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
-        
+       
+        record(image);
+       // System.out.print(image);
+       
         
    
     }
     
+     String image;
      public void cardListener(MouseEvent event) throws FileNotFoundException {
          mediaPlayer.seek(Duration.seconds(0));
          mediaPlayer.play();
@@ -331,7 +336,7 @@ public class First_levelController implements Initializable {
         int rowSelected = Integer.parseInt(rowAndColumn.split(",")[0]);
         int colSelected = Integer.parseInt(rowAndColumn.split(",")[1]);
 
-        String image = board.board[rowSelected][colSelected].value;
+         image = board.board[rowSelected][colSelected].value;
 
         FileInputStream imageFile = new FileInputStream("src\\lasen\\image\\"+image+".png");
 
@@ -352,14 +357,14 @@ public class First_levelController implements Initializable {
         }else {
             if(firstCard.value.equals(secondCard.value)){
                 //matching pair
-                   record_pan.setVisible(true);
+                record_pan.setVisible(true);
                 board.board[firstCard.row][firstCard.col].wasGuessed = true;
                 board.board[secondCard.row][secondCard.col].wasGuessed = true;
                 record_pan.setVisible(true);
-                
+            
                
                 
-            } else {
+            } else  {
                 int indexFirstCardInList = (firstCard.row * 2) + firstCard.col;
 
                 FileInputStream questionFile = new FileInputStream("src\\lasen\\image\\background.png");
@@ -373,7 +378,6 @@ public class First_levelController implements Initializable {
 
             firstCard= board.board[rowSelected][colSelected];
             secondCard = null;
-
         }
     }
 
