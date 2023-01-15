@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +31,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.sound.sampled.LineUnavailableException;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -87,6 +91,11 @@ public class Second_levelController implements Initializable {
     private ImageView music_img;
     @FXML
     private ImageView sound_img;
+    
+    AudioRecording AudioRecording = new AudioRecording();
+    @FXML
+    private ImageView character;
+    String[] Phoneme;
     /**
      * Initializes the controller class.
      */
@@ -143,6 +152,19 @@ public class Second_levelController implements Initializable {
         
         } catch (FileNotFoundException ex) {
             Logger.getLogger(First_levelController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         Session session = HibernateUtil.getSessionFactory().openSession();
+        List<word> sList = null;
+        String queryStr = "from word WHERE level_no=2";
+        Query query = session.createQuery(queryStr);
+        sList = query.list();       
+        session.close();
+        Phoneme = new String[sList.size()];
+        int i=0;
+        for(word u: sList){             
+            Phoneme[i]=u.getPhoneme();
+            i++;
         }
         
     }
@@ -236,10 +258,33 @@ public class Second_levelController implements Initializable {
         mediaPlayer.play();
     }
 
+    boolean x=true;
     @FXML
-    private void record_sound(ActionEvent event) {
+    private void record_sound(ActionEvent event) throws LineUnavailableException, IOException  {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        
+        if(x)
+        {
+            x=false;
+            AudioRecording.startRecording();
+        }
+        else
+        {           
+            String result = AudioRecording.stopRecording();
+            x=true;
+            for(int i=0; i<Phoneme.length; i++){
+                LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
+                int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(Phoneme[i], result);
+                if(Distance==0)
+                {
+                    character.setVisible(true);
+                    break;
+                }
+               
+            }
+           
+        }
     }
     
      public void cardListener(MouseEvent event) throws FileNotFoundException {
@@ -275,6 +320,7 @@ public class Second_levelController implements Initializable {
                 //matching pair
                 board.board[firstCard.row][firstCard.col].wasGuessed = true;
                 board.board[secondCard.row][secondCard.col].wasGuessed = true;
+                record_pan.setVisible(true);
             } else {
                 int indexFirstCardInList = (firstCard.row * 3) + firstCard.col;
 

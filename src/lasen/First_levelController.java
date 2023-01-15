@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
@@ -43,6 +44,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -89,7 +92,7 @@ public class First_levelController implements Initializable {
      
      
      
-      Board board = new Board();
+    Board board = new Board();
      
     Cell firstCard = null;
     Cell secondCard = null;
@@ -98,14 +101,16 @@ public class First_levelController implements Initializable {
     @FXML
     private ImageView music_img;
     
-    TargetDataLine targetLine;  // the line from which audio data is captured
-    AudioFormat audioFormat = new AudioFormat(16000, 16, 1, true, false);
-    DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+    AudioRecording AudioRecording = new AudioRecording();
     @FXML
     private ImageView character;
+    String[] Phoneme;
     /**
      * Initializes the controller class.
      */
+    
+   
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
@@ -162,6 +167,19 @@ public class First_levelController implements Initializable {
             Logger.getLogger(First_levelController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<word> sList = null;
+        String queryStr = "from word WHERE level_no=1";
+        Query query = session.createQuery(queryStr);
+        sList = query.list();       
+        session.close();
+        Phoneme = new String[sList.size()];
+        int i=0;
+        for(word u: sList){             
+            Phoneme[i]=u.getPhoneme();
+            i++;
+        }
+                       
     }
       
 
@@ -255,77 +273,37 @@ public class First_levelController implements Initializable {
         mediaPlayer.play();
     }
 
-    boolean x = true;
-    
-    public void record(String phoneme) throws IOException, LineUnavailableException{
-            if (x){
-            x = false;
-            if(!AudioSystem.isLineSupported(dataInfo))
-           System.out.println("Not supported");
-        targetLine = (TargetDataLine)AudioSystem.getLine(dataInfo);    
-        targetLine.open();    
-        targetLine.start();
-         
-          try{         
-          Thread audioRecorderThread = new Thread()
-          {
-             @Override public void run()
-             {
-                  AudioInputStream recordingStream = new AudioInputStream(targetLine);
-                  File outputFile = new File("record.wav"); // path of the wav file
-                  
-                  try
-                  {
-                      AudioSystem.write(recordingStream, AudioFileFormat.Type.WAVE, outputFile); // start recording
-                  }
-                  catch (IOException ex)
-                  {
-                      System.out.println(ex);
-                  }
-                  System.out.println("Stopped recording");        
-             }
-          };
-          audioRecorderThread.start();
-          
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-        } 
-            
-        }else{
-            x = true;
-            targetLine.stop();
-        targetLine.close(); // Closes the target data line to finish capturing and recording
-        CMUSphinx spinx =new CMUSphinx();
-        String result = spinx.getHypotesis();
-        LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
-        int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(phoneme, result);
-        
-        if(Distance==0){
-            System.out.print("true");
-            character.setVisible(true);
-        }
-        else
-        {
-            character.setVisible(false);
-        }
-        }
-    }
-            
+    boolean x=true;        
     @FXML
     private void record_sound(ActionEvent event) throws LineUnavailableException, IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-       
-        record(image);
-       // System.out.print(image);
-       
         
-   
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();     
+        
+        if(x)
+        {
+            x=false;
+            AudioRecording.startRecording();
+        }
+        else
+        {  //"SH AE M Z"          
+            String result = AudioRecording.stopRecording();
+            x=true;
+            for(int i=0; i<Phoneme.length; i++){
+                LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
+                int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(Phoneme[i], result);
+                if(Distance==0)
+                {
+                    character.setVisible(true);
+                    break;
+                }
+               
+            }
+           
+        }                                    
     }
     
-     String image;
+    
      public void cardListener(MouseEvent event) throws FileNotFoundException {
          mediaPlayer.seek(Duration.seconds(0));
          mediaPlayer.play();
@@ -336,7 +314,7 @@ public class First_levelController implements Initializable {
         int rowSelected = Integer.parseInt(rowAndColumn.split(",")[0]);
         int colSelected = Integer.parseInt(rowAndColumn.split(",")[1]);
 
-         image = board.board[rowSelected][colSelected].value;
+        String image = board.board[rowSelected][colSelected].value;
 
         FileInputStream imageFile = new FileInputStream("src\\lasen\\image\\"+image+".png");
 
@@ -348,7 +326,7 @@ public class First_levelController implements Initializable {
     }
      
      
-      public void checkIfMatchingPairWasFound(int rowSelected, int colSelected) throws FileNotFoundException {
+     public void checkIfMatchingPairWasFound(int rowSelected, int colSelected) throws FileNotFoundException {
 
         if(firstCard == null){
             firstCard = board.board[rowSelected][colSelected];

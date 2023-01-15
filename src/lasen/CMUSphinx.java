@@ -36,8 +36,11 @@ public class CMUSphinx {
 		if (result != null) 
                 {
 		    recognizer.stopRecognition();
-		    //return result.getHypothesis();
-                    return result.getHypothesis();			
+		    
+                    String phonem = result.getResult().getBestPronunciationResult().toString();
+                    phonem = phonem.replaceAll(",", " ").substring(phonem.indexOf("[")+1, phonem.indexOf("]")); 
+                    return phonem;
+                    
                 }
 			
 		recognizer.stopRecognition();
