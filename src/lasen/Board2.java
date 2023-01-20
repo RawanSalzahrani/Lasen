@@ -20,22 +20,23 @@ public class Board2 {
 
         board = new Cell[2][3];
         
-        boolean[] index_select ={false,false,false,false,false,false};
+       boolean[] index_select ={false,false,false,false,false,false};
         
-        String[] images = {"beaver","dictionary","dress","mosquito","Pineapple","sun"};
+        String[] images = {"SHAMS","QAMOS","NAMO","QUNDUS","ANANAS","LABAS"};
         String[] phonemes = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,Z]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,Z]","SHAMS[SH,AE,M,Z]"};
         String[] phonemes2 = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,S]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,S]","SHAMS[SH,AE,M,Z]"};
         Random randomGenerator = new Random();
       
         while(!isBoardFull()){
             
+      
+            
             int randomImageIndex = randomGenerator.nextInt(images.length);
             
-            
-              if(index_select[randomImageIndex]==false){
-                  
+         
               
             if(index_select[randomImageIndex]==false){
+                
             String randomImageSelected = images[randomImageIndex];
 
             int randomRow1 = randomGenerator.nextInt(2);
@@ -58,13 +59,13 @@ public class Board2 {
             board[randomRow1][randomCol1] = new Cell(randomImageSelected,randomRow1, randomCol1);
             board[randomRow2][randomCol2] = new Cell(randomImageSelected,randomRow2, randomCol2);
 
-        index_select[randomImageIndex]=true ;
+                index_select[randomImageIndex]=true ;
              
              //for(int i=0;i< index_select.length;i++){
                //      System.out.println(index_select[i]);
                  //}
              //System.out.println(randomImageIndex);
-                }
+                
               }
         }
     }
