@@ -5,6 +5,8 @@
  */
 package lasen;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,8 +34,11 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -53,6 +58,7 @@ import org.hibernate.Session;
  * @author horre
  */
 public class First_levelController implements Initializable {
+
 
     @FXML
     private Button setting;
@@ -90,12 +96,14 @@ public class First_levelController implements Initializable {
      @FXML
     public GridPane gameMatrix;
      
-     
+     boolean voice_pane=false;
+       byte[] photo;
      
     Board board = new Board();
      
     Cell firstCard = null;
     Cell secondCard = null;
+    
     @FXML
     private ImageView sound_img;
     @FXML
@@ -105,15 +113,16 @@ public class First_levelController implements Initializable {
     @FXML
     private ImageView character;
     String[] Phoneme;
+    
     /**
      * Initializes the controller class.
      */
-    
-   
+    int Ismatch=0; 
+  
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+     
         sound_slider.setValue(mediaPlayer.getVolume()*100);
         sound_slider.valueProperty().addListener(new InvalidationListener(){
             @Override
@@ -128,7 +137,7 @@ public class First_levelController implements Initializable {
             public void invalidated(Observable observable) {
               mediaPlayer2.setVolume(music_slider.getValue()/100);
             }
-        });
+            });
         
         
          board.populateMatrix();
@@ -140,6 +149,10 @@ public class First_levelController implements Initializable {
        
         for (int row = 0; row <2; row++) {
             for (int col = 0; col <2; col++) {
+                
+                 
+              if(Ismatch!=1)
+              { 
                input = new FileInputStream(
                        "src\\lasen\\image\\background.png");
                  
@@ -148,18 +161,34 @@ public class First_levelController implements Initializable {
                 imageView.setFitWidth(170);
                 imageView.setFitHeight(170);
                 imageView.setUserData(row+","+col);
-                
-                imageView.setOnMouseClicked(event -> {
+                 
+             
+                    imageView.setOnMouseClicked(event -> {
                     try {
-                        cardListener(event);}
+                        cardListener(event);
+                        
+                        
+                    }
                     
                     catch (FileNotFoundException e) {
                         e.printStackTrace();
-                    }});
-                
-                gameMatrix.add(imageView,row, col);
+                    }}
+                            
+                       
+                );
+               
+              
+                gameMatrix.add(imageView,row, col);  
+            }
+              
+              else{
+              
+              
+              
+              }
+            
             }}
-        
+      
         
         
         
@@ -179,7 +208,8 @@ public class First_levelController implements Initializable {
             Phoneme[i]=u.getPhoneme();
             i++;
         }
-                       
+      
+                  
     }
       
 
@@ -307,42 +337,67 @@ public class First_levelController implements Initializable {
      public void cardListener(MouseEvent event) throws FileNotFoundException {
          mediaPlayer.seek(Duration.seconds(0));
          mediaPlayer.play();
-         
+          
+         ImagePattern adminImagePattern ;
         Node sourceComponent = (Node) event.getSource();
         String rowAndColumn = (String)sourceComponent.getUserData();
 
         int rowSelected = Integer.parseInt(rowAndColumn.split(",")[0]);
         int colSelected = Integer.parseInt(rowAndColumn.split(",")[1]);
-
+        
         String image = board.board[rowSelected][colSelected].value;
-
-        FileInputStream imageFile = new FileInputStream("src\\lasen\\image\\"+image+".png");
-
-        Image selectedImage = new Image(imageFile);
+        
+         Session session1 = HibernateUtil.getSessionFactory().openSession();
+       
+         List<word> word_list = null;
+          String queryStr = "from word";
+          Query query = session1.createQuery(queryStr);
+          word_list =  query.list();
+          session1.close();
+          
+           for(int i=0; i< word_list.size();i++){
+        if(word_list.get(i).getText().equals(image)){
+           
+           photo=word_list.get(i).getImg();
+          break;}
+        }
+        Image selectedImage = new Image(new ByteArrayInputStream(photo));
         
         ((ImageView)sourceComponent).setImage(selectedImage);
         checkIfMatchingPairWasFound(rowSelected,colSelected);
+       
 
     }
      
      
      public void checkIfMatchingPairWasFound(int rowSelected, int colSelected) throws FileNotFoundException {
 
+         
+         
         if(firstCard == null){
+          
             firstCard = board.board[rowSelected][colSelected];
-        }else if(secondCard ==null){
+        }
+        
+        else
+            
+            if(secondCard ==null){
             secondCard = board.board[rowSelected][colSelected];
-        }else {
+                      }
+            
+            else {
+                
             if(firstCard.value.equals(secondCard.value)){
                 //matching pair
-                record_pan.setVisible(true);
+                //record_pan.setVisible(true);
                 board.board[firstCard.row][firstCard.col].wasGuessed = true;
                 board.board[secondCard.row][secondCard.col].wasGuessed = true;
-                record_pan.setVisible(true);
-            
-               
                 
-            } else  {
+                record_pan.setVisible(true);
+                
+            } 
+            
+            else{
                 int indexFirstCardInList = (firstCard.row * 2) + firstCard.col;
 
                 FileInputStream questionFile = new FileInputStream("src\\lasen\\image\\background.png");
@@ -352,11 +407,15 @@ public class First_levelController implements Initializable {
 
                 int indexSecondCardInList = (secondCard.row * 2) + secondCard.col;
                 ((ImageView)gameMatrix.getChildren().get(indexSecondCardInList)).setImage(questionImage);
+            
+                
             }
-
+               
             firstCard= board.board[rowSelected][colSelected];
             secondCard = null;
         }
+        
+        
     }
 
     @FXML
@@ -392,5 +451,5 @@ public class First_levelController implements Initializable {
             Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+   
 }
