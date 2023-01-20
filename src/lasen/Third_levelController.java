@@ -5,6 +5,7 @@
  */
 package lasen;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -80,7 +81,7 @@ public class Third_levelController implements Initializable {
    @FXML
     public GridPane gameMatrix;
      
-     
+     byte[] photo;
      
       Board3 board = new Board3();
      
@@ -298,9 +299,23 @@ public class Third_levelController implements Initializable {
 
         String image = board.board[rowSelected][colSelected].value;
 
-        FileInputStream imageFile = new FileInputStream("src\\lasen\\image\\"+image+".png");
-
-        Image selectedImage = new Image(imageFile);
+      Session session1 = HibernateUtil.getSessionFactory().openSession();
+       
+         List<word> word_list = null;
+          String queryStr = "from word";
+          Query query = session1.createQuery(queryStr);
+          word_list =  query.list();
+          session1.close();
+          
+           for(int i=0; i< word_list.size();i++){
+        if(word_list.get(i).getText().equals(image)){
+           
+           photo=word_list.get(i).getImg();
+           
+          break;}
+        }
+        Image selectedImage = new Image(new ByteArrayInputStream(photo));
+        
         
         ((ImageView)sourceComponent).setImage(selectedImage);
         checkIfMatchingPairWasFound(rowSelected,colSelected);
