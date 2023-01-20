@@ -62,7 +62,7 @@ public class Board {
             board[randomRow2][randomCol2] = new Cell(randomImageSelected,randomRow2, randomCol2);
 
             
-            // index_select[randomImageIndex]=true ;
+             index_select[randomImageIndex]=true ;
              
               // for(int i=0;i< index_select.length;i++){
                 //     System.out.println(index_select[i]);}
