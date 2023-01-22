@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,11 +100,12 @@ public class First_levelController implements Initializable {
      @FXML
     public GridPane gameMatrix;
      
-     boolean voice_pane=false;
-       byte[] photo;
-       int w_id;
-       int lvl_num;
-     
+    boolean voice_pane=false;
+    byte[] photo;
+    int w_id;
+    int lvl_num;
+    String word_text=null;
+    List<word> WordList = null; 
     Board board = new Board();
      
     Cell firstCard = null;
@@ -117,7 +119,7 @@ public class First_levelController implements Initializable {
     AudioRecording AudioRecording = new AudioRecording();
     @FXML
     private ImageView character;
-    String[] Phoneme;
+    
     
     /**
      * Initializes the controller class.
@@ -202,19 +204,12 @@ public class First_levelController implements Initializable {
         }
         
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List<word> sList = null;
+        WordList = null;
         String queryStr = "from word WHERE level_no=1";
         Query query = session.createQuery(queryStr);
-        sList = query.list();       
+        WordList = query.list();       
         session.close();
-        Phoneme = new String[sList.size()];
-        int i=0;
-        for(word u: sList){             
-            Phoneme[i]=u.getPhoneme();
-            i++;
-        }
-      
-                  
+                             
     }
       
 
@@ -313,17 +308,17 @@ public class First_levelController implements Initializable {
     private void record_sound(ActionEvent event) throws LineUnavailableException, IOException {
         
         mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();     
-        
+        mediaPlayer.play();
+       
         if(x)
         {
             x=false;
             AudioRecording.startRecording();
         }
         else
-        {  //"SH AE M Z"          
+        {            
             String result = AudioRecording.stopRecording();
-            x=true;
+            x=true;            
 //             Session session3 = HibernateUtil.getSessionFactory().openSession();
 //       
 //            List<user_pronounce_word> record_list = null;
@@ -336,10 +331,12 @@ public class First_levelController implements Initializable {
 //                  //  if(record_list.get(i).){
 //                    }
                 
-            for(int i=0; i<Phoneme.length; i++){
-                LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
-                int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(Phoneme[i], result);
-                
+            for(int i=0; i<WordList.size(); i++)
+            {
+                if(WordList.get(i).getText().equals(word_text))
+                {
+                    LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
+                    int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(WordList.get(i).getPhoneme(), result);                                                          
                 if(Distance==0)
                 {
 //                    user_pronounce_word w = new user_pronounce_word();
@@ -361,7 +358,8 @@ public class First_levelController implements Initializable {
                   character.setVisible(true);
                   record_pan.setVisible(false);
                     break;
-                }else {
+                }
+                else {
 //                    user_pronounce_word w = new user_pronounce_word();
 //                    w.setEmail(userSignInNow.userSignIn);
 //                    w.setWord_id(w_id);
@@ -380,18 +378,18 @@ public class First_levelController implements Initializable {
                   Lasen.mediaPlayer4.play();  
                 }
             }
-               
+        }   
             }
            
         }                                    
     
     
     
-     public void cardListener(MouseEvent event) throws FileNotFoundException {
-         mediaPlayer.seek(Duration.seconds(0));
-         mediaPlayer.play();
+     public void cardListener(MouseEvent event) throws FileNotFoundException {      
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
           
-         ImagePattern adminImagePattern ;
+        ImagePattern adminImagePattern ;
         Node sourceComponent = (Node) event.getSource();
         String rowAndColumn = (String)sourceComponent.getUserData();
 
@@ -400,24 +398,28 @@ public class First_levelController implements Initializable {
         
         String image = board.board[rowSelected][colSelected].value;
         
-         Session session1 = HibernateUtil.getSessionFactory().openSession();
+        Session session1 = HibernateUtil.getSessionFactory().openSession();      
        
-         List<word> word_list = null;
-          String queryStr = "from word";
-          Query query = session1.createQuery(queryStr);
-          word_list =  query.list();
-          session1.close();
-          
-           for(int i=0; i< word_list.size();i++){
-        if(word_list.get(i).getText().equals(image)){
-           
-           photo=word_list.get(i).getImg();
-           w_id=word_list.get(i).getWord_id();
-           lvl_num=word_list.get(i).getLevel_no();
-          break;}
-        }
-        Image selectedImage = new Image(new ByteArrayInputStream(photo));
+        List<word> word_list = null;
+        String queryStr = "from word";
+        Query query = session1.createQuery(queryStr);
+        word_list =  query.list();
+        session1.close();
         
+        for(int i=0; i< word_list.size();i++)
+        {
+             if(word_list.get(i).getText().equals(image))
+             {
+                photo=word_list.get(i).getImg();
+                w_id=word_list.get(i).getWord_id();
+                lvl_num=word_list.get(i).getLevel_no();
+                word_text=word_list.get(i).getText();
+                System.out.println(word_text);
+                break;
+             }
+        }
+       
+        Image selectedImage = new Image(new ByteArrayInputStream(photo));          
         ((ImageView)sourceComponent).setImage(selectedImage);
         checkIfMatchingPairWasFound(rowSelected,colSelected);
        
@@ -506,5 +508,5 @@ public class First_levelController implements Initializable {
             Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
+    
 }
