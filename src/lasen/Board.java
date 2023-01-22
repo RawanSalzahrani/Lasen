@@ -25,8 +25,7 @@ public class Board {
     public void populateMatrix(){
 
         board = new Cell[2][2];
-        
-        
+     
         String[] images = {"SAYAARA","SIFINA","SAMAKA","SIN","SENJAB","SAYF"};
         String[] phonemes = {"S EY AH R AH","S IH F AH N AH","S AE M AH K AH","S IH N","S EH N JH AE B","S EY F"};
       

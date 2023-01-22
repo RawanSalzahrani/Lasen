@@ -49,8 +49,11 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import static lasen.Lasen.mediaPlayer3;
+import static lasen.Lasen.mediaPlayer4;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * FXML Controller class
@@ -98,6 +101,8 @@ public class First_levelController implements Initializable {
      
      boolean voice_pane=false;
        byte[] photo;
+       int w_id;
+       int lvl_num;
      
     Board board = new Board();
      
@@ -319,19 +324,67 @@ public class First_levelController implements Initializable {
         {  //"SH AE M Z"          
             String result = AudioRecording.stopRecording();
             x=true;
+//             Session session3 = HibernateUtil.getSessionFactory().openSession();
+//       
+//            List<user_pronounce_word> record_list = null;
+//                String queryStr2 = "from user_pronounce_word";
+//                Query query = session3.createQuery(queryStr2);
+//                record_list =  query.list();
+//                session3.close();
+//          
+//                for(int i=0; i< record_list.size();i++){
+//                  //  if(record_list.get(i).){
+//                    }
+                
             for(int i=0; i<Phoneme.length; i++){
                 LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
                 int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(Phoneme[i], result);
+                
                 if(Distance==0)
                 {
-                    character.setVisible(true);
+//                    user_pronounce_word w = new user_pronounce_word();
+//                    w.setEmail(userSignInNow.userSignIn);
+//                    w.setWord_id(w_id);
+//                    w.setLevel_no(lvl_num);
+//                    w.setCorrect_count(1);
+//                    w.setIncorrect_count(w.getIncorrect_count());
+//                
+//                Session session2 = HibernateUtil.getSessionFactory().openSession();
+//                Transaction tx = session2.beginTransaction();
+//                session2.save(w);
+//                tx.commit();
+//                session2.close();
+//                
+//                System.out.println("row recorded correct");
+                  mediaPlayer3.seek(Duration.seconds(0));
+                  Lasen.mediaPlayer3.play();
+                  character.setVisible(true);
+                  record_pan.setVisible(false);
                     break;
+                }else {
+//                    user_pronounce_word w = new user_pronounce_word();
+//                    w.setEmail(userSignInNow.userSignIn);
+//                    w.setWord_id(w_id);
+//                    w.setLevel_no(lvl_num);
+//                    w.setCorrect_count(w.getCorrect_count());
+//                    w.setIncorrect_count(w.getIncorrect_count()+1);
+//                
+//                Session session2 = HibernateUtil.getSessionFactory().openSession();
+//                Transaction tx = session2.beginTransaction();
+//                session2.save(w);
+//                tx.commit();
+//                session2.close();
+//                
+//                System.out.println("row recorded Incorrect");
+                  mediaPlayer4.seek(Duration.seconds(0));
+                  Lasen.mediaPlayer4.play();  
                 }
+            }
                
             }
            
         }                                    
-    }
+    
     
     
      public void cardListener(MouseEvent event) throws FileNotFoundException {
@@ -359,6 +412,8 @@ public class First_levelController implements Initializable {
         if(word_list.get(i).getText().equals(image)){
            
            photo=word_list.get(i).getImg();
+           w_id=word_list.get(i).getWord_id();
+           lvl_num=word_list.get(i).getLevel_no();
           break;}
         }
         Image selectedImage = new Image(new ByteArrayInputStream(photo));

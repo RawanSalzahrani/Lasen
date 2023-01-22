@@ -6,6 +6,10 @@
 package lasen;
 
 import java.io.IOException;
+import static java.lang.String.valueOf;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +31,44 @@ public class Lasen extends Application {
     public static Media media2;
     public static  MediaPlayer mediaPlayer2;
     
+    public static Media media3;
+    public static  MediaPlayer mediaPlayer3;
+    
+    public static Media media4;
+    public static  MediaPlayer mediaPlayer4;
+    
+    public static String[] Correct_sound = new String[] {"/sounds/Corr_1.mp3","/sounds/Corr_2.mp3","/sounds/Corr_3.mp3","/sounds/Corr_4.mp3"};
+    public static String[] Incorrect_sound = new String[] {"/sounds/Incor_1.mp3","/sounds/Incor_2.mp3","/sounds/Incor_3.mp3","/sounds/Incor_4.mp3"};
+    public static Random r1 = new Random(); 
+    public static Random r2 = new Random(); 
+    String random1;
+    String random2;
+    
+    
+    
+//    public static List<String> Correct_sound = Arrays.asList("Corr_1.mp3","Corr_2.mp3","Corr_3.mp3","Corr_4.mp3");
+//    public static List<String> Incorrect_sound = Arrays.asList("Incor_1.mp3","Incor_2.mp3","Incor_3.mp3","Incor_4.mp3");
+
+    
+//    public static int Correct_sound_randomitem = r1.nextInt(Correct_sound.length);
+//    public static String Correct_sound_randomElement = Correct_sound[Correct_sound_randomitem];
+//    
+//    public static int Incorrect_sound_randomitem = r2.nextInt(Incorrect_sound.length);
+//    public static String Incorrect_sound_randomElement = Incorrect_sound[Incorrect_sound_randomitem];
+    
+//    public static String getRandomStringCorr(){
+//        int r = (int) (Math.random()*4);
+//        String Correct_sound = new String [] {"/sounds/Corr_1.mp3","/sounds/Corr_2.mp3","/sounds/Corr_3.mp3","/sounds/Corr_4.mp3"}[r];
+//        return Correct_sound;
+//    }
+//    
+//    public static String getRandomStringInCorr(){
+//        int r = (int) (Math.random()*4);
+//        String Incorrect_sound = new String [] {"/sounds/Incor_1.mp3","/sounds/Incor_2.mp3","/sounds/Incor_3.mp3","/sounds/Incor_4.mp3"}[r];
+//        return Incorrect_sound;
+//    }
+//    
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
         
@@ -41,6 +83,20 @@ public class Lasen extends Application {
          mediaPlayer2.seek(Duration.ZERO);
        }
       });
+
+        int Correct_sound_randomitem = r1.nextInt(Correct_sound.length);
+        for (int i2 = 0; i2 < Correct_sound_randomitem; i2++) {
+        random1 = (String) (Correct_sound[Correct_sound_randomitem]);
+        }
+        media3 = new Media(getClass().getResource(random1).toExternalForm());
+        mediaPlayer3 = new MediaPlayer(media3);
+        
+        int Incorrect_sound_randomitem = r2.nextInt(Incorrect_sound.length);
+        for (int i2 = 0; i2 < Incorrect_sound_randomitem; i2++) {
+        random2 = (String) (Incorrect_sound[Correct_sound_randomitem]);
+        }
+        media4 = new Media(getClass().getResource(random2).toExternalForm());
+        mediaPlayer4 = new MediaPlayer(media4); 
 
 
         
