@@ -72,19 +72,7 @@ public class AudioRecording {
         
         CMUSphinx spinx =new CMUSphinx();
         return spinx.getHypotesis();
-       
-    /*    LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
-        int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(phoneme, result);
-        
-        if(Distance==0)
-        {
-           return true;
-        }
-        else
-        {
-            return false;
-        }
-    */   
+  
     }
 
 }

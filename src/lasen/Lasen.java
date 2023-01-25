@@ -100,7 +100,7 @@ public class Lasen extends Application {
 
        
         //view main page                
-        Parent root = FXMLLoader.load(getClass().getResource("main_page.fxml"));              
+        Parent root = FXMLLoader.load(getClass().getResource("home_page.fxml"));              
 	Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Lasen");     

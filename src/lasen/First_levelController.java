@@ -476,9 +476,7 @@ public class First_levelController implements Initializable {
             if(Distance>0)
             {
                 mediaPlayer4.seek(Duration.seconds(0));
-                Lasen.mediaPlayer4.play();
-                
-                    
+                Lasen.mediaPlayer4.play();                  
             }
         }      
     }
