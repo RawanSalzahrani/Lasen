@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +32,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -77,6 +80,9 @@ public class Home_pageController implements Initializable {
     private ImageView sound_img;
     @FXML
     private ImageView music_img;
+   
+   // int Can_Get_Into_Lvl2;
+   // int Can_Get_Into_Lvl3;
     
 
     /**
@@ -99,7 +105,20 @@ public class Home_pageController implements Initializable {
             public void invalidated(Observable observable) {
               mediaPlayer2.setVolume(music_slider.getValue()/100);
             }
-        });        
+        }); 
+        
+//        Session session = HibernateUtil.getSessionFactory().openSession();     
+//        String queryStr = "SELECT COUNT(level_no) from user_pronounce_word WHERE level_no=2 AND email="+userSignInNow.userSignIn;
+//        String queryStr2 = "SELECT COUNT(level_no) from user_pronounce_word WHERE level_no=3 AND email="+userSignInNow.userSignIn;
+//        Query query = session.createQuery(queryStr);
+//        Query query2 = session.createQuery(queryStr2);
+//        Can_Get_Into_Lvl2 = query.getFirstResult().intValue();
+//        Can_Get_Into_Lvl3 = query2.getFirstResult().intValue();
+//        session.close();
+//        System.out.println(Can_Get_Into_Lvl2);
+//        System.out.println(Can_Get_Into_Lvl3);
+        
+        
     }
 
     @FXML
@@ -211,14 +230,19 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_second_level(ActionEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Lasen.mediaPlayer2.pause();
-        Parent root = FXMLLoader.load(getClass().getResource("second_level.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+       
+//        if(Can_Get_Into_Lvl2>0)
+//        {
+//          mediaPlayer.seek(Duration.seconds(0));
+          mediaPlayer.play();
+          Lasen.mediaPlayer2.pause();
+          Parent root = FXMLLoader.load(getClass().getResource("second_level.fxml"));
+          stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+          scene = new Scene(root);
+          stage.setScene(scene);
+          stage.show();  
+//        }
+        
     }
 
     @FXML
@@ -237,14 +261,18 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_third_level(ActionEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Lasen.mediaPlayer2.pause();
-        Parent root = FXMLLoader.load(getClass().getResource("third_level.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+         
+//        if(Can_Get_Into_Lvl2>0)
+//        {
+            mediaPlayer.seek(Duration.seconds(0));
+            mediaPlayer.play();
+            Lasen.mediaPlayer2.pause();
+            Parent root = FXMLLoader.load(getClass().getResource("third_level.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+//         }
     }
 
     @FXML
@@ -294,7 +322,7 @@ public class Home_pageController implements Initializable {
     }
 
     @FXML
-    private void change_sound_img(MouseEvent event) {
+    private void change_sound_img(MouseEvent event){
         try {
             FileInputStream muteFile = new FileInputStream("src\\lasen\\image\\blocked_sound.png");
             Image muteImage = new Image(muteFile);

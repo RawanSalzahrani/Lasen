@@ -40,6 +40,8 @@ import javafx.util.Duration;
 import javax.sound.sampled.LineUnavailableException;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import static lasen.Lasen.mediaPlayer3;
+import static lasen.Lasen.mediaPlayer4;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -49,9 +51,6 @@ import org.hibernate.Session;
  * @author horre
  */
 public class Second_levelController implements Initializable {
-    
-    
-
     @FXML
     private Button setting;
     @FXML
@@ -72,10 +71,6 @@ public class Second_levelController implements Initializable {
     private Button sign_out;
     @FXML
     private Slider sound_slider;
-            
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private Pane record_pan;
     @FXML
@@ -83,7 +78,33 @@ public class Second_levelController implements Initializable {
     @FXML
     private Button get_help_bt;
     @FXML
-    private Button micerphone_bt;
+    private Button micerphone_bt;  
+    @FXML
+    private ImageView image_recod_pane;
+    @FXML
+    private ImageView music_img;
+    @FXML
+    private ImageView sound_img;
+    @FXML
+    private ImageView character; 
+    @FXML
+    private Button button0;
+    @FXML
+    private Button button1;
+    @FXML
+    private Button button2;
+    @FXML
+    private Button button3;
+    @FXML
+    private Button button4;
+    @FXML
+    private Button button5;
+    
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+   
     public GridPane gameMatrix;
     boolean voice_pane=false;
     byte[] photo;
@@ -93,29 +114,9 @@ public class Second_levelController implements Initializable {
     List<word> WordList = null; 
     AudioRecording AudioRecording = new AudioRecording();
     int Ismatch=0; 
-    @FXML
-    private ImageView image_recod_pane;
    
-    @FXML
-    private ImageView music_img;
-    @FXML
-    private ImageView sound_img;
     
-    @FXML
-    private ImageView character;
-    String[] Phoneme;
-    @FXML
-    private Button button0;
-    @FXML
-    private Button button1;
-    @FXML
-    private Button button2;
-    @FXML
-    private Button button3;
-     @FXML
-    private Button button4;
-    @FXML
-    private Button button5;
+   
     private ImageView imageView_0;
     private ImageView imageView_1;
     private ImageView imageView_2;
@@ -146,174 +147,160 @@ public class Second_levelController implements Initializable {
     
     boolean[] button_match={false,false,false,false,false ,false};
    
-    
    ArrayList<Button> buttons = new ArrayList<>();
    ArrayList<ImageView> images = new ArrayList<>();
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> hideButtons()));
-    //    Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(3.5), e ->shwoRecord()));
+   Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> hideButtons()));
+   //Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(3.5), e ->shwoRecord()));
    
     
-     
-    
-    
-    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         
         sound_slider.setValue(mediaPlayer.getVolume()*100);
-        sound_slider.valueProperty().addListener(new InvalidationListener(){
+        sound_slider.valueProperty().addListener(new InvalidationListener()
+        {
             @Override
-            public void invalidated(Observable observable) {
+            public void invalidated(Observable observable)
+            {
               mediaPlayer.setVolume(sound_slider.getValue()/100);
             }
         });
         
         music_slider.setValue(mediaPlayer2.getVolume()*400);
-        music_slider.valueProperty().addListener(new InvalidationListener(){
+        music_slider.valueProperty().addListener(new InvalidationListener()
+        {
             @Override
-            public void invalidated(Observable observable) {
+            public void invalidated(Observable observable)
+            {
               mediaPlayer2.setVolume(music_slider.getValue()/100);
             }
         });
        
          
-         Session session = HibernateUtil.getSessionFactory().openSession();
-        List<word> sList = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        WordList = null;
         String queryStr = "from word WHERE level_no=2";
         Query query = session.createQuery(queryStr);
-        sList = query.list();       
+        WordList = query.list();       
         session.close();
-        Phoneme = new String[sList.size()];
-        int i=0;
-        for(word u: sList){             
-            Phoneme[i]=u.getPhoneme();
-            i++;
-        }
+        
         buttons.addAll(Arrays.asList(button0, button1, button2, button3,button4,button5));
         images.addAll(Arrays.asList( imageView_0,imageView_1,imageView_2,imageView_2));
         
-        try {
-           unmuteFile_back = new FileInputStream("C:\\Users\\Khulood  Alyaf3Y\\Documents\\GitHub\\Lasen\\src\\lasen\\image\\background.png");
-       } catch (FileNotFoundException ex) {
+        try
+        {
+           unmuteFile_back = new FileInputStream("src\\lasen\\image\\background.png");
+        }
+        catch (FileNotFoundException ex)
+        {
            Logger.getLogger(First_levelController.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        }
            
-           Image img = new Image(unmuteFile_back);
+       Image img = new Image(unmuteFile_back);
+
+       view_background_0 = new ImageView(img);   
+       view_background_0.setFitWidth(130);
+       view_background_0.setFitHeight(140); 
+      // view_background_0.setPreserveRatio(true);
+
+       view_background_1 = new ImageView(img);   
+       view_background_1.setFitWidth(130);
+       view_background_1.setFitHeight(140); 
+
+       view_background_2 = new ImageView(img);   
+       view_background_2.setFitWidth(130);
+       view_background_2.setFitHeight(140);  
+
+       view_background_3 = new ImageView(img);   
+       view_background_3.setFitWidth(130);
+       view_background_3.setFitHeight(140); 
+
+       view_background_4 = new ImageView(img);   
+       view_background_4.setFitWidth(130);
+       view_background_4.setFitHeight(140); 
+
+       view_background_5 = new ImageView(img);   
+       view_background_5.setFitWidth(130);
+       view_background_5.setFitHeight(140); 
            
-           view_background_0 = new ImageView(img);   
-           view_background_0.setFitWidth(130);
-           view_background_0.setFitHeight(140); 
-          // view_background_0.setPreserveRatio(true);
+       view_background_close0 = new ImageView(img);   
+       view_background_close0.setFitWidth(130);
+       view_background_close0.setFitHeight(140);
+
+       view_background_close1 = new ImageView(img);   
+       view_background_close1.setFitWidth(130);
+       view_background_close1.setFitHeight(140);
+
+       view_background_close2 = new ImageView(img);   
+       view_background_close2.setFitWidth(130);
+       view_background_close2.setFitHeight(140); 
+
+       view_background_close3 = new ImageView(img);   
+       view_background_close3.setFitWidth(130);
+       view_background_close3.setFitHeight(140); 
+
+       view_background_close4 = new ImageView(img);   
+       view_background_close4.setFitWidth(130);
+       view_background_close4.setFitHeight(140); 
           
-           view_background_1 = new ImageView(img);   
-           view_background_1.setFitWidth(130);
-           view_background_1.setFitHeight(140); 
-          
-           view_background_2 = new ImageView(img);   
-           view_background_2.setFitWidth(130);
-           view_background_2.setFitHeight(140);  
-           
-           view_background_3 = new ImageView(img);   
-           view_background_3.setFitWidth(130);
-           view_background_3.setFitHeight(140); 
-           
-           view_background_4 = new ImageView(img);   
-           view_background_4.setFitWidth(130);
-           view_background_4.setFitHeight(140); 
-            
-           view_background_5 = new ImageView(img);   
-           view_background_5.setFitWidth(130);
-           view_background_5.setFitHeight(140); 
-           
-           view_background_close0 = new ImageView(img);   
-           view_background_close0.setFitWidth(130);
-           view_background_close0.setFitHeight(140);
-           
-           view_background_close1 = new ImageView(img);   
-           view_background_close1.setFitWidth(130);
-           view_background_close1.setFitHeight(140);
-           
-           view_background_close2 = new ImageView(img);   
-           view_background_close2.setFitWidth(130);
-           view_background_close2.setFitHeight(140); 
-           
-           view_background_close3 = new ImageView(img);   
-           view_background_close3.setFitWidth(130);
-           view_background_close3.setFitHeight(140); 
-           
-           view_background_close4 = new ImageView(img);   
-           view_background_close4.setFitWidth(130);
-           view_background_close4.setFitHeight(140); 
-          
-           view_background_close5 = new ImageView(img);   
-           view_background_close5.setFitWidth(130);
-           view_background_close5.setFitHeight(140); 
-          
-            buttons.get(0).setGraphic(view_background_0);
-            buttons.get(1).setGraphic(view_background_1);
-            buttons.get(2).setGraphic(view_background_2);
-            buttons.get(3).setGraphic(view_background_3);
-            buttons.get(4).setGraphic(view_background_4);
-            buttons.get(5).setGraphic(view_background_5);
-            
-       
+       view_background_close5 = new ImageView(img);   
+       view_background_close5.setFitWidth(130);
+       view_background_close5.setFitHeight(140); 
+
+        buttons.get(0).setGraphic(view_background_0);
+        buttons.get(1).setGraphic(view_background_1);
+        buttons.get(2).setGraphic(view_background_2);
+        buttons.get(3).setGraphic(view_background_3);
+        buttons.get(4).setGraphic(view_background_4);
+        buttons.get(5).setGraphic(view_background_5);
+                 
         memoryGame.setupGame(); 
     }
     
     @FXML
-    void buttonClickedCard(ActionEvent event) throws FileNotFoundException {if(!firstButtonClicked){
-            //If next turn is started before old buttons are hidden
-            
-             // timeline2.play();
-            if(!match){
+    void buttonClickedCard(ActionEvent event) throws FileNotFoundException 
+    {
+        if(!firstButtonClicked)
+        {
+            //If next turn is started before old buttons are hidden          
+            // timeline2.play();
+            if(!match)
+            {
                 hideButtons();
                 timeline.stop();
             }
             match = false;
             firstButtonClicked = true;
-
             //Get clicked button memory letter
             String buttonId = ((Control)event.getSource()).getId();
             firstButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
-            
-            System.out.println(" the  "+firstButtonIndex);
-                  
-           String Image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
-           
-           System.out.println("it is "+Image_value);
-           
-            Session session1 = HibernateUtil.getSessionFactory().openSession();      
-       
-              List<word> word_list = null;
-              String queryStr = "from word";
-              Query query = session1.createQuery(queryStr);
-              word_list =  query.list();
-              session1.close();
-        
-          for(int i=0; i< word_list.size();i++)
+            System.out.println(" the  "+firstButtonIndex);     
+            String Image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
+            System.out.println("it is "+Image_value); 
+               
+           for(int i=0; i< WordList.size();i++)
            {
-             if(word_list.get(i).getText().equals(Image_value))
+             if(WordList.get(i).getText().equals(Image_value))
              {
-                photo=word_list.get(i).getImg();
-                w_id=word_list.get(i).getWord_id();
-                lvl_num=word_list.get(i).getLevel_no();
-                word_text=word_list.get(i).getText();
+                photo=WordList.get(i).getImg();
+                w_id=WordList.get(i).getWord_id();
+                lvl_num=WordList.get(i).getLevel_no();
+                word_text=WordList.get(i).getText();
                 System.out.println(word_text);
                 break;
              }
-        }
+           }
        
            Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
            ImageView view = new ImageView(selectedImage);
            view.setFitWidth(130);
            view.setFitHeight(140);
-           buttons.get(firstButtonIndex).setGraphic(view);
-           
+           buttons.get(firstButtonIndex).setGraphic(view);         
            System.out.println("value of first card "+ word_text);
            System.out.println(", thre button is : "+buttonId);
-           return;
-        
+           return;       
         }
 
         //Get clicked button memory letter
@@ -321,131 +308,84 @@ public class Second_levelController implements Initializable {
         secondButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
         System.out.println(" the2  "+secondButtonIndex);
         
-                       
-            String Image_value=memoryGame.getOptionAtIndex(secondButtonIndex);
-            System.out.println("it is "+Image_value);
+        String Image_value=memoryGame.getOptionAtIndex(secondButtonIndex);
+        System.out.println("it is "+Image_value);
            
-            Session session1 = HibernateUtil.getSessionFactory().openSession();      
-       
-              List<word> word_list = null;
-              String queryStr = "from word";
-              Query query = session1.createQuery(queryStr);
-              word_list =  query.list();
-              session1.close();
-        
-          for(int i=0; i< word_list.size();i++)
-           {
-             if(word_list.get(i).getText().equals(Image_value))
-             {
-                photo=word_list.get(i).getImg();
-                w_id=word_list.get(i).getWord_id();
-                lvl_num=word_list.get(i).getLevel_no();
-                word_text=word_list.get(i).getText();
+        for(int i=0; i< WordList.size();i++)
+        {
+            if(WordList.get(i).getText().equals(Image_value))
+            {
+                photo=WordList.get(i).getImg();
+                w_id=WordList.get(i).getWord_id();
+                lvl_num=WordList.get(i).getLevel_no();
+                word_text=WordList.get(i).getText();
                 System.out.println(word_text);
                 break;
-             }
+            }
         }
        
-           Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
-           ImageView view = new ImageView(selectedImage);
-           view.setFitWidth(130);
-           view.setFitHeight(140);
-           buttons.get(secondButtonIndex).setGraphic(view);
- 
-       
-       
-        
-        System.out.println("value of secand card "+ word_text);
-        System.out.println(" thre button is :"+buttonId);
-        
-        firstButtonClicked = false;
+       Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
+       ImageView view = new ImageView(selectedImage);
+       view.setFitWidth(130);
+       view.setFitHeight(140);
+       buttons.get(secondButtonIndex).setGraphic(view);
+       System.out.println("value of secand card "+ word_text);
+       System.out.println(" thre button is :"+buttonId);
+       firstButtonClicked = false;
 
-        
-        
-        //Check if the two clicked button match
-        
-        if(memoryGame.checkTwoPositions(firstButtonIndex,secondButtonIndex)){
-            System.out.println("Match");
-            
-             button_match[firstButtonIndex]=true;
-             button_match[secondButtonIndex]=true;
-             match = true;
-           
+       //Check if the two clicked button match  
+        if(memoryGame.checkTwoPositions(firstButtonIndex,secondButtonIndex))
+        {
+            System.out.println("Match");   
+            button_match[firstButtonIndex]=true;
+            button_match[secondButtonIndex]=true;
+            match = true;
             image_recod_pane.setImage(selectedImage);
             record_pan.setVisible(true);
             image_recod_pane.setVisible(true);
-           // timeline2.stop();
+            //timeline2.stop();
             return;
         }
-
         timeline.play();
       
     }
     
    
-    private void hideButtons(){
-
-             
-        if(firstButtonIndex==0){
-        buttons.get(firstButtonIndex).setGraphic(view_background_close0);}
-       
-       if(firstButtonIndex==1){
-       buttons.get(firstButtonIndex).setGraphic(view_background_close1);
-       }
-       if(firstButtonIndex==2){
-        buttons.get(firstButtonIndex).setGraphic(view_background_close2);}
-       
-       if(firstButtonIndex==3){
-       buttons.get(firstButtonIndex).setGraphic(view_background_close3);
-       }
-       if(firstButtonIndex==4){
-        buttons.get(firstButtonIndex).setGraphic(view_background_close4);}
-       
-       if(firstButtonIndex==5){
-       buttons.get(firstButtonIndex).setGraphic(view_background_close5);
-       }
-       
-       
-       if(secondButtonIndex==0){
-        buttons.get(secondButtonIndex).setGraphic(view_background_close0);
-       }
-       if(secondButtonIndex==1){
-        buttons.get(secondButtonIndex).setGraphic(view_background_close1);
-       }
-       if(secondButtonIndex==2){
-        buttons.get(secondButtonIndex).setGraphic(view_background_close2);
-       }
-       if(secondButtonIndex==3){
-        buttons.get(secondButtonIndex).setGraphic(view_background_close3);
-       }
-       
-       if(secondButtonIndex==4){
-        buttons.get(secondButtonIndex).setGraphic(view_background_close4);
-       }
-       if(secondButtonIndex==5){
-        buttons.get(secondButtonIndex).setGraphic(view_background_close5);
-       }
-    
-       
-       
-       
+    private void hideButtons()
+    {        
+       if(firstButtonIndex==0){ buttons.get(firstButtonIndex).setGraphic(view_background_close0); }
+       if(firstButtonIndex==1){ buttons.get(firstButtonIndex).setGraphic(view_background_close1); }
+       if(firstButtonIndex==2){ buttons.get(firstButtonIndex).setGraphic(view_background_close2); }
+       if(firstButtonIndex==3){ buttons.get(firstButtonIndex).setGraphic(view_background_close3); }
+       if(firstButtonIndex==4){buttons.get(firstButtonIndex).setGraphic(view_background_close4); }
+       if(firstButtonIndex==5){buttons.get(firstButtonIndex).setGraphic(view_background_close5); }
+       if(secondButtonIndex==0){buttons.get(secondButtonIndex).setGraphic(view_background_close0); }
+       if(secondButtonIndex==1){buttons.get(secondButtonIndex).setGraphic(view_background_close1); }
+       if(secondButtonIndex==2){buttons.get(secondButtonIndex).setGraphic(view_background_close2); }
+       if(secondButtonIndex==3){buttons.get(secondButtonIndex).setGraphic(view_background_close3); }
+       if(secondButtonIndex==4){ buttons.get(secondButtonIndex).setGraphic(view_background_close4); }
+       if(secondButtonIndex==5){buttons.get(secondButtonIndex).setGraphic(view_background_close5); }        
     }
+    
     @FXML
-    private void minimize_setting(MouseEvent event) {
+    private void minimize_setting(MouseEvent event) 
+    {
         setting.setPrefHeight(setting.getPrefHeight()-5);
         setting.setPrefWidth(setting.getPrefWidth()-5);
         setting.setTranslateX(setting.getTranslateX()+5);
     }
 
     @FXML
-    private void enlarge_setting(MouseEvent event) {
+    private void enlarge_setting(MouseEvent event)
+    {
         setting.setPrefHeight(setting.getPrefHeight()+5);
         setting.setPrefWidth(setting.getPrefWidth()+5);
         setting.setTranslateX(setting.getTranslateX()-5);
     }
 
     @FXML
-    private void to_setting_page(ActionEvent event) {
+    private void to_setting_page(ActionEvent event)
+    {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         pop_wind.setVisible(true);
@@ -453,7 +393,8 @@ public class Second_levelController implements Initializable {
     }
 
     @FXML
-    private void minimize_home(MouseEvent event) {
+    private void minimize_home(MouseEvent event) 
+    {
         home.setPrefHeight(home.getPrefHeight()-5);
         home.setPrefWidth(home.getPrefWidth()-5);
         home.setTranslateX(home.getTranslateX()+5);
@@ -467,7 +408,8 @@ public class Second_levelController implements Initializable {
     }
 
     @FXML
-    private void to_home_page(ActionEvent event) throws IOException {
+    private void to_home_page(ActionEvent event) throws IOException
+    {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         mediaPlayer2.play();
@@ -479,14 +421,16 @@ public class Second_levelController implements Initializable {
     }
 
     @FXML
-    private void unvisiable(ActionEvent event) {
+    private void unvisiable(ActionEvent event)
+    {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         pop_wind.setVisible(false);
     }
 
     @FXML
-    private void to_profile(ActionEvent event) throws IOException {
+    private void to_profile(ActionEvent event) throws IOException 
+    {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         Parent root = FXMLLoader.load(getClass().getResource("profile_setting.fxml"));
@@ -497,7 +441,8 @@ public class Second_levelController implements Initializable {
     }
 
     @FXML
-    private void to_sign_in(ActionEvent event) throws IOException {
+    private void to_sign_in(ActionEvent event) throws IOException
+    {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         mediaPlayer2.play();
@@ -509,51 +454,65 @@ public class Second_levelController implements Initializable {
     }
 
     @FXML
-    private void refresh_cards(ActionEvent event) {
+    private void refresh_cards(ActionEvent event)
+    {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
     }
 
     @FXML
-    private void get_help(ActionEvent event) {
+    private void get_help(ActionEvent event) 
+    {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
     }
 
-    boolean x=true;
+   boolean StartORStop=true;        
     @FXML
-    private void record_sound(ActionEvent event) throws LineUnavailableException, IOException  {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
+    private void record_sound(ActionEvent event) throws LineUnavailableException, IOException {
         
-        if(x)
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+       
+        if(StartORStop)
         {
-            x=false;
+            StartORStop=false;
             AudioRecording.startRecording();
         }
         else
-        {           
-            String result = AudioRecording.stopRecording();
-            x=true;
-            for(int i=0; i<Phoneme.length; i++){
-                LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
-                int Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(Phoneme[i], result);
-                if(Distance==0)
+        {            
+           String result = AudioRecording.stopRecording();
+           System.out.print(result);
+           int Distance=0;
+           StartORStop=true;            
+           for(int i=0; i<WordList.size(); i++)
+            {
+                if(WordList.get(i).getText().equals(word_text))
                 {
-                    character.setVisible(true);
-                    break;
+                    LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
+                    Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(WordList.get(i).getPhoneme(), result);                                                
+                    System.out.print(Distance);
+                    if(Distance==0)
+                    {
+                        mediaPlayer3.seek(Duration.seconds(0));
+                        Lasen.mediaPlayer3.play();
+                        record_pan.setVisible(false);
+                        image_recod_pane.setVisible(false);
+                        
+                        break;  
+                    }
                 }
-               
             }
-           
-        }
+            if(Distance>0)
+            {
+                mediaPlayer4.seek(Duration.seconds(0));
+                Lasen.mediaPlayer4.play();
+                
+                    
+            }
+        }      
     }
-    
-    
-     
-     
-      
-    
+        
 
     @FXML
     private void change_music_img(MouseEvent event) {
@@ -588,6 +547,5 @@ public class Second_levelController implements Initializable {
             Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
    
 }

@@ -98,10 +98,9 @@ public class Lasen extends Application {
         media4 = new Media(getClass().getResource(random2).toExternalForm());
         mediaPlayer4 = new MediaPlayer(media4); 
 
-
-        
+       
         //view main page                
-        Parent root = FXMLLoader.load(getClass().getResource("first_level.fxml"));              
+        Parent root = FXMLLoader.load(getClass().getResource("main_page.fxml"));              
 	Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Lasen");     
