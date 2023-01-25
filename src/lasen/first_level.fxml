@@ -29,9 +29,9 @@
       </ImageView>
       <Pane layoutX="11.0" layoutY="189.0" opacity="0.96" prefHeight="432.0" prefWidth="380.0" style="-fx-background-color: #ffff; -fx-background-radius: 30;">
          <children>
-            <VBox layoutX="17.0" layoutY="17.0" prefHeight="398.0" prefWidth="346.0">
+            <VBox layoutX="17.0" layoutY="17.0" prefHeight="398.0" prefWidth="358.0">
                <children>
-                  <HBox prefHeight="187.0" prefWidth="347.0" spacing="40.0">
+                  <HBox prefHeight="181.0" prefWidth="365.0" spacing="20.0">
                      <children>
                         <Button fx:id="button0" mnemonicParsing="false" onAction="#buttonClickedCard" prefHeight="160.0" prefWidth="130.0" style="-fx-background-color: white;">
                            <opaqueInsets>
@@ -40,20 +40,23 @@
                         </Button>
                         <Button fx:id="button1" mnemonicParsing="false" onAction="#buttonClickedCard" prefHeight="160.0" prefWidth="130.0" style="-fx-background-color: white;" />
                      </children>
-                     <padding>
-                        <Insets left="30.0" right="30.0" />
-                     </padding>
                      <opaqueInsets>
                         <Insets top="50.0" />
                      </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="168.0" prefWidth="365.0" spacing="40.0">
+                  <HBox prefHeight="170.0" prefWidth="365.0" spacing="20.0">
                      <children>
                         <Button fx:id="button2" mnemonicParsing="false" onAction="#buttonClickedCard" opacity="0.9" prefHeight="160.0" prefWidth="130.0" style="-fx-background-color: white;" />
                         <Button fx:id="button3" mnemonicParsing="false" onAction="#buttonClickedCard" prefHeight="160.0" prefWidth="130.0" style="-fx-background-color: white;" />
                      </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                      <padding>
-                        <Insets left="30.0" right="30.0" />
+                        <Insets left="5.0" />
                      </padding>
                   </HBox>
                </children>
@@ -202,7 +205,7 @@
             <Slider fx:id="sound_slider" layoutX="101.0" layoutY="299.0" onMouseReleased="#change_sound_img" prefHeight="62.0" prefWidth="235.0" stylesheets="@style.css" value="100.0" />
          </children>
       </Pane>
-      <Pane fx:id="record_pan" layoutX="14.0" layoutY="179.0" opacity="0.95" prefHeight="398.0" prefWidth="372.0" style="-fx-background-color: #ffff; -fx-background-radius: 20;" visible="false">
+      <Pane fx:id="record_pan" layoutX="14.0" layoutY="200.0" opacity="0.95" prefHeight="398.0" prefWidth="372.0" style="-fx-background-color: #ffff; -fx-background-radius: 20;" visible="false">
          <children>
             <ImageView fitHeight="366.0" fitWidth="372.0" layoutX="4.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>

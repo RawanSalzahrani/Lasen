@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package lasen;
 
 import java.util.ArrayList;
@@ -5,28 +10,23 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author Khulood  Alyaf3Y
+ * @author Khulood Alyaf3Y
  */
-public class MemoryGame {
+public class MemoryGame_2 {
     
-     private int turns = 0;
+ private int turns = 0;
     private int points = 0;
    // private final int boardLength =2;
-    private final int boardSize = 2*2;
+    private final int boardSize = 2*3;
     private final Random random = new Random();
-    private final ArrayList<String> memoryBoard = new ArrayList<>(Arrays.asList("", "", "", ""));
-    private final String[] image_value = {"SAYAARA","SIFINA","SAMAKA","SIN","SENJAB","SAYF"};
+    private final ArrayList<String> memoryBoard = new ArrayList<>(Arrays.asList("","","","","",""));
+    private final String[] image_value = {"SHAMS","QAMOS","NAMO","QUNDUS","ANANAS","LABAS"};
     boolean[] index_select ={false,false,false,false,false,false};
-    String[] phonemes = {"S EY AH R AH","S IH F AH N AH","S AE M AH K AH","S IH N","S EH N JH AE B","S EY F"};
-
+    String[] phonemes = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,Z]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,Z]","SHAMS[SH,AE,M,Z]"};
+    String[] phonemes2 = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,S]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,S]","SHAMS[SH,AE,M,Z]"};
+       
     
     
     public void setupGame(){
@@ -41,7 +41,7 @@ public class MemoryGame {
    
     private void setupMemoryBoard(){
         
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             
              int random_image=random.nextInt(image_value.length);
              
@@ -99,4 +99,5 @@ public class MemoryGame {
 
 
     
+
 
