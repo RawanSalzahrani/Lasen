@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.effect.DropShadow?>
@@ -7,10 +8,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -27,21 +27,7 @@
             <Image url="@image/س.png" />
          </image>
       </ImageView>
-      <Pane layoutX="-1.0" layoutY="174.0" prefHeight="591.0" prefWidth="400.0" style="-fx-background-color: #ffff; -fx-background-radius: 30;">
-         <children>
-            <GridPane fx:id="gameMatrix" alignment="CENTER" layoutX="27.0" layoutY="46.0" prefHeight="499.0" prefWidth="347.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-         </children></Pane>
+      <Pane layoutX="-1.0" layoutY="174.0" prefHeight="570.0" prefWidth="400.0" style="-fx-background-color: #ffff; -fx-background-radius: 30;" />
       <Button fx:id="setting" layoutX="308.0" layoutY="-1.0" mnemonicParsing="false" onAction="#to_setting_page" onMouseEntered="#enlarge_setting" onMouseExited="#minimize_setting" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
@@ -182,6 +168,56 @@
             <Slider fx:id="sound_slider" layoutX="101.0" layoutY="299.0" onMouseReleased="#change_sound_img" prefHeight="62.0" prefWidth="235.0" stylesheets="@style.css" value="50.0" />
          </children>
       </Pane>
+      <VBox layoutX="7.0" layoutY="175.0" prefHeight="547.0" prefWidth="388.0">
+         <children>
+            <HBox prefHeight="168.0" prefWidth="365.0" spacing="20.0">
+               <children>
+                  <Button fx:id="button0" mnemonicParsing="false" onAction="#buttonClickedCard" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: whirte;">
+                     <opaqueInsets>
+                        <Insets top="5.0" />
+                     </opaqueInsets>
+                  </Button>
+                  <Button fx:id="button1" mnemonicParsing="false" onAction="#buttonClickedCard" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: whirte;" />
+               </children>
+               <padding>
+                  <Insets left="30.0" right="10.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets top="50.0" />
+               </opaqueInsets>
+            </HBox>
+            <HBox prefHeight="168.0" prefWidth="365.0" spacing="20.0">
+               <children>
+                  <Button fx:id="button2" mnemonicParsing="false" onAction="#buttonClickedCard" opacity="0.9" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: whirte;" />
+                  <Button fx:id="button3" mnemonicParsing="false" onAction="#buttonClickedCard" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: whirte;" />
+               </children>
+               <padding>
+                  <Insets left="30.0" right="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="168.0" prefWidth="365.0" spacing="20.0">
+               <children>
+                  <Button fx:id="button4" mnemonicParsing="false" onAction="#buttonClickedCard" opacity="0.9" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: whirte;" />
+                  <Button fx:id="button5" mnemonicParsing="false" onAction="#buttonClickedCard" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: whirte;" />
+               </children>
+               <padding>
+                  <Insets left="30.0" right="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="145.0" prefWidth="364.0" spacing="20.0">
+               <children>
+                  <Button fx:id="button6" mnemonicParsing="false" onAction="#buttonClickedCard" opacity="0.9" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: whirte;" />
+                  <Button fx:id="button7" mnemonicParsing="false" onAction="#buttonClickedCard" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: whirte;" />
+               </children>
+               <padding>
+                  <Insets left="30.0" right="10.0" />
+               </padding>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
+      </VBox>
       <Pane fx:id="record_pan" layoutX="14.0" layoutY="264.0" opacity="0.95" prefHeight="382.0" prefWidth="372.0" style="-fx-background-color: #ffff; -fx-background-radius: 20;" visible="false">
          <children>
             <ImageView fitHeight="348.0" fitWidth="357.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
@@ -223,5 +259,6 @@
             </ImageView>
          </children>
       </Pane>
+      <ImageView fx:id="image_recod_pane" fitHeight="132.0" fitWidth="175.0" layoutX="131.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" visible="false" />
    </children>
 </AnchorPane>

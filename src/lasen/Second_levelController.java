@@ -95,8 +95,7 @@ public class Second_levelController implements Initializable {
     int Ismatch=0; 
     @FXML
     private ImageView image_recod_pane;
-    Cell firstCard = null;
-    Cell secondCard = null;
+   
     @FXML
     private ImageView music_img;
     @FXML
@@ -308,7 +307,7 @@ public class Second_levelController implements Initializable {
            Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
            ImageView view = new ImageView(selectedImage);
            view.setFitWidth(130);
-           view.setFitHeight(150);
+           view.setFitHeight(140);
            buttons.get(firstButtonIndex).setGraphic(view);
            
            System.out.println("value of first card "+ word_text);
@@ -350,7 +349,7 @@ public class Second_levelController implements Initializable {
            Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
            ImageView view = new ImageView(selectedImage);
            view.setFitWidth(130);
-           view.setFitHeight(150);
+           view.setFitHeight(140);
            buttons.get(secondButtonIndex).setGraphic(view);
  
        

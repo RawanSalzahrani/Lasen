@@ -300,7 +300,8 @@ public class First_levelController implements Initializable {
     @FXML
     void buttonClickedCard(ActionEvent event) throws FileNotFoundException {if(!firstButtonClicked){
             //If next turn is started before old buttons are hidden
-            
+          
+       
              // timeline2.play();
             if(!match){
                 hideButtons();
@@ -343,7 +344,7 @@ public class First_levelController implements Initializable {
            Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
            ImageView view = new ImageView(selectedImage);
            view.setFitWidth(130);
-           view.setFitHeight(150);
+           view.setFitHeight(160);
            buttons.get(firstButtonIndex).setGraphic(view);
            
            System.out.println(", thre button is : "+buttonId);
@@ -384,7 +385,7 @@ public class First_levelController implements Initializable {
            Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
            ImageView view = new ImageView(selectedImage);
            view.setFitWidth(130);
-           view.setFitHeight(150);
+           view.setFitHeight(160);
            buttons.get(secondButtonIndex).setGraphic(view);
  
        
