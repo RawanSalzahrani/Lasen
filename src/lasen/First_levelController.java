@@ -149,8 +149,8 @@ public class First_levelController implements Initializable {
     private Parent root;
     boolean voice_pane=false;
     byte[] photo;
-    int w_id;
-    int lvl_num;
+    public static int w_id;
+    public static int lvl_num;
     String word_text=null;
     List<word> WordList = null; 
     AudioRecording AudioRecording = new AudioRecording();
@@ -476,12 +476,14 @@ public class First_levelController implements Initializable {
            String result = AudioRecording.stopRecording();
            recording.setVisible(false);
            System.out.print(result);
+           
            Session session = HibernateUtil.getSessionFactory().openSession();      
-           List<user_pronounce_word> record_list = null;
-           String queryStr = "from user_pronounce_word";
-           Query query = session.createQuery(queryStr);
-           record_list =  query.list();
-           session.close();
+            List<user_pronounce_word> record_list = null;
+            String queryStr = "from user_pronounce_word";
+            Query query = session.createQuery(queryStr);
+            record_list =  query.list();
+            session.close();
+           
            int Distance=0;
            StartORStop=true;            
            for(int i=0; i<WordList.size(); i++)
@@ -492,72 +494,77 @@ public class First_levelController implements Initializable {
                     Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(WordList.get(i).getPhoneme(), result);                                                
                     System.out.print(Distance);
                     if(Distance==0)
-                    {
+                    {   
                         for(user_pronounce_word u: record_list){
-                        if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail())){
-//                            Session session2 = HibernateUtil.getSessionFactory().openSession();
-//                            session2.beginTransaction();
-//                            u.setCorrect_count(u.getCorrect_count());
-//                            session2.update(u);
-//                            session2.getTransaction().commit();
-//                            session2.close();
-                            System.out.println("yes row updated");
-                    
-                        } else{
-                            increaseUserDimonds();
-                            user_pronounce_word w = new user_pronounce_word();
-                            w.setWord_id(w_id);
-                            w.setLevel_no(lvl_num);
-                            w.setEmail(userSignInNow.userSignIn);
-                            w.setCorrect_count(1);
-                            w.setIncorrect_count(w.getIncorrect_count());               
-                            Session session3 = HibernateUtil.getSessionFactory().openSession();
-                            Transaction tx = session3.beginTransaction();
-                            session3.save(w);
-                            tx.commit();
-                            session3.close();                
-                            System.out.println("new row recorded");
-                        }
-                        break;
+                if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail())){
+                    if(u.getCorrect_count()==0){
+                        Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
+                        u.setCorrect_count(1);
+                        session5.update(u);
+                        session5.getTransaction().commit();
+                        session5.close(); 
+                        System.out.println("yes row updated");
+                    }else {
+                    System.out.println("yes row updated");
                     }
+                }else {
+                    increaseUserDimonds();
+                    user_pronounce_word w = new user_pronounce_word();
+                    w.setWord_id(w_id);
+                    w.setLevel_no(lvl_num);
+                    w.setEmail(userSignInNow.userSignIn);
+                    w.setCorrect_count(1);
+                    w.setIncorrect_count(w.getIncorrect_count());               
+                    Session session3 = HibernateUtil.getSessionFactory().openSession();
+                    Transaction tx = session3.beginTransaction();
+                    session3.save(w);
+                    tx.commit();
+                    session3.close();                
+                    System.out.println("new row recorded");    
+                }
+            break;    
+           }
                         media3 = new Media(getClass().getResource(getRandomStringCorr()).toExternalForm());
                         mediaPlayer3 = new MediaPlayer(media3);
                         mediaPlayer3.seek(Duration.seconds(0));
                         Lasen.mediaPlayer3.play();
                         record_pan.setVisible(false);
                         image_recod_pane.setVisible(false);
-                        dimonds.setText(getDimonds());                        
-                        break;  
-                    }
+                        dimonds.setText(getDimonds());                         
+                    } 
                 }
             }
-            if(Distance>0)
+            if(Distance!=0)
             {
-                for(user_pronounce_word u: record_list){
-                        if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail())){
-                            Session session5 = HibernateUtil.getSessionFactory().openSession();
-                            session5.beginTransaction();
-                            u.setIncorrect_count(u.getIncorrect_count()+1);
-                            session5.update(u);
-                            session5.getTransaction().commit();
-                            session5.close(); 
-                            System.out.println("yes row updated");
-                        }else {
-                            user_pronounce_word w = new user_pronounce_word();
-                            w.setWord_id(w_id);
-                            w.setLevel_no(lvl_num);
-                            w.setEmail(userSignInNow.userSignIn);
-                            w.setCorrect_count(w.getCorrect_count());
-                            w.setIncorrect_count(w.getIncorrect_count()+1);               
-                            Session session6 = HibernateUtil.getSessionFactory().openSession();
-                            Transaction tx = session6.beginTransaction();
-                            session6.save(w);
-                            tx.commit();
-                            session6.close();                
-                            System.out.println("new row recorded");
-                        }
-                        break;
+                for(user_pronounce_word x: record_list){
+                if (w_id == x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail())){
+                    Session session5 = HibernateUtil.getSessionFactory().openSession();
+                    session5.beginTransaction();
+                    x.setIncorrect_count(x.getIncorrect_count()+1);
+                    session5.update(x);
+                    session5.getTransaction().commit();
+                    session5.close(); 
+                    System.out.println("yes row updated");
+                    
+                }else{
+                    if (w_id != x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail())){
+                    user_pronounce_word w = new user_pronounce_word();
+                    w.setWord_id(w_id);
+                    w.setLevel_no(lvl_num);
+                    w.setEmail(userSignInNow.userSignIn);
+                    w.setCorrect_count(w.getCorrect_count());
+                    w.setIncorrect_count(w.getIncorrect_count()+1);               
+                    Session session6 = HibernateUtil.getSessionFactory().openSession();
+                    Transaction tx = session6.beginTransaction();
+                    session6.save(w);
+                    tx.commit();
+                    session6.close();                
+                    System.out.println("new row recorded");
                     }
+                }
+            break;   
+            } 
                 media4 = new Media(getClass().getResource(getRandomStringInCorr()).toExternalForm());
                 mediaPlayer4 = new MediaPlayer(media4);
                 mediaPlayer4.seek(Duration.seconds(0));
