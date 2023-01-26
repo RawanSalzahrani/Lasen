@@ -28,10 +28,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import static lasen.userSignInNow.getCurrrentBalance;
+import static lasen.userSignInNow.getDimonds;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -43,9 +46,9 @@ import org.hibernate.Session;
 public class Home_pageController implements Initializable {
 
     @FXML
-    private Button dimonds;
+    private Text dimonds;
     @FXML
-    private Button coins;
+    private Text coins;
     @FXML
     private Button certification;
     @FXML
@@ -90,7 +93,11 @@ public class Home_pageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO                           
+        // TODO 
+        
+        dimonds.setText(getDimonds());
+        coins.setText(getCurrrentBalance());
+        
         sound_slider.setValue(mediaPlayer.getVolume()*100);
         sound_slider.valueProperty().addListener(new InvalidationListener(){
             @Override

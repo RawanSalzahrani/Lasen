@@ -35,6 +35,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.sound.sampled.LineUnavailableException;
@@ -42,6 +44,8 @@ import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
 import static lasen.Lasen.mediaPlayer3;
 import static lasen.Lasen.mediaPlayer4;
+import static lasen.userSignInNow.getCurrrentBalance;
+import static lasen.userSignInNow.getDimonds;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -57,9 +61,9 @@ public class Third_levelController implements Initializable {
     @FXML
     private Button home;
     @FXML
-    private Button dimonds;
+    private Text dimonds;
     @FXML
-    private Button coins;
+    private Text coins;
     @FXML
     private Pane pop_wind;
     @FXML
@@ -80,8 +84,6 @@ public class Third_levelController implements Initializable {
     private Pane record_pan;
     @FXML
     private Button refresh_bt;
-    @FXML
-    private Button get_helo_bt;
     @FXML
     private Button micerphone_bt;
 
@@ -158,11 +160,18 @@ public class Third_levelController implements Initializable {
     private Button button7;
     @FXML
     private ImageView image_recod_pane;
+    @FXML
+    private Circle recording;
+    @FXML
+    private Button get_help_bt;
    
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        dimonds.setText(getDimonds());
+        coins.setText(getCurrrentBalance());
         
         sound_slider.setValue(mediaPlayer.getVolume()*100);
         sound_slider.valueProperty().addListener(new InvalidationListener()
@@ -205,69 +214,69 @@ public class Third_levelController implements Initializable {
            Image img = new Image(unmuteFile_back);
            
            view_background_0 = new ImageView(img);   
-           view_background_0.setFitWidth(130);
-           view_background_0.setFitHeight(110); 
+           view_background_0.setFitWidth(160);
+           view_background_0.setFitHeight(140); 
         
           
            view_background_1 = new ImageView(img);   
-           view_background_1.setFitWidth(130);
-           view_background_1.setFitHeight(110); 
+           view_background_1.setFitWidth(160);
+           view_background_1.setFitHeight(140); 
           
            view_background_2 = new ImageView(img);   
-           view_background_2.setFitWidth(130);
-           view_background_2.setFitHeight(110);  
+           view_background_2.setFitWidth(160);
+           view_background_2.setFitHeight(140);  
            
            view_background_3 = new ImageView(img);   
-           view_background_3.setFitWidth(130);
-           view_background_3.setFitHeight(110); 
+           view_background_3.setFitWidth(160);
+           view_background_3.setFitHeight(140); 
            
            view_background_4 = new ImageView(img);   
-           view_background_4.setFitWidth(130);
-           view_background_4.setFitHeight(110); 
+           view_background_4.setFitWidth(160);
+           view_background_4.setFitHeight(140); 
             
            view_background_5 = new ImageView(img);   
-           view_background_5.setFitWidth(130);
-           view_background_5.setFitHeight(110); 
+           view_background_5.setFitWidth(160);
+           view_background_5.setFitHeight(140); 
            
            view_background_6 = new ImageView(img);   
-           view_background_6.setFitWidth(130);
-           view_background_6.setFitHeight(110); 
+           view_background_6.setFitWidth(160);
+           view_background_6.setFitHeight(140); 
             
            view_background_7 = new ImageView(img);   
-           view_background_7.setFitWidth(130);
-           view_background_7.setFitHeight(110);
+           view_background_7.setFitWidth(160);
+           view_background_7.setFitHeight(140);
            
            view_background_close0 = new ImageView(img);   
-           view_background_close0.setFitWidth(130);
-           view_background_close0.setFitHeight(110);
+           view_background_close0.setFitWidth(160);
+           view_background_close0.setFitHeight(140);
            
            view_background_close1 = new ImageView(img);   
-           view_background_close1.setFitWidth(130);
-           view_background_close1.setFitHeight(110);
+           view_background_close1.setFitWidth(160);
+           view_background_close1.setFitHeight(140);
            
            view_background_close2 = new ImageView(img);   
-           view_background_close2.setFitWidth(130);
-           view_background_close2.setFitHeight(110); 
+           view_background_close2.setFitWidth(160);
+           view_background_close2.setFitHeight(140); 
            
            view_background_close3 = new ImageView(img);   
-           view_background_close3.setFitWidth(130);
-           view_background_close3.setFitHeight(110); 
+           view_background_close3.setFitWidth(160);
+           view_background_close3.setFitHeight(140); 
            
            view_background_close4 = new ImageView(img);   
-           view_background_close4.setFitWidth(130);
-           view_background_close4.setFitHeight(110); 
+           view_background_close4.setFitWidth(160);
+           view_background_close4.setFitHeight(140); 
           
            view_background_close5 = new ImageView(img);   
-           view_background_close5.setFitWidth(130);
-           view_background_close5.setFitHeight(110); 
+           view_background_close5.setFitWidth(160);
+           view_background_close5.setFitHeight(140); 
             
            view_background_close6= new ImageView(img);   
-           view_background_close6.setFitWidth(130);
-           view_background_close6.setFitHeight(110); 
+           view_background_close6.setFitWidth(160);
+           view_background_close6.setFitHeight(140); 
            
            view_background_close7 = new ImageView(img);   
-           view_background_close7.setFitWidth(130);
-           view_background_close7.setFitHeight(110);   
+           view_background_close7.setFitWidth(160);
+           view_background_close7.setFitHeight(140);   
            
             buttons.get(0).setGraphic(view_background_0);
             buttons.get(1).setGraphic(view_background_1);
@@ -285,6 +294,8 @@ public class Third_levelController implements Initializable {
     @FXML
     void buttonClickedCard(ActionEvent event) throws FileNotFoundException 
     {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         if(!firstButtonClicked)
         {
             //If next turn is started before old buttons are hidden
@@ -318,8 +329,8 @@ public class Third_levelController implements Initializable {
 
            Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
            ImageView view = new ImageView(selectedImage);
-           view.setFitWidth(130);
-           view.setFitHeight(110);
+           view.setFitWidth(160);
+           view.setFitHeight(140);
            buttons.get(firstButtonIndex).setGraphic(view);
 
            System.out.println("value of first card "+ word_text);
@@ -350,8 +361,8 @@ public class Third_levelController implements Initializable {
        
        Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
        ImageView view = new ImageView(selectedImage);
-       view.setFitWidth(130);
-       view.setFitHeight(110);
+       view.setFitWidth(160);
+       view.setFitHeight(140);
        buttons.get(secondButtonIndex).setGraphic(view);
   
        System.out.println("value of secand card "+ word_text);
@@ -486,7 +497,8 @@ public class Third_levelController implements Initializable {
         mediaPlayer.play();
     }
 
-    boolean StartORStop=true;        
+    boolean StartORStop=true;
+    
     @FXML
     private void record_sound(ActionEvent event) throws LineUnavailableException, IOException {
         
@@ -497,10 +509,12 @@ public class Third_levelController implements Initializable {
         {
             StartORStop=false;
             AudioRecording.startRecording();
+            recording.setVisible(true);
         }
         else
         {            
            String result = AudioRecording.stopRecording();
+           recording.setVisible(false);
            System.out.print(result);
            int Distance=0;
            StartORStop=true;            

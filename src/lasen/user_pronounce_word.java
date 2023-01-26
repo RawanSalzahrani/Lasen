@@ -9,14 +9,14 @@ import javax.persistence.Table;
 @Table(name="USER_PRONOUNCE_WORD")
 public class user_pronounce_word  implements java.io.Serializable {
     @Id
-    @Column(name="email")
-     private String email;
-    @Id
     @Column(name="word_id")
      private int word_id;
     @Id
     @Column(name="level_no")
      private int level_no;
+    @Id
+    @Column(name="email")
+     private String email;
     @Column(name="correct_count")
      private int correct_count;
     @Column(name="incorrect_count")
@@ -25,20 +25,12 @@ public class user_pronounce_word  implements java.io.Serializable {
      public user_pronounce_word() {
     }
 
-    public user_pronounce_word(String email, int word_id, int level_no, int correct_count, int incorrect_count) {
-        this.email = email;
+    public user_pronounce_word(int word_id, int level_no, String email, int correct_count, int incorrect_count) {
         this.word_id = word_id;
         this.level_no = level_no;
+        this.email = email;
         this.correct_count = correct_count;
         this.incorrect_count = incorrect_count;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getWord_id() {
@@ -57,6 +49,14 @@ public class user_pronounce_word  implements java.io.Serializable {
         this.level_no = level_no;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public int getCorrect_count() {
         return correct_count;
     }
@@ -73,4 +73,5 @@ public class user_pronounce_word  implements java.io.Serializable {
         this.incorrect_count = incorrect_count;
     }
 
+ 
 }

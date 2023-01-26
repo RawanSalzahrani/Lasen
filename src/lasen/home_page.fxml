@@ -29,7 +29,7 @@
             <Image url="@image/gray_line2.png" />
          </image>
       </ImageView>
-      <Button fx:id="dimonds" layoutX="-5.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="-5.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Engravers MT" size="24.0" />
          </font>
@@ -41,12 +41,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="16.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="59.999998189508915">
+      <Text fx:id="dimonds" fill="WHITE" layoutX="16.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="59.999998189508915">
          <font>
             <Font name="Engravers MT" size="24.0" />
          </font>
       </Text>
-      <Button fx:id="coins" layoutX="-5.0" layoutY="93.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="-5.0" layoutY="93.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Engravers MT" size="24.0" />
          </font>
@@ -58,7 +58,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="18.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" textAlignment="CENTER" wrappingWidth="59.999998189508915">
+      <Text fx:id="coins" fill="WHITE" layoutX="18.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="59.999998189508915">
          <font>
             <Font name="Engravers MT" size="24.0" />
          </font>

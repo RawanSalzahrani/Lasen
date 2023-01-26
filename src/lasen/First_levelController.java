@@ -36,13 +36,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javax.sound.sampled.LineUnavailableException;
+import static lasen.Lasen.getRandomStringCorr;
+import static lasen.Lasen.getRandomStringInCorr;
+import static lasen.Lasen.media3;
+import static lasen.Lasen.media4;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
 import static lasen.Lasen.mediaPlayer3;
 import static lasen.Lasen.mediaPlayer4;
+import static lasen.userSignInNow.getCurrrentBalance;
+import static lasen.userSignInNow.getDimonds;
+import static lasen.userSignInNow.increaseUserCurrrentBalance;
+import static lasen.userSignInNow.increaseUserDimonds;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * FXML Controller class
@@ -57,9 +70,9 @@ public class First_levelController implements Initializable {
     @FXML
     private Button home;
     @FXML
-    private Button dimonds;
+    private Text dimonds;
     @FXML
-    private Button coins;
+    private Text coins;
     @FXML
     private Pane pop_wind;
     @FXML
@@ -142,6 +155,8 @@ public class First_levelController implements Initializable {
     List<word> WordList = null; 
     AudioRecording AudioRecording = new AudioRecording();
     int Ismatch=0; 
+    @FXML
+    private Circle recording;
    
     
 
@@ -150,6 +165,9 @@ public class First_levelController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) 
     {
      
+        dimonds.setText(getDimonds());
+        coins.setText(getCurrrentBalance());
+        
         sound_slider.setValue(mediaPlayer.getVolume()*100);
         sound_slider.valueProperty().addListener(new InvalidationListener()
         {
@@ -185,36 +203,36 @@ public class First_levelController implements Initializable {
            Image img = new Image(unmuteFile_back);
            
            view_background_0 = new ImageView(img);   
-           view_background_0.setFitWidth(130);
+           view_background_0.setFitWidth(160);
            view_background_0.setFitHeight(160); 
           // view_background_0.setPreserveRatio(true);
           
            view_background_1 = new ImageView(img);   
-           view_background_1.setFitWidth(130);
+           view_background_1.setFitWidth(160);
            view_background_1.setFitHeight(160); 
           
            view_background_2 = new ImageView(img);   
-           view_background_2.setFitWidth(130);
+           view_background_2.setFitWidth(160);
            view_background_2.setFitHeight(160);  
            
            view_background_3 = new ImageView(img);   
-           view_background_3.setFitWidth(130);
+           view_background_3.setFitWidth(160);
            view_background_3.setFitHeight(160); 
            
            view_background_close0 = new ImageView(img);   
-           view_background_close0.setFitWidth(130);
+           view_background_close0.setFitWidth(160);
            view_background_close0.setFitHeight(160);
            
            view_background_close1 = new ImageView(img);   
-           view_background_close1.setFitWidth(130);
+           view_background_close1.setFitWidth(160);
            view_background_close1.setFitHeight(160);
            
            view_background_close2 = new ImageView(img);   
-           view_background_close2.setFitWidth(130);
+           view_background_close2.setFitWidth(160);
            view_background_close2.setFitHeight(160); 
            
            view_background_close3 = new ImageView(img);   
-           view_background_close3.setFitWidth(130);
+           view_background_close3.setFitWidth(160);
            view_background_close3.setFitHeight(160); 
           
            buttons.get(0).setGraphic(view_background_0);
@@ -236,6 +254,8 @@ public class First_levelController implements Initializable {
     @FXML
     void buttonClickedCard(ActionEvent event) throws FileNotFoundException 
     {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
         if(!firstButtonClicked)
         {
                 //If next turn is started before old buttons are hidden
@@ -272,7 +292,7 @@ public class First_levelController implements Initializable {
 
             Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
             ImageView view = new ImageView(selectedImage);
-            view.setFitWidth(130);
+            view.setFitWidth(160);
             view.setFitHeight(160);
             buttons.get(firstButtonIndex).setGraphic(view);
             System.out.println(", thre button is : "+buttonId);
@@ -302,7 +322,7 @@ public class First_levelController implements Initializable {
 
         Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
         ImageView view = new ImageView(selectedImage);
-        view.setFitWidth(130);
+        view.setFitWidth(160);
         view.setFitHeight(160);
         buttons.get(secondButtonIndex).setGraphic(view);
  
@@ -448,11 +468,20 @@ public class First_levelController implements Initializable {
         {
             StartORStop=false;
             AudioRecording.startRecording();
+            recording.setVisible(true);
+
         }
         else
         {            
            String result = AudioRecording.stopRecording();
+           recording.setVisible(false);
            System.out.print(result);
+           Session session = HibernateUtil.getSessionFactory().openSession();      
+           List<user_pronounce_word> record_list = null;
+           String queryStr = "from user_pronounce_word";
+           Query query = session.createQuery(queryStr);
+           record_list =  query.list();
+           session.close();
            int Distance=0;
            StartORStop=true;            
            for(int i=0; i<WordList.size(); i++)
@@ -464,19 +493,77 @@ public class First_levelController implements Initializable {
                     System.out.print(Distance);
                     if(Distance==0)
                     {
+                        for(user_pronounce_word u: record_list){
+                        if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail())){
+//                            Session session2 = HibernateUtil.getSessionFactory().openSession();
+//                            session2.beginTransaction();
+//                            u.setCorrect_count(u.getCorrect_count());
+//                            session2.update(u);
+//                            session2.getTransaction().commit();
+//                            session2.close();
+                            System.out.println("yes row updated");
+                    
+                        } else{
+                            increaseUserDimonds();
+                            user_pronounce_word w = new user_pronounce_word();
+                            w.setWord_id(w_id);
+                            w.setLevel_no(lvl_num);
+                            w.setEmail(userSignInNow.userSignIn);
+                            w.setCorrect_count(1);
+                            w.setIncorrect_count(w.getIncorrect_count());               
+                            Session session3 = HibernateUtil.getSessionFactory().openSession();
+                            Transaction tx = session3.beginTransaction();
+                            session3.save(w);
+                            tx.commit();
+                            session3.close();                
+                            System.out.println("new row recorded");
+                        }
+                        break;
+                    }
+                        media3 = new Media(getClass().getResource(getRandomStringCorr()).toExternalForm());
+                        mediaPlayer3 = new MediaPlayer(media3);
                         mediaPlayer3.seek(Duration.seconds(0));
                         Lasen.mediaPlayer3.play();
                         record_pan.setVisible(false);
                         image_recod_pane.setVisible(false);
-                        
+                        dimonds.setText(getDimonds());                        
                         break;  
                     }
                 }
             }
             if(Distance>0)
             {
+                for(user_pronounce_word u: record_list){
+                        if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail())){
+                            Session session5 = HibernateUtil.getSessionFactory().openSession();
+                            session5.beginTransaction();
+                            u.setIncorrect_count(u.getIncorrect_count()+1);
+                            session5.update(u);
+                            session5.getTransaction().commit();
+                            session5.close(); 
+                            System.out.println("yes row updated");
+                        }else {
+                            user_pronounce_word w = new user_pronounce_word();
+                            w.setWord_id(w_id);
+                            w.setLevel_no(lvl_num);
+                            w.setEmail(userSignInNow.userSignIn);
+                            w.setCorrect_count(w.getCorrect_count());
+                            w.setIncorrect_count(w.getIncorrect_count()+1);               
+                            Session session6 = HibernateUtil.getSessionFactory().openSession();
+                            Transaction tx = session6.beginTransaction();
+                            session6.save(w);
+                            tx.commit();
+                            session6.close();                
+                            System.out.println("new row recorded");
+                        }
+                        break;
+                    }
+                media4 = new Media(getClass().getResource(getRandomStringInCorr()).toExternalForm());
+                mediaPlayer4 = new MediaPlayer(media4);
                 mediaPlayer4.seek(Duration.seconds(0));
-                Lasen.mediaPlayer4.play();                  
+                Lasen.mediaPlayer4.play(); 
+                increaseUserCurrrentBalance();
+                coins.setText(getCurrrentBalance());
             }
         }      
     }

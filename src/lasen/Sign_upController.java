@@ -260,6 +260,7 @@ public class Sign_upController implements Initializable {
         us.setAge(Integer.valueOf(age.getText()));
         us.setPassword(txt_hide_Password.getText());
         us.setCurrent_balance(5);
+        us.setDimonds(us.getDimonds());
         
         Session session2 = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session2.beginTransaction();
