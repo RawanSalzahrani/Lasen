@@ -33,6 +33,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import static lasen.userSignInNow.getCorrect_countForLevel_1;
+import static lasen.userSignInNow.getCorrect_countForLevel_2;
+import static lasen.userSignInNow.getCorrect_countForLevel_3;
 import static lasen.userSignInNow.getCurrrentBalance;
 import static lasen.userSignInNow.getDimonds;
 import org.hibernate.Query;
@@ -86,6 +89,14 @@ public class Home_pageController implements Initializable {
    
    // int Can_Get_Into_Lvl2;
    // int Can_Get_Into_Lvl3;
+    @FXML
+    private ImageView lvl_1_img;
+    @FXML
+    private ImageView lvl_2_img;
+    @FXML
+    private ImageView lvl_3_img;
+    @FXML
+    private ImageView certification_img;
     
 
     /**
@@ -114,18 +125,38 @@ public class Home_pageController implements Initializable {
             }
         }); 
         
-//        Session session = HibernateUtil.getSessionFactory().openSession();     
-//        String queryStr = "SELECT COUNT(level_no) from user_pronounce_word WHERE level_no=2 AND email="+userSignInNow.userSignIn;
-//        String queryStr2 = "SELECT COUNT(level_no) from user_pronounce_word WHERE level_no=3 AND email="+userSignInNow.userSignIn;
-//        Query query = session.createQuery(queryStr);
-//        Query query2 = session.createQuery(queryStr2);
-//        Can_Get_Into_Lvl2 = query.getFirstResult().intValue();
-//        Can_Get_Into_Lvl3 = query2.getFirstResult().intValue();
-//        session.close();
-//        System.out.println(Can_Get_Into_Lvl2);
-//        System.out.println(Can_Get_Into_Lvl3);
+        if (getCorrect_countForLevel_1() >= 2){
+            try {
+            FileInputStream unlocked = new FileInputStream("src\\lasen\\image\\2_unlocked.png");
+            Image unlockImage = new Image(unlocked);                 
+            lvl_2_img.setImage(unlockImage);                 
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("there is "+ getCorrect_countForLevel_1()+" rows");
+        }
         
+        if (getCorrect_countForLevel_2() >= 3){
+            try {
+            FileInputStream unlocked = new FileInputStream("src\\lasen\\image\\3_unlocked.png");
+            Image unlockImage = new Image(unlocked);                 
+            lvl_3_img.setImage(unlockImage);                 
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(getCorrect_countForLevel_2());
+        }
         
+        if (getCorrect_countForLevel_3() >= 4){
+            try {
+            FileInputStream unlocked = new FileInputStream("src\\lasen\\image\\certification.png");
+            Image unlockImage = new Image(unlocked);                 
+            certification_img.setImage(unlockImage);                 
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }   
+        }
+    
     }
 
     @FXML
@@ -235,21 +266,20 @@ public class Home_pageController implements Initializable {
         second_level.setTranslateX(second_level.getTranslateX()-5);
     }
 
+    
     @FXML
     private void to_second_level(ActionEvent event) throws IOException {
-       
-//        if(Can_Get_Into_Lvl2>0)
-//        {
-//          mediaPlayer.seek(Duration.seconds(0));
+        if (getCorrect_countForLevel_1() >= 2){
+          System.out.println(getCorrect_countForLevel_1());
+          mediaPlayer.seek(Duration.seconds(0));
           mediaPlayer.play();
           Lasen.mediaPlayer2.pause();
           Parent root = FXMLLoader.load(getClass().getResource("second_level.fxml"));
           stage = (Stage)((Node)event.getSource()).getScene().getWindow();
           scene = new Scene(root);
           stage.setScene(scene);
-          stage.show();  
-//        }
-        
+          stage.show();
+        }
     }
 
     @FXML
@@ -268,9 +298,8 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_third_level(ActionEvent event) throws IOException {
-         
-//        if(Can_Get_Into_Lvl2>0)
-//        {
+        if (getCorrect_countForLevel_2() >= 3){
+            System.out.println(getCorrect_countForLevel_2());
             mediaPlayer.seek(Duration.seconds(0));
             mediaPlayer.play();
             Lasen.mediaPlayer2.pause();
@@ -279,7 +308,7 @@ public class Home_pageController implements Initializable {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-//         }
+         }
     }
 
     @FXML

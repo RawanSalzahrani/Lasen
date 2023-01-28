@@ -34,6 +34,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.media.Media;
@@ -41,6 +42,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javax.sound.sampled.LineUnavailableException;
+import static lasen.JavaMailUtil.random;
 import static lasen.Lasen.getRandomStringCorr;
 import static lasen.Lasen.getRandomStringInCorr;
 import static lasen.Lasen.media3;
@@ -157,6 +159,11 @@ public class First_levelController implements Initializable {
     int Ismatch=0; 
     @FXML
     private Circle recording;
+    
+    String[] opened_card ;
+    private final String[] image_name = {"SAYAARA","SIFINA","SAMAKA","SIN","SENJAB","SAYF"};
+    boolean[] select ={false,false,false,false,false,false};
+    private final Random random = new Random();
    
     
 
@@ -334,6 +341,7 @@ public class First_levelController implements Initializable {
 
         if(memoryGame.checkTwoPositions(firstButtonIndex,secondButtonIndex))
         {
+            int i = 0 ;
             System.out.println("Match");
             button_match[firstButtonIndex]=true;
             button_match[secondButtonIndex]=true;
@@ -342,6 +350,11 @@ public class First_levelController implements Initializable {
             shwoRecord();
             image_recod_pane.setVisible(true);
             // timeline2.stop();
+            for(int k=0 ; k < image_name.length ; k++){
+                if (image_name[k].equals(image_value)){
+                    select[k]=true;
+                }
+            }
             return;
         }
 
@@ -449,6 +462,46 @@ public class First_levelController implements Initializable {
     private void refresh_cards(ActionEvent event) {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        
+        int random_image=random.nextInt(image_name.length);
+
+             while(select[random_image]){
+             
+               random_image=random.nextInt(image_name.length);
+             }
+              System.out.println(random_image);
+             select[random_image]=true;
+             
+           
+             String update_img = image_name[random_image];
+             Session session = HibernateUtil.getSessionFactory().openSession();
+        WordList = null;
+        String queryStr = "from word WHERE level_no=1";
+        Query query = session.createQuery(queryStr);
+        WordList = query.list();       
+        session.close();
+        
+        for(int i=0; i< WordList.size();i++)
+            {
+                if(WordList.get(i).getText().equals(update_img))
+                {
+                    photo=WordList.get(i).getImg();
+                    w_id=WordList.get(i).getWord_id();
+                    lvl_num=WordList.get(i).getLevel_no();
+                    word_text=WordList.get(i).getText();
+                    System.out.println(word_text);
+                    break;
+                }
+            }
+
+            Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
+            ImageView view = new ImageView(selectedImage);
+            view.setFitWidth(160);
+            view.setFitHeight(160);
+            buttons.get(firstButtonIndex).setGraphic(view);
+            buttons.get(secondButtonIndex).setGraphic(view);
+            image_recod_pane.setImage(selectedImage);
+     
     }
 
     @FXML

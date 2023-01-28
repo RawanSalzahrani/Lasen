@@ -128,7 +128,7 @@
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@image/unable_refresh.png" />
+                        <Image url="@image/refresh.png" />
                      </image>
                   </ImageView>
                </graphic>
