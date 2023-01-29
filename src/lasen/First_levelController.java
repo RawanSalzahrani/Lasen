@@ -352,6 +352,7 @@ public class First_levelController implements Initializable {
             // timeline2.stop();
             for(int k=0 ; k < image_name.length ; k++){
                 if (image_name[k].equals(image_value)){
+                    
                     select[k]=true;
                 }
             }
@@ -601,7 +602,6 @@ public class First_levelController implements Initializable {
                     System.out.println("yes row updated");
                     
                 }else{
-                    if (w_id != x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail())){
                     user_pronounce_word w = new user_pronounce_word();
                     w.setWord_id(w_id);
                     w.setLevel_no(lvl_num);
@@ -614,7 +614,6 @@ public class First_levelController implements Initializable {
                     tx.commit();
                     session6.close();                
                     System.out.println("new row recorded");
-                    }
                 }
             break;   
             } 

@@ -22,9 +22,6 @@ public class userSignInNow {
     public static int currentBalanceUserSignIn=0;
     public static int dimondsUserSignIn=0;
     public static int levelDoneNumForUserSignIn=0;
-    public static int lvl_1_Correct_List = 0;
-    public static int lvl_2_Correct_List = 0;
-    public static int lvl_3_Correct_List = 0;
     
     public static void increaseUserCurrrentBalance(){
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -155,6 +152,7 @@ public class userSignInNow {
       }
     
     public static int getCorrect_countForLevel_1(){
+        int lvl_1_Correct_List = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();      
             List<user_pronounce_word> record_list = null;
             String queryStr = "from user_pronounce_word";
@@ -170,6 +168,7 @@ public class userSignInNow {
     }
     
     public static int getCorrect_countForLevel_2(){
+        int lvl_2_Correct_List = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();      
             List<user_pronounce_word> record_list = null;
             String queryStr = "from user_pronounce_word";
@@ -185,6 +184,7 @@ public class userSignInNow {
     }
     
     public static int getCorrect_countForLevel_3(){
+        int lvl_3_Correct_List = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();      
             List<user_pronounce_word> record_list = null;
             String queryStr = "from user_pronounce_word";
