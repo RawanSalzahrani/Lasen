@@ -10,9 +10,9 @@ The (fixed) discount mass is 0.5. The backoffs are computed using the ratio meth
 This model based on a corpus of 63 sentences and 65 words
 
 \data\
-ngram 1=65
-ngram 2=126
-ngram 3=63
+ngram 1=62
+ngram 2=120
+ngram 3=60
 
 \1-grams:
 -0.7782 </s> -0.3010
@@ -23,9 +23,6 @@ ngram 3=63
 -2.5775 ASAD -0.2218
 -2.5775 ASHAD -0.2218
 -2.5775 ATHAD -0.2218
--2.5775 FANOS -0.2218
--2.5775 FANOSH -0.2218
--2.5775 FANOTH -0.2218
 -2.5775 KURSHI -0.2218
 -2.5775 KURSI -0.2218
 -2.5775 KURTHI -0.2218
@@ -88,9 +85,6 @@ ngram 3=63
 -2.1004 <s> ASAD 0.0000
 -2.1004 <s> ASHAD 0.0000
 -2.1004 <s> ATHAD 0.0000
--2.1004 <s> FANOS 0.0000
--2.1004 <s> FANOSH 0.0000
--2.1004 <s> FANOTH 0.0000
 -2.1004 <s> KURSHI 0.0000
 -2.1004 <s> KURSI 0.0000
 -2.1004 <s> KURTHI 0.0000
@@ -151,9 +145,6 @@ ngram 3=63
 -0.3010 ASAD </s> -0.3010
 -0.3010 ASHAD </s> -0.3010
 -0.3010 ATHAD </s> -0.3010
--0.3010 FANOS </s> -0.3010
--0.3010 FANOSH </s> -0.3010
--0.3010 FANOTH </s> -0.3010
 -0.3010 KURSHI </s> -0.3010
 -0.3010 KURSI </s> -0.3010
 -0.3010 KURTHI </s> -0.3010
@@ -216,9 +207,6 @@ ngram 3=63
 -0.3010 <s> ASAD </s>
 -0.3010 <s> ASHAD </s>
 -0.3010 <s> ATHAD </s>
--0.3010 <s> FANOS </s>
--0.3010 <s> FANOSH </s>
--0.3010 <s> FANOTH </s>
 -0.3010 <s> KURSHI </s>
 -0.3010 <s> KURSI </s>
 -0.3010 <s> KURTHI </s>

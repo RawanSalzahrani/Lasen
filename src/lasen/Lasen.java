@@ -37,6 +37,9 @@ public class Lasen extends Application {
     public static Media media4;
     public static  MediaPlayer mediaPlayer4;
     
+    public static Media media5;
+    public static  MediaPlayer mediaPlayer5;
+    
        
     public static String getRandomStringCorr(){
         int r = (int) (Math.random()*4);
