@@ -126,7 +126,7 @@
             <Circle fx:id="recording" fill="#dbffbf" layoutX="193.0" layoutY="358.0" radius="41.0" stroke="#543315" strokeType="INSIDE" visible="false" />
             <Button fx:id="refresh_bt" layoutX="233.0" layoutY="328.0" mnemonicParsing="false" onAction="#refresh_cards" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="refresh_img" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@image/refresh.png" />
                      </image>
@@ -135,9 +135,9 @@
             </Button>
             <Button fx:id="get_help_bt" layoutX="70.0" layoutY="328.0" mnemonicParsing="false" onAction="#get_help" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="get_help_img" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@image/unable_character.png" />
+                        <Image url="@image/get_help.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -151,7 +151,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fx:id="character" fitHeight="294.0" fitWidth="274.0" layoutX="10.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="character" fitHeight="367.0" fitWidth="217.0" layoutX="10.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@image/jump_laf.png" />
                </image>

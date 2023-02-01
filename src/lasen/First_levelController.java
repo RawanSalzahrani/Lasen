@@ -144,7 +144,8 @@ public class First_levelController implements Initializable {
     ArrayList<ImageView> images = new ArrayList<>();
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> hideButtons()));
-    //    Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(3.5), e ->shwoRecord()));
+    Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(4), e ->hideRecord()));
+    Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(10), e ->hideRecord()));
     
     
     private Stage stage;
@@ -165,6 +166,10 @@ public class First_levelController implements Initializable {
     private final String[] image_name = {"SAYAARA","SIFINA","SAMAKA","SIN","SENJAB","SAYF"};
     boolean[] select ={false,false,false,false,false,false};
     private final Random random = new Random();
+    @FXML
+    private ImageView refresh_img;
+    @FXML
+    private ImageView get_help_img;
    
     
 
@@ -347,9 +352,26 @@ public class First_levelController implements Initializable {
             button_match[firstButtonIndex]=true;
             button_match[secondButtonIndex]=true;
             match = true;
+            Session session = HibernateUtil.getSessionFactory().openSession();      
+            List<user_pronounce_word> record_list = null;
+            String queryStr = "from user_pronounce_word";
+            Query query = session.createQuery(queryStr);
+            record_list =  query.list();
+            session.close();
+            for(user_pronounce_word u: record_list){
+                if (userSignInNow.userSignIn.equals(u.getEmail()) && w_id == u.getWord_id() ){
+                    Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
+                        u.setIncorrect_count(0);
+                        session5.update(u);
+                        session5.getTransaction().commit();
+                        session5.close(); 
+                        System.out.println("Now Incorrect count is 0");
+                }
+            }
             image_recod_pane.setImage(selectedImage);
             shwoRecord();
-            image_recod_pane.setVisible(true);
+            
             // timeline2.stop();
             for(int k=0 ; k < image_name.length ; k++){
                 if (image_name[k].equals(image_value)){
@@ -365,9 +387,16 @@ public class First_levelController implements Initializable {
     }
     
     private void shwoRecord()
-    {
-         
+    {         
          record_pan.setVisible(true);
+         image_recod_pane.setVisible(true);
+    }
+    
+    private void hideRecord()
+    {        
+         record_pan.setVisible(false);
+         image_recod_pane.setVisible(false);
+         character.setVisible(false);
     }
 
     private void hideButtons()
@@ -495,6 +524,20 @@ public class First_levelController implements Initializable {
                         break;
                     }
                 }
+//                for(user_pronounce_word v: record_list)
+//                {
+//                    if (w_id == v.getWord_id() && userSignInNow.userSignIn.equals(v.getEmail()))
+//                    {
+//                        Session session5 = HibernateUtil.getSessionFactory().openSession();
+//                        session5.beginTransaction();
+//                        v.setIncorrect_count(0);
+//                        session5.update(v);
+//                        session5.getTransaction().commit();
+//                        session5.close(); 
+//                        System.out.println("yes row updated");
+//                        break;         
+//                    }
+//                }
                 Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
                 ImageView view = new ImageView(selectedImage);
                 view.setFitWidth(160);
@@ -510,6 +553,13 @@ public class First_levelController implements Initializable {
     private void get_help(ActionEvent event) throws LineUnavailableException, IOException{
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        try {
+            FileInputStream helpChar = new FileInputStream("src\\lasen\\image\\stand_smile.png");
+            Image helpCharImage = new Image(helpChar);                 
+            character.setImage(helpCharImage);                 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String wav=null;
         
         Session session = HibernateUtil.getSessionFactory().openSession();      
@@ -540,24 +590,15 @@ public class First_levelController implements Initializable {
                                 break;
                             }
                         } 
-                        media5 = new Media(getClass().getResource("/sounds/Correct_pronouncataion_is_1.mp3").toExternalForm());
-                        mediaPlayer5 = new MediaPlayer(media5);
-                        mediaPlayer5.seek(Duration.seconds(500));
-                        Lasen.mediaPlayer5.play();
-
-                        media5 = new Media(getClass().getResource("/sounds/Correct_pronouncataion_is_2.mp3").toExternalForm());
-                        mediaPlayer5 = new MediaPlayer(media5);
-                        mediaPlayer5.seek(Duration.seconds(100));
-                        Lasen.mediaPlayer5.play();
-
+                        decreaseUserCurrrentBalance();
+                        coins.setText(getCurrrentBalance());
+                        character.setVisible(true);
+                        timeline3.play();
                         media5 = new Media(getClass().getResource(wav).toExternalForm());
                         mediaPlayer5 = new MediaPlayer(media5);
                         mediaPlayer5.seek(Duration.seconds(0));
                         Lasen.mediaPlayer5.play();
-                        record_pan.setVisible(false);
-                        image_recod_pane.setVisible(false);
                         
-                        decreaseUserCurrrentBalance(); 
                         
                         break;
                     }              
@@ -573,6 +614,13 @@ public class First_levelController implements Initializable {
         
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        try {
+            FileInputStream happyChar = new FileInputStream("src\\lasen\\image\\jump_laf.png");
+            Image happyCharImage = new Image(happyChar);                 
+            character.setImage(happyCharImage);                 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
         if(StartORStop)
         {
@@ -646,12 +694,13 @@ public class First_levelController implements Initializable {
                             System.out.println("new row recorded"); 
 
                         }
+                        image_recod_pane.setVisible(true);
+                        character.setVisible(true);
                         media3 = new Media(getClass().getResource(getRandomStringCorr()).toExternalForm());
                         mediaPlayer3 = new MediaPlayer(media3);
                         mediaPlayer3.seek(Duration.seconds(0));
                         Lasen.mediaPlayer3.play();
-                        record_pan.setVisible(false);
-                        image_recod_pane.setVisible(false);
+                        timeline2.play();
                         dimonds.setText(getDimonds());                         
                     } 
                 }
@@ -695,7 +744,7 @@ public class First_levelController implements Initializable {
                 increaseUserCurrrentBalance();
                 coins.setText(getCurrrentBalance());
             }
-        }      
+        } 
     }
                                                            
  @FXML

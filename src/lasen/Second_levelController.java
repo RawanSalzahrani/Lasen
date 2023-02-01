@@ -171,7 +171,8 @@ public class Second_levelController implements Initializable {
    private final String[] image_name =  {"SHAMS","QAMOS","NAMO","QUNDUS","ANANAS","LABAS"};
    boolean[] select ={false,false,false,false,false,false};
    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> hideButtons()));
-   //Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(3.5), e ->shwoRecord()));
+   Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(4), e ->hideRecord()));
+   Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(10), e ->hideRecord()));
     @FXML
     private Circle recording;
    
@@ -374,6 +375,19 @@ public class Second_levelController implements Initializable {
         }
         timeline.play();
       
+    }
+    
+    private void shwoRecord()
+    {         
+         record_pan.setVisible(true);
+         image_recod_pane.setVisible(true);
+    }
+    
+    private void hideRecord()
+    {        
+         record_pan.setVisible(false);
+         image_recod_pane.setVisible(false);
+         character.setVisible(false);
     }
     
    
