@@ -178,7 +178,7 @@ public class Sign_inController implements Initializable {
         Query query = session.createQuery(queryStr);
         sList = query.list();
         session.close();
-        
+      
 
         int index=1;
         String domain = "";

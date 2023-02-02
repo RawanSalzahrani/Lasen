@@ -577,7 +577,7 @@ public class Third_levelController implements Initializable {
                         {
                             if(WordList.get(i).getText().equals(word_text))
                             {       
-                                wav = WordList.get(i).getCorrect_voice();
+                                wav = WordList.get(i).getCorrect_pronounce();
                                 break;
                             }
                         } 

@@ -26,6 +26,7 @@ public class MemoryGame {
     private final String[] image_value = {"SAYAARA","SIFINA","SAMAKA","SIN","SENJAB","SAYF"};
     boolean[] index_select ={false,false,false,false,false,false};
     String[] phonemes = {"S EY AH R AH","S IH F AH N AH","S AE M AH K AH","S IH N","S EH N JH AE B","S EY F"};
+    public static String[] fill_button = {"", "", "", ""};
 
     
     
@@ -65,26 +66,30 @@ public class MemoryGame {
             }
             
              memoryBoard.set(position, memoryOption);
+             fill_button[position]=memoryOption;
+             System.out.println(fill_button[position]);
              
             int position2 = random.nextInt(boardSize);
+            
         
             while (!Objects.equals(memoryBoard.get(position2),"")){
                 position2 = random.nextInt(boardSize );
             }
              memoryBoard.set(position2, memoryOption);
+             fill_button[position2]=memoryOption;
              
-            System.out.println(position+","+position2);
+            System.out.println(fill_button[position2]);
             
             
            
           
         }
-          for(int j=0;j<index_select.length;j++)
-             {
-                 System.out.print(" "+index_select[j]);
-                 
-             }
-          System.out.println("");
+//          for(int j=0;j<index_select.length;j++)
+//             {
+//                 System.out.print(" "+index_select[j]);
+//                 
+//             }
+//          System.out.println("");
           
           
     }         
@@ -97,16 +102,14 @@ public class MemoryGame {
     }
     
     
-  public String[] imageFill()  
+  public void imageFill()  
 {  
-String[] fill_button = new String[4];
 
 for(int i=0; i<=fill_button.length;i++)
 {
      fill_button[i]=memoryBoard.get(i);
      System.out.println(fill_button[i]+" ");
-}     
-return fill_button;  
+}       
 }  
 } 
 

@@ -128,7 +128,7 @@
                <graphic>
                   <ImageView fx:id="refresh_img" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@image/refresh.png" />
+                        <Image url="@image/unable_refresh.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -137,7 +137,7 @@
                <graphic>
                   <ImageView fx:id="get_help_img" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@image/get_help.png" />
+                        <Image url="@image/unable_character.png" />
                      </image>
                   </ImageView>
                </graphic>
