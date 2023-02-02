@@ -525,7 +525,7 @@ public class First_levelController implements Initializable {
             if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail())&& u.getIncorrect_count()>=3)
             {                
                 int random_image=random.nextInt(image_name.length);
-                while(select[random_image] && pass_pronu[random_image] )
+                while(select[random_image] )
                 {
                    random_image=random.nextInt(image_name.length);
                 }
