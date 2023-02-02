@@ -55,7 +55,7 @@ public class MemoryGame_2 {
              index_select[random_image]=true;
              
            
-             String memoryOption = image_value[random_image];
+            String memoryOption = image_value[random_image];
            
              
             int position = random.nextInt(boardSize);

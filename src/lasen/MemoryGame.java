@@ -95,6 +95,19 @@ public class MemoryGame {
     public boolean checkTwoPositions(int firstIndex, int secondIndex){
        return memoryBoard.get(firstIndex).equals(memoryBoard.get(secondIndex));
     }
+    
+    
+  public String[] imageFill()  
+{  
+String[] fill_button = new String[4];
+
+for(int i=0; i<=fill_button.length;i++)
+{
+     fill_button[i]=memoryBoard.get(i);
+     System.out.println(fill_button[i]+" ");
+}     
+return fill_button;  
+}  
 } 
 
 

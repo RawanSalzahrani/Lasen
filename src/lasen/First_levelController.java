@@ -165,6 +165,10 @@ public class First_levelController implements Initializable {
     String[] opened_card ;
     private final String[] image_name = {"SAYAARA","SIFINA","SAMAKA","SIN","SENJAB","SAYF"};
     boolean[] select ={false,false,false,false,false,false};
+   boolean[] pass_pronu ={false,false,false,false,false,false}; 
+     
+    String[] fill_butto=new String[4];
+            
     private final Random random = new Random();
     @FXML
     private ImageView refresh_img;
@@ -254,6 +258,16 @@ public class First_levelController implements Initializable {
            buttons.get(3).setGraphic(view_background_3);
            
            memoryGame.setupGame(); 
+          fill_butto=memoryGame.imageFill();
+          
+          for(int h=0;h<fill_butto.length;h++) {
+           for(int p =0; p <image_name.length; p++) {
+              
+               if(fill_butto[h].equals(image_name[p]))
+                {
+                           select[p]=true;}
+          }
+          } 
     
         Session session = HibernateUtil.getSessionFactory().openSession();
         WordList = null;
@@ -287,12 +301,14 @@ public class First_levelController implements Initializable {
             String buttonId = ((Control)event.getSource()).getId();
             firstButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
             System.out.println(" the  "+firstButtonIndex);
-            String Image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
-            System.out.println("it is "+Image_value);                  
+           
+            image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
+          
+            System.out.println("it is "+image_value);                  
 
             for(int i=0; i< WordList.size();i++)
             {
-                if(WordList.get(i).getText().equals(Image_value))
+                if(WordList.get(i).getText().equals(image_value))
                 {
                     photo=WordList.get(i).getImg();
                     w_id=WordList.get(i).getWord_id();
@@ -317,12 +333,12 @@ public class First_levelController implements Initializable {
         String buttonId = ((Control)event.getSource()).getId();
         secondButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
         System.out.println(" the2  "+secondButtonIndex);       
-        String Image_value=memoryGame.getOptionAtIndex(secondButtonIndex);
-        System.out.println("it is "+Image_value);
+        image_value=memoryGame.getOptionAtIndex(secondButtonIndex);
+        System.out.println("it is "+image_value);
 
         for(int i=0; i< WordList.size();i++)
         {
-            if(WordList.get(i).getText().equals(Image_value))
+            if(WordList.get(i).getText().equals(image_value))
             {
                 photo=WordList.get(i).getImg();
                 w_id=WordList.get(i).getWord_id();
@@ -352,6 +368,7 @@ public class First_levelController implements Initializable {
             button_match[firstButtonIndex]=true;
             button_match[secondButtonIndex]=true;
             match = true;
+            
             Session session = HibernateUtil.getSessionFactory().openSession();      
             List<user_pronounce_word> record_list = null;
             String queryStr = "from user_pronounce_word";
@@ -370,15 +387,17 @@ public class First_levelController implements Initializable {
                 }
             }
             image_recod_pane.setImage(selectedImage);
+           
             shwoRecord();
             
             // timeline2.stop();
-            for(int k=0 ; k < image_name.length ; k++){
-                if (image_name[k].equals(image_value)){
-                    
-                    select[k]=true;
-                }
-            }
+            
+//            for(int k=0 ; k < image_name.length ; k++){
+//                if (image_name[k].equals(image_value)){
+//                    
+//                    pass_pronu[k]=true;
+//                }
+//            }
             return;
         }
 
@@ -493,6 +512,7 @@ public class First_levelController implements Initializable {
     private void refresh_cards(ActionEvent event){
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        //int index_match;
         
         Session session2 = HibernateUtil.getSessionFactory().openSession();      
         List<user_pronounce_word> record_list = null;
@@ -502,7 +522,7 @@ public class First_levelController implements Initializable {
         session2.close();
         for(user_pronounce_word u: record_list)
         {
-            if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()) && u.getIncorrect_count()>=3)
+            if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail())&& u.getIncorrect_count()>=3)
             {                
                 int random_image=random.nextInt(image_name.length);
                 while(select[random_image])
@@ -510,8 +530,16 @@ public class First_levelController implements Initializable {
                    random_image=random.nextInt(image_name.length);
                 }
                 System.out.println(random_image);
+                
+                for(int h=0; h>image_name.length ;h++){
+                     if(image_value==image_name[h]){
+                       select[h]=false;}}
+                
+                
                 select[random_image]=true;
+                
                 String update_img = image_name[random_image];
+                
                 for(int i=0; i< WordList.size();i++)
                 {
                     if(WordList.get(i).getText().equals(update_img))
@@ -660,6 +688,9 @@ public class First_levelController implements Initializable {
                             {
                                 if(u.getCorrect_count()==0)
                                 {
+                                    for(int k=0 ; k < image_name.length ; k++){
+                                          if (image_name[k].equals(image_value)){
+                                                     pass_pronu[k]=true; } }
                                     increaseUserDimonds();
                                     Session session5 = HibernateUtil.getSessionFactory().openSession();
                                     session5.beginTransaction();
