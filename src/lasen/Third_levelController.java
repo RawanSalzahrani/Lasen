@@ -53,6 +53,7 @@ import static lasen.Lasen.mediaPlayer2;
 import static lasen.Lasen.mediaPlayer3;
 import static lasen.Lasen.mediaPlayer4;
 import static lasen.Lasen.mediaPlayer5;
+import static lasen.MemoryGame_3.fill_button3;
 import static lasen.userSignInNow.decreaseUserCurrrentBalance;
 import static lasen.userSignInNow.getCurrrentBalance;
 import static lasen.userSignInNow.getDimonds;
@@ -121,7 +122,13 @@ public class Third_levelController implements Initializable {
     private ImageView imageView_0;
     private ImageView imageView_1;
     private ImageView imageView_2;
+    
     FileInputStream unmuteFile_back;
+    FileInputStream unable_refresh;
+    FileInputStream unable_character;
+    FileInputStream refresh;
+    FileInputStream get_help;
+    
     private boolean firstButtonClicked = false;
     private int firstButtonIndex;
     private int secondButtonIndex;
@@ -137,7 +144,7 @@ public class Third_levelController implements Initializable {
     ImageView view_background_5;
     ImageView view_background_6 ;
     ImageView view_background_7;
-    
+    boolean[] button_match={false,false,false,false,false,false,false,false};
     ImageView view_background_close0 ;
     ImageView view_background_close1;
     ImageView view_background_close2 ;
@@ -145,21 +152,24 @@ public class Third_levelController implements Initializable {
     ImageView view_background_close4 ;
     ImageView view_background_close5;  
     ImageView view_background_close6 ;
-    ImageView view_background_close7;      
+    ImageView view_background_close7;     
     
     MemoryGame_3 memoryGame = new MemoryGame_3();
     FileInputStream unmuteFile_background;
     
-    boolean[] button_match={false,false,false,false,false,false,false ,false};
-   
+    
    ArrayList<Button> buttons = new ArrayList<>();
    ArrayList<ImageView> images = new ArrayList<>();
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> hideButtons()));
-         private final Random random = new Random();
-         private final String[] image_name =  {"MADRASA","MASJID","ASAD","MAKNASA","MISWAK","MISMAR","KURSI","KUSA"};
+    Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(4), e ->hideRecord()));
+    Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(10), e ->hideRecord()));
+   
+    private final Random random = new Random();
+    private final String[] image_name =  {"MADRASA","MASJID","ASAD","MAKNASA","MISWAK","MISMAR","KURSI","KUSA"};
     boolean[] select ={false,false,false,false,false,false,false,false};
-    //    Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(3.5), e ->shwoRecord()));
+    int index_image;
+         
     @FXML
     private Button button0;
     @FXML
@@ -180,6 +190,10 @@ public class Third_levelController implements Initializable {
     private Circle recording;
     @FXML
     private Button get_help_bt;
+    @FXML
+    private ImageView refresh_img;
+    @FXML
+    private ImageView get_help_img;
    
     
     
@@ -305,6 +319,18 @@ public class Third_levelController implements Initializable {
             
        
         memoryGame.setupGame(); 
+    
+        for(int p =0; p <image_name.length; p++) {
+               for(int h=0;h<fill_button3.length;h++) {
+
+               if(fill_button3[h].equals(image_name[p]))
+                {
+                           select[p]=true;
+                }
+          }
+          }
+    
+    
     }
     
     @FXML
@@ -312,10 +338,10 @@ public class Third_levelController implements Initializable {
     {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        
         if(!firstButtonClicked)
         {
             //If next turn is started before old buttons are hidden
-             // timeline2.play();
             if(!match)
             {
                 hideButtons();
@@ -392,15 +418,54 @@ public class Third_levelController implements Initializable {
             button_match[firstButtonIndex]=true;
             button_match[secondButtonIndex]=true;
             match = true;  
+            
+            Session session = HibernateUtil.getSessionFactory().openSession();      
+            List<user_pronounce_word> record_list = null;
+            String queryStr = "from user_pronounce_word";
+            Query query = session.createQuery(queryStr);
+            record_list =  query.list();
+            session.close();
+            for(user_pronounce_word u: record_list){
+                if (userSignInNow.userSignIn.equals(u.getEmail()) && w_id == u.getWord_id() ){
+                    Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
+                        u.setIncorrect_count(0);
+                        session5.update(u);
+                        session5.getTransaction().commit();
+                        session5.close(); 
+                        System.out.println("Now Incorrect count is 0");
+                }
+            }
+           
+            for(int k=0 ; k < image_name.length ; k++){
+                 
+                if(image_value.equals(image_name[k]))
+                { 
+                    index_image=k;
+                }
+                 System.out.println("is selet  "+select[k]+ "at index: "+k);
+                 System.out.println("");
+            }
             image_recod_pane.setImage(selectedImage);
-            record_pan.setVisible(true);
-            image_recod_pane.setVisible(true);
-            //timeline2.stop();
+            shwoRecord();
             return;
         }
 
         timeline.play();
       
+    }
+    
+    private void shwoRecord()
+    {         
+         record_pan.setVisible(true);
+         image_recod_pane.setVisible(true);
+    }
+    
+    private void hideRecord()
+    {        
+         record_pan.setVisible(false);
+         image_recod_pane.setVisible(false);
+         character.setVisible(false);
     }
     
    
@@ -503,8 +568,22 @@ public class Third_levelController implements Initializable {
 
      @FXML
     private void refresh_cards(ActionEvent event){
+        
+       select[index_image]=false;
+       
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        
+        try {           
+        unable_refresh = new FileInputStream("src\\lasen\\image\\unable_refresh.png");
+        unable_character = new FileInputStream("src\\lasen\\image\\unable_character.png");
+        Image disable_refresh = new Image(unable_refresh);
+        Image disable_get_help = new Image(unable_character); 
+        refresh_img.setImage(disable_refresh);
+        get_help_img.setImage(disable_get_help);       
+        } catch (FileNotFoundException ex) {
+        Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         Session session2 = HibernateUtil.getSessionFactory().openSession();      
         List<user_pronounce_word> record_list = null;
@@ -516,14 +595,19 @@ public class Third_levelController implements Initializable {
         {
             if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()) && u.getIncorrect_count()>=3)
             {                
-                int random_image=random.nextInt(image_name.length);
-                while(select[random_image])
+                index_image =random.nextInt(image_name.length);
+                
+               while(select[index_image] )
                 {
-                   random_image=random.nextInt(image_name.length);
+                   index_image=random.nextInt(image_name.length);
                 }
-                System.out.println(random_image);
-                select[random_image]=true;
-                String update_img = image_name[random_image];
+                
+               for(int k=0 ; k < image_name.length ; k++){
+                System.out.println("is selet  "+select[k]+ "at index:  "+k);
+            }
+               System.out.print(" ///////// " );
+                String update_img = image_name[index_image];
+                
                 for(int i=0; i< WordList.size();i++)
                 {
                     if(WordList.get(i).getText().equals(update_img))
@@ -536,6 +620,22 @@ public class Third_levelController implements Initializable {
                         break;
                     }
                 }
+                
+                for(user_pronounce_word v: record_list)
+                {
+                    if (w_id == v.getWord_id() && userSignInNow.userSignIn.equals(v.getEmail()))
+                    {
+                        Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
+                        v.setIncorrect_count(0);
+                        session5.update(v);
+                        session5.getTransaction().commit();
+                        session5.close(); 
+                        System.out.println("yes row updated");
+                        break;         
+                    }
+                }                
+                
                 Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
                 ImageView view = new ImageView(selectedImage);
                 view.setFitWidth(160);
@@ -551,6 +651,15 @@ public class Third_levelController implements Initializable {
     private void get_help(ActionEvent event) throws LineUnavailableException, IOException{
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
+        
+        try {
+            FileInputStream helpChar = new FileInputStream("src\\lasen\\image\\stand_smile.png");
+            Image helpCharImage = new Image(helpChar);                 
+            character.setImage(helpCharImage);                 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         String wav=null;
         
         Session session = HibernateUtil.getSessionFactory().openSession();      
@@ -581,24 +690,14 @@ public class Third_levelController implements Initializable {
                                 break;
                             }
                         } 
-                        media5 = new Media(getClass().getResource("/sounds/Correct_pronouncataion_is_1.mp3").toExternalForm());
-                        mediaPlayer5 = new MediaPlayer(media5);
-                        mediaPlayer5.seek(Duration.seconds(500));
-                        Lasen.mediaPlayer5.play();
-
-                        media5 = new Media(getClass().getResource("/sounds/Correct_pronouncataion_is_2.mp3").toExternalForm());
-                        mediaPlayer5 = new MediaPlayer(media5);
-                        mediaPlayer5.seek(Duration.seconds(100));
-                        Lasen.mediaPlayer5.play();
-
+                        decreaseUserCurrrentBalance();
+                        coins.setText(getCurrrentBalance());
+                        character.setVisible(true);
+                        timeline3.play();
                         media5 = new Media(getClass().getResource(wav).toExternalForm());
                         mediaPlayer5 = new MediaPlayer(media5);
                         mediaPlayer5.seek(Duration.seconds(0));
-                        Lasen.mediaPlayer5.play();
-                        record_pan.setVisible(false);
-                        image_recod_pane.setVisible(false);
-                        
-                        decreaseUserCurrrentBalance(); 
+                        Lasen.mediaPlayer5.play(); 
                         
                         break;
                     }              
@@ -608,6 +707,30 @@ public class Third_levelController implements Initializable {
         }                    
     }
 
+    private void changeImageToAble(){  
+        try {
+            refresh = new FileInputStream("src\\lasen\\image\\refresh.png");
+            get_help = new FileInputStream("src\\lasen\\image\\get_help.png");
+            Image able_refresh = new Image(refresh);
+            Image able_get_help = new Image(get_help);
+            refresh_img.setImage(able_refresh);
+            get_help_img.setImage(able_get_help);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void changeImageToDisable(){
+        try {            
+            unable_refresh = new FileInputStream("src\\lasen\\image\\unable_refresh.png");
+            unable_character = new FileInputStream("src\\lasen\\image\\unable_character.png");
+            Image disable_refresh = new Image(unable_refresh);
+            Image disable_get_help = new Image(unable_character);
+            refresh_img.setImage(disable_refresh);
+            get_help_img.setImage(disable_get_help);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     boolean StartORStop=true;        
     @FXML
@@ -616,6 +739,14 @@ public class Third_levelController implements Initializable {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
        
+        try {
+            FileInputStream happyChar = new FileInputStream("src\\lasen\\image\\jump_laf.png");
+            Image happyCharImage = new Image(happyChar);                 
+            character.setImage(happyCharImage);                 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         if(StartORStop)
         {
             StartORStop=false;
@@ -688,14 +819,16 @@ public class Third_levelController implements Initializable {
                             System.out.println("new row recorded"); 
 
                         }
+                        select[index_image]=true;
+                        character.setVisible(true);
                         media3 = new Media(getClass().getResource(getRandomStringCorr()).toExternalForm());
                         mediaPlayer3 = new MediaPlayer(media3);
                         mediaPlayer3.seek(Duration.seconds(0));
                         Lasen.mediaPlayer3.play();
-                        record_pan.setVisible(false);
-                        image_recod_pane.setVisible(false);
-                        dimonds.setText(getDimonds());                         
-                    } 
+                        timeline2.play();
+                        dimonds.setText(getDimonds());
+                    }
+                    
                 }
             }
             if(Distance>0)
@@ -737,6 +870,17 @@ public class Third_levelController implements Initializable {
                 increaseUserCurrrentBalance();
                 coins.setText(getCurrrentBalance());
             }
+            for(user_pronounce_word x: record_list)
+                {
+                    if (w_id == x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail()) && x.getIncorrect_count()>=3)
+                    {
+                        changeImageToAble();                        
+                    }else {                        
+                        changeImageToDisable();
+                        break;
+                    }
+                    
+                }
         }      
     }
      

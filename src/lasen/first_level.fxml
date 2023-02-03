@@ -115,16 +115,16 @@
             <Font name="Engravers MT" size="24.0" />
          </font>
       </Text>
-      <Pane fx:id="record_pan" layoutX="14.0" layoutY="200.0" opacity="0.95" prefHeight="398.0" prefWidth="372.0" style="-fx-background-color: #ffff; -fx-background-radius: 20;" visible="false">
+      <Pane fx:id="record_pan" layoutX="14.0" layoutY="200.0" prefHeight="398.0" prefWidth="380.0" style="-fx-background-color: #ffff; -fx-background-radius: 20;" visible="false">
          <children>
-            <ImageView fitHeight="366.0" fitWidth="372.0" layoutX="4.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="367.0" fitWidth="372.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/background2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="image_recod_pane" fitHeight="250.0" fitWidth="290.0" layoutX="46.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-            <Circle fx:id="recording" fill="#dbffbf" layoutX="193.0" layoutY="358.0" radius="41.0" stroke="#543315" strokeType="INSIDE" visible="false" />
-            <Button fx:id="refresh_bt" layoutX="233.0" layoutY="328.0" mnemonicParsing="false" onAction="#refresh_cards" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent;">
+            <Circle fx:id="recording" fill="#dbffbf" layoutX="192.0" layoutY="352.0" radius="41.0" stroke="#543315" strokeType="INSIDE" visible="false" />
+            <Button fx:id="refresh_bt" layoutX="232.0" layoutY="322.0" mnemonicParsing="false" onAction="#refresh_cards" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fx:id="refresh_img" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -133,7 +133,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="get_help_bt" layoutX="70.0" layoutY="328.0" mnemonicParsing="false" onAction="#get_help" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent;">
+            <Button fx:id="get_help_bt" layoutX="69.0" layoutY="322.0" mnemonicParsing="false" onAction="#get_help" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fx:id="get_help_img" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -142,7 +142,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="micerphone_bt" layoutX="142.0" layoutY="312.0" mnemonicParsing="false" onAction="#record_sound" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: transparent;">
+            <Button fx:id="micerphone_bt" layoutX="141.0" layoutY="306.0" mnemonicParsing="false" onAction="#record_sound" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>

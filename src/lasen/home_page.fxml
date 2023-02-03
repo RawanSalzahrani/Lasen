@@ -81,7 +81,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="instructions" layoutX="-5.0" layoutY="720.0" mnemonicParsing="false" onAction="#to_instructions" onMouseEntered="#enlarge_instructions" onMouseExited="#minimize_instructions" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
+      <Button fx:id="instructions" layoutX="-5.0" layoutY="720.0" mnemonicParsing="false" onMouseEntered="#enlarge_instructions" onMouseExited="#minimize_instructions" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>

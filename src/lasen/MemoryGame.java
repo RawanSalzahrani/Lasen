@@ -102,16 +102,7 @@ public class MemoryGame {
     }
     
     
-  public void imageFill()  
-{  
-
-for(int i=0; i<=fill_button.length;i++)
-{
-     fill_button[i]=memoryBoard.get(i);
-     System.out.println(fill_button[i]+" ");
-}       
-}  
-} 
+}
 
 
     

@@ -87,8 +87,6 @@ public class Home_pageController implements Initializable {
     @FXML
     private ImageView music_img;
    
-   // int Can_Get_Into_Lvl2;
-   // int Can_Get_Into_Lvl3;
     @FXML
     private ImageView lvl_1_img;
     @FXML
@@ -213,17 +211,6 @@ public class Home_pageController implements Initializable {
         instructions.setPrefHeight(instructions.getPrefHeight()+5);
         instructions.setPrefWidth(instructions.getPrefWidth()+5);
         instructions.setTranslateX(instructions.getTranslateX()-5);
-    }
-
-    @FXML
-    private void to_instructions(ActionEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Parent root = FXMLLoader.load(getClass().getResource("instructions.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML

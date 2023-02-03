@@ -7,8 +7,6 @@ package lasen;
 
 import static java.lang.String.valueOf;
 import java.util.List;
-import static lasen.First_levelController.lvl_num;
-import static lasen.First_levelController.w_id;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -21,7 +19,6 @@ public class userSignInNow {
     public static String userSignIn="";
     public static int currentBalanceUserSignIn=0;
     public static int dimondsUserSignIn=0;
-    public static int levelDoneNumForUserSignIn=0;
     
     public static void increaseUserCurrrentBalance(){
         Session session = HibernateUtil.getSessionFactory().openSession();

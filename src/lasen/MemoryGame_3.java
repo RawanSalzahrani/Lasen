@@ -26,7 +26,7 @@ public class MemoryGame_3 {
     
     String[] phonemes = {"KUSA[K,UW,Z,AH]","MISWAK[M,IH,S,W,AE,K]","MADRASA[M,AE,D,R,AH,S,AH]","MISMAR[M,IH,S,M,AA,R]","MASJID[M,AE,Z,JH,AH,D]","ASAD[AH,S,AE,D]","KURSI[K,AH,R,S,IY]","MAKNASA[M,AE,K,N,AH,S,AH]"};
     String[] phonemes2 = {"KUSA[K,UW,S,AH]","MISWAK[M,IH,S,W,AE,K]","MADRASA[M,AE,D,R,AH,S,AH]","MISMAR[M,IH,S,M,AA,R]","MASJID[M,AE,S,JH,AH,D]","ASAD[AH,S,AE,D]","KURSI[K,AH,R,S,IY]","MAKNASA[M,AE,K,N,AH,S,AH]"};
-         
+    public static String[] fill_button3 = {"", "", "", "","","","",""};    
     
     
     public void setupGame(){
@@ -58,7 +58,7 @@ public class MemoryGame_3 {
            
              
             int position = random.nextInt(boardSize);
-        
+              fill_button3[position]=memoryOption;
             while (!Objects.equals(memoryBoard.get(position),"")){
                 position = random.nextInt(boardSize );
             }
@@ -66,7 +66,8 @@ public class MemoryGame_3 {
              memoryBoard.set(position, memoryOption);
              
             int position2 = random.nextInt(boardSize);
-        
+            fill_button3[position2]=memoryOption;
+
             while (!Objects.equals(memoryBoard.get(position2),"")){
                 position2 = random.nextInt(boardSize );
             }
@@ -94,4 +95,6 @@ public class MemoryGame_3 {
     public boolean checkTwoPositions(int firstIndex, int secondIndex){
        return memoryBoard.get(firstIndex).equals(memoryBoard.get(secondIndex));
     }
-}
+   
+} 
+

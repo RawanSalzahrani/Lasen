@@ -26,7 +26,7 @@ public class MemoryGame_2 {
     boolean[] index_select ={false,false,false,false,false,false};
     String[] phonemes = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,Z]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,Z]","SHAMS[SH,AE,M,Z]"};
     String[] phonemes2 = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,S]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,S]","SHAMS[SH,AE,M,Z]"};
-       
+    public static String[] fill_button2 = {"", "", "", "","",""};   
     
     
     public void setupGame(){
@@ -65,13 +65,15 @@ public class MemoryGame_2 {
             }
             
              memoryBoard.set(position, memoryOption);
-             
+              fill_button2[position]=memoryOption;
+              
             int position2 = random.nextInt(boardSize);
         
             while (!Objects.equals(memoryBoard.get(position2),"")){
                 position2 = random.nextInt(boardSize );
             }
              memoryBoard.set(position2, memoryOption);
+              fill_button2[position2]=memoryOption;
              
             System.out.println(position+","+position2);
             
@@ -95,7 +97,7 @@ public class MemoryGame_2 {
     public boolean checkTwoPositions(int firstIndex, int secondIndex){
        return memoryBoard.get(firstIndex).equals(memoryBoard.get(secondIndex));
     }
-} 
+}
 
 
     
