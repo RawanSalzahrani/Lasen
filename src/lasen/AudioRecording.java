@@ -26,6 +26,7 @@ public class AudioRecording {
     TargetDataLine targetLine;  // the line from which audio data is captured
     AudioFormat audioFormat = new AudioFormat(16000, 16, 1, true, false);
     DataLine.Info dataInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+    String fileName;
     
     
     public void startRecording() throws IOException, LineUnavailableException{
@@ -43,7 +44,8 @@ public class AudioRecording {
                @Override public void run()
                {
                   AudioInputStream recordingStream = new AudioInputStream(targetLine);
-                  File outputFile = new File("record.wav"); // path of the wav file
+                  fileName = userSignInNow.userName + "_" + userSignInNow.userAge + "_" + First_levelController.word_text+".wav";
+                  File outputFile = new File(fileName); // path of the wav file
                   
                   try
                   {
@@ -71,7 +73,7 @@ public class AudioRecording {
         targetLine.close(); // Closes the target data line to finish capturing and recording
         
         CMUSphinx spinx =new CMUSphinx();
-        return spinx.getHypotesis();
+        return spinx.getHypotesis(fileName);
   
     }
 

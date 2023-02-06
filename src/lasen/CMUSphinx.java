@@ -15,7 +15,7 @@ public class CMUSphinx {
 	//Configuration configuration = new Configuration();
     private StreamSpeechRecognizer recognizer;
    
-	public String getHypotesis() throws IOException{
+	public String getHypotesis(String fileName) throws IOException{
 		
 		if (this.recognizer == null)
                 {
@@ -30,7 +30,7 @@ public class CMUSphinx {
                     }
 		}
                 
-		this.recognizer.startRecognition(new FileInputStream("record.wav"));
+		this.recognizer.startRecognition(new FileInputStream(fileName));
 			
 		SpeechResult result = recognizer.getResult();
 		if (result != null) 

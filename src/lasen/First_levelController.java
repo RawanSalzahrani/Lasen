@@ -159,7 +159,7 @@ public class First_levelController implements Initializable {
     byte[] photo;
     public static int w_id;
     public static int lvl_num;
-    String word_text=null;
+    public static String word_text=null;
     List<word> WordList = null; 
     AudioRecording AudioRecording = new AudioRecording();
     int Ismatch=0; 
@@ -370,20 +370,20 @@ public class First_levelController implements Initializable {
             button_match[secondButtonIndex]=true;
             match = true;
             
-            Session session = HibernateUtil.getSessionFactory().openSession();      
+            Session session2 = HibernateUtil.getSessionFactory().openSession();      
             List<user_pronounce_word> record_list = null;
             String queryStr = "from user_pronounce_word";
-            Query query = session.createQuery(queryStr);
-            record_list =  query.list();
-            session.close();
+            Query query2 = session2.createQuery(queryStr);
+            record_list =  query2.list();
+            session2.close();
             for(user_pronounce_word u: record_list){
                 if (userSignInNow.userSignIn.equals(u.getEmail()) && w_id == u.getWord_id() ){
-                    Session session5 = HibernateUtil.getSessionFactory().openSession();
-                        session5.beginTransaction();
+                        Session session3 = HibernateUtil.getSessionFactory().openSession();
+                        session3.beginTransaction();
                         u.setIncorrect_count(0);
-                        session5.update(u);
-                        session5.getTransaction().commit();
-                        session5.close(); 
+                        session3.update(u);
+                        session3.getTransaction().commit();
+                        session3.close(); 
                         System.out.println("Now Incorrect count is 0");
                 }
             }
@@ -530,12 +530,12 @@ public class First_levelController implements Initializable {
         Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
                
-        Session session2 = HibernateUtil.getSessionFactory().openSession();      
+        Session session4 = HibernateUtil.getSessionFactory().openSession();      
         List<user_pronounce_word> record_list = null;
-        String queryStr2 = "from user_pronounce_word";
-        Query query2 = session2.createQuery(queryStr2);
-        record_list =  query2.list();
-        session2.close();
+        String queryStr = "from user_pronounce_word";
+        Query query4 = session4.createQuery(queryStr);
+        record_list =  query4.list();
+        session4.close();
 
 
         for(user_pronounce_word u: record_list)
@@ -610,22 +610,22 @@ public class First_levelController implements Initializable {
         
         String wav=null;
         
-        Session session = HibernateUtil.getSessionFactory().openSession();      
+        Session session6 = HibernateUtil.getSessionFactory().openSession();      
         List<user> current_balance = null;
         String queryStr = "from user";
-        Query query = session.createQuery(queryStr);
-        current_balance =  query.list();
-        session.close();
+        Query query6 = session6.createQuery(queryStr);
+        current_balance =  query6.list();
+        session6.close();
         for(user b: current_balance)
         {
             if(userSignInNow.userSignIn.equals(b.getEmail()) && b.getCurrent_balance()>=15)
             {
-                Session session2 = HibernateUtil.getSessionFactory().openSession();      
+                Session session7 = HibernateUtil.getSessionFactory().openSession();      
                 List<user_pronounce_word> record_list = null;
                 String queryStr2 = "from user_pronounce_word";
-                Query query2 = session2.createQuery(queryStr2);
-                record_list =  query2.list();
-                session2.close();
+                Query query7 = session7.createQuery(queryStr2);
+                record_list =  query7.list();
+                session7.close();
                 for(user_pronounce_word u: record_list)
                 {
                     if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()) && u.getIncorrect_count()>=3)
@@ -695,6 +695,8 @@ public class First_levelController implements Initializable {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
        
         if(StartORStop)
         {
@@ -709,12 +711,12 @@ public class First_levelController implements Initializable {
            recording.setVisible(false);
            System.out.print(result);
            
-        Session session = HibernateUtil.getSessionFactory().openSession();      
+        Session session8 = HibernateUtil.getSessionFactory().openSession();      
             List<user_pronounce_word> record_list = null;
             String queryStr = "from user_pronounce_word";
-            Query query = session.createQuery(queryStr);
-            record_list =  query.list();
-            session.close(); 
+            Query query8 = session8.createQuery(queryStr);
+            record_list =  query8.list();
+            session8.close(); 
             
            int Distance=0;
            int oldRow=0;
@@ -735,12 +737,12 @@ public class First_levelController implements Initializable {
                                 if(u.getCorrect_count()==0)
                                 {                                    
                                     increaseUserDimonds();
-                                    Session session5 = HibernateUtil.getSessionFactory().openSession();
-                                    session5.beginTransaction();
+                                    Session session9 = HibernateUtil.getSessionFactory().openSession();
+                                    session9.beginTransaction();
                                     u.setCorrect_count(1);
-                                    session5.update(u);
-                                    session5.getTransaction().commit();
-                                    session5.close(); 
+                                    session9.update(u);
+                                    session9.getTransaction().commit();
+                                    session9.close(); 
                                     System.out.println("yes row updated");
                                 }
                                 else 
@@ -760,11 +762,11 @@ public class First_levelController implements Initializable {
                             w.setEmail(userSignInNow.userSignIn);
                             w.setCorrect_count(1);
                             w.setIncorrect_count(w.getIncorrect_count());               
-                            Session session3 = HibernateUtil.getSessionFactory().openSession();
-                            Transaction tx = session3.beginTransaction();
-                            session3.save(w);
+                            Session session10 = HibernateUtil.getSessionFactory().openSession();
+                            Transaction tx = session10.beginTransaction();
+                            session10.save(w);
                             tx.commit();
-                            session3.close();                
+                            session10.close();                
                             System.out.println("new row recorded"); 
 
                         }
@@ -779,18 +781,24 @@ public class First_levelController implements Initializable {
                     } 
                 }
             }
+            Session session11 = HibernateUtil.getSessionFactory().openSession();      
+            List<user_pronounce_word> record_list1 = null;
+            String queryStr1 = "from user_pronounce_word";
+            Query query11 = session11.createQuery(queryStr1);
+            record_list1 =  query11.list();
+            session11.close(); 
             if(Distance>0)
             {
                 for(user_pronounce_word x: record_list)
                 {
                     if (w_id == x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail()))
                     {
-                        Session session5 = HibernateUtil.getSessionFactory().openSession();
-                        session5.beginTransaction();
+                        Session session12 = HibernateUtil.getSessionFactory().openSession();
+                        session12.beginTransaction();
                         x.setIncorrect_count(x.getIncorrect_count()+1);
-                        session5.update(x);
-                        session5.getTransaction().commit();
-                        session5.close(); 
+                        session12.update(x);
+                        session12.getTransaction().commit();
+                        session12.close(); 
                         System.out.println("yes row updated");
                         oldRow++;
                         break;
@@ -804,11 +812,11 @@ public class First_levelController implements Initializable {
                         w.setEmail(userSignInNow.userSignIn);
                         w.setCorrect_count(w.getCorrect_count());
                         w.setIncorrect_count(w.getIncorrect_count()+1);               
-                        Session session6 = HibernateUtil.getSessionFactory().openSession();
-                        Transaction tx = session6.beginTransaction();
-                        session6.save(w);
+                        Session session13 = HibernateUtil.getSessionFactory().openSession();
+                        Transaction tx = session13.beginTransaction();
+                        session13.save(w);
                         tx.commit();
-                        session6.close();                
+                        session13.close();                
                         System.out.println("new row recorded");  
                 }
                 media4 = new Media(getClass().getResource(getRandomStringInCorr()).toExternalForm());
@@ -818,11 +826,19 @@ public class First_levelController implements Initializable {
                 increaseUserCurrrentBalance();
                 coins.setText(getCurrrentBalance());               
             }
-            for(user_pronounce_word x: record_list)
+            
+            Session session14 = HibernateUtil.getSessionFactory().openSession();      
+            List<user_pronounce_word> record_list12 = null;
+            String queryStr2 = "from user_pronounce_word";
+            Query query14 = session14.createQuery(queryStr2);
+            record_list12 =  query14.list();
+            session14.close(); 
+            for(user_pronounce_word x: record_list12)
                 {
                     if (w_id == x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail()) && x.getIncorrect_count()>=3)
                     {
-                        changeImageToAble();                        
+                        changeImageToAble(); 
+                        break;
                     }else {                        
                         changeImageToDisable();
                         break;

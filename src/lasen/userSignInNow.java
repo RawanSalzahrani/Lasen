@@ -17,6 +17,8 @@ import org.hibernate.Transaction;
  */
 public class userSignInNow {
     public static String userSignIn="";
+    public static String userName="";
+    public static int userAge;
     public static int currentBalanceUserSignIn=0;
     public static int dimondsUserSignIn=0;
     
@@ -43,6 +45,7 @@ public class userSignInNow {
                 session1.update(u);
                 tx1.commit();
                 session1.close();
+               
             }
             
         }  
