@@ -115,12 +115,6 @@ public class First_levelController implements Initializable {
     private ImageView image_recod_pane;
     
     FileInputStream unmuteFile_back;
-    FileInputStream unmuteFile_background;
-    FileInputStream unable_refresh;
-    FileInputStream unable_character;
-    FileInputStream refresh;
-    FileInputStream get_help;
-    
     private boolean firstButtonClicked = false;
     private int firstButtonIndex;
     private int secondButtonIndex;
@@ -138,7 +132,7 @@ public class First_levelController implements Initializable {
     ImageView view_background_close3;    
     
     MemoryGame memoryGame = new MemoryGame();
-    
+    FileInputStream unmuteFile_background;
     
     boolean[] button_match={false,false, false ,false};
    
@@ -154,7 +148,6 @@ public class First_levelController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    
     boolean voice_pane=false;
     byte[] photo;
     public static int w_id;
@@ -163,7 +156,6 @@ public class First_levelController implements Initializable {
     List<word> WordList = null; 
     AudioRecording AudioRecording = new AudioRecording();
     int Ismatch=0; 
-    
     @FXML
     private Circle recording;
     
@@ -226,6 +218,7 @@ public class First_levelController implements Initializable {
            view_background_0 = new ImageView(img);   
            view_background_0.setFitWidth(160);
            view_background_0.setFitHeight(160); 
+          // view_background_0.setPreserveRatio(true);
           
            view_background_1 = new ImageView(img);   
            view_background_1.setFitWidth(160);
@@ -278,19 +271,19 @@ public class First_levelController implements Initializable {
         Query query = session.createQuery(queryStr);
         WordList = query.list();       
         session.close();
-        
-        
                              
     }
-        
+    
     @FXML
     void buttonClickedCard(ActionEvent event) throws FileNotFoundException 
     {
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
-        
         if(!firstButtonClicked)
         {
+                //If next turn is started before old buttons are hidden
+
+                 // timeline2.play();
             if(!match)
             {
                 hideButtons();
@@ -303,8 +296,11 @@ public class First_levelController implements Initializable {
             //Get clicked button memory letter
             String buttonId = ((Control)event.getSource()).getId();
             firstButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
-            System.out.println(" the  "+firstButtonIndex);           
-            image_value=memoryGame.getOptionAtIndex(firstButtonIndex);                  
+            System.out.println(" the  "+firstButtonIndex);
+           
+            image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
+          
+                   
             System.out.println("it is "+image_value);                  
 
             for(int i=0; i< WordList.size();i++)
@@ -370,20 +366,20 @@ public class First_levelController implements Initializable {
             button_match[secondButtonIndex]=true;
             match = true;
             
-            Session session2 = HibernateUtil.getSessionFactory().openSession();      
+            Session session = HibernateUtil.getSessionFactory().openSession();      
             List<user_pronounce_word> record_list = null;
             String queryStr = "from user_pronounce_word";
-            Query query2 = session2.createQuery(queryStr);
-            record_list =  query2.list();
-            session2.close();
+            Query query = session.createQuery(queryStr);
+            record_list =  query.list();
+            session.close();
             for(user_pronounce_word u: record_list){
                 if (userSignInNow.userSignIn.equals(u.getEmail()) && w_id == u.getWord_id() ){
-                        Session session3 = HibernateUtil.getSessionFactory().openSession();
-                        session3.beginTransaction();
+                    Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
                         u.setIncorrect_count(0);
-                        session3.update(u);
-                        session3.getTransaction().commit();
-                        session3.close(); 
+                        session5.update(u);
+                        session5.getTransaction().commit();
+                        session5.close(); 
                         System.out.println("Now Incorrect count is 0");
                 }
             }
@@ -397,9 +393,13 @@ public class First_levelController implements Initializable {
                  System.out.println("is selet  "+select[k]+ "at index: "+k);
                  System.out.println("");
             }
-            image_recod_pane.setImage(selectedImage);          
-            shwoRecord();
+            image_recod_pane.setImage(selectedImage);
            
+            shwoRecord();
+            
+            // timeline2.stop();
+            
+            
             return;
         }
 
@@ -510,7 +510,6 @@ public class First_levelController implements Initializable {
         stage.show();
     }
 
-    
     @FXML
     private void refresh_cards(ActionEvent event){
         
@@ -518,24 +517,62 @@ public class First_levelController implements Initializable {
         
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
-        
-        try {           
+        try {
+            
         FileInputStream unable_refresh = new FileInputStream("src\\lasen\\image\\unable_refresh.png");
         FileInputStream unable_character = new FileInputStream("src\\lasen\\image\\unable_character.png");
         Image disable_refresh = new Image(unable_refresh);
         Image disable_get_help = new Image(unable_character); 
         refresh_img.setImage(disable_refresh);
         get_help_img.setImage(disable_get_help);
+        
+        
         } catch (FileNotFoundException ex) {
         Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-               
-        Session session4 = HibernateUtil.getSessionFactory().openSession();      
+        
+////        ///هذا الكود شغال 
+////         index_image =random.nextInt(image_name.length);
+////                
+////                while(select[index_image] )
+////                {
+////                   index_image=random.nextInt(image_name.length);
+////                }
+////                
+////               for(int k=0 ; k < image_name.length ; k++){
+////                System.out.println("is selet  "+select[k]+ "at index:  "+k);
+////            }
+////               System.out.print(" ///////// " );
+////                String update_img = image_name[index_image];
+////                
+////                for(int i=0; i< WordList.size();i++)
+////                {
+////                    if(WordList.get(i).getText().equals(update_img))
+////                    {
+////                        photo=WordList.get(i).getImg();
+////                        w_id=WordList.get(i).getWord_id();
+////                        lvl_num=WordList.get(i).getLevel_no();
+////                        word_text=WordList.get(i).getText();
+////                        break;
+////                    }
+////                }
+////                
+////              Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
+////                ImageView view = new ImageView(selectedImage);
+////                view.setFitWidth(160);
+////                view.setFitHeight(160);
+////                buttons.get(firstButtonIndex).setGraphic(view);
+////                buttons.get(secondButtonIndex).setGraphic(view);
+////                image_recod_pane.setImage(selectedImage);  
+                
+                
+        
+        Session session2 = HibernateUtil.getSessionFactory().openSession();      
         List<user_pronounce_word> record_list = null;
-        String queryStr = "from user_pronounce_word";
-        Query query4 = session4.createQuery(queryStr);
-        record_list =  query4.list();
-        session4.close();
+        String queryStr2 = "from user_pronounce_word";
+        Query query2 = session2.createQuery(queryStr2);
+        record_list =  query2.list();
+        session2.close();
 
 
         for(user_pronounce_word u: record_list)
@@ -569,6 +606,19 @@ public class First_levelController implements Initializable {
                     }
                 }
                 
+              
+                
+                for(int i=0; i< WordList.size();i++)
+                {
+                    if(WordList.get(i).getText().equals(update_img))
+                    {
+                        photo=WordList.get(i).getImg();
+                        w_id=WordList.get(i).getWord_id();
+                        lvl_num=WordList.get(i).getLevel_no();
+                        word_text=WordList.get(i).getText();
+                        break;
+                    }
+                }
                 for(user_pronounce_word v: record_list)
                 {
                     if (w_id == v.getWord_id() && userSignInNow.userSignIn.equals(v.getEmail()))
@@ -583,7 +633,6 @@ public class First_levelController implements Initializable {
                         break;         
                     }
                 }
-                
                 Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
                 ImageView view = new ImageView(selectedImage);
                 view.setFitWidth(160);
@@ -599,7 +648,6 @@ public class First_levelController implements Initializable {
     private void get_help(ActionEvent event) throws LineUnavailableException, IOException{
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
-        
         try {
             FileInputStream helpChar = new FileInputStream("src\\lasen\\image\\stand_smile.png");
             Image helpCharImage = new Image(helpChar);                 
@@ -607,25 +655,24 @@ public class First_levelController implements Initializable {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         String wav=null;
         
-        Session session6 = HibernateUtil.getSessionFactory().openSession();      
+        Session session = HibernateUtil.getSessionFactory().openSession();      
         List<user> current_balance = null;
         String queryStr = "from user";
-        Query query6 = session6.createQuery(queryStr);
-        current_balance =  query6.list();
-        session6.close();
+        Query query = session.createQuery(queryStr);
+        current_balance =  query.list();
+        session.close();
         for(user b: current_balance)
         {
             if(userSignInNow.userSignIn.equals(b.getEmail()) && b.getCurrent_balance()>=15)
             {
-                Session session7 = HibernateUtil.getSessionFactory().openSession();      
+                Session session2 = HibernateUtil.getSessionFactory().openSession();      
                 List<user_pronounce_word> record_list = null;
                 String queryStr2 = "from user_pronounce_word";
-                Query query7 = session7.createQuery(queryStr2);
-                record_list =  query7.list();
-                session7.close();
+                Query query2 = session2.createQuery(queryStr2);
+                record_list =  query2.list();
+                session2.close();
                 for(user_pronounce_word u: record_list)
                 {
                     if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()) && u.getIncorrect_count()>=3)
@@ -647,6 +694,7 @@ public class First_levelController implements Initializable {
                         mediaPlayer5.seek(Duration.seconds(0));
                         Lasen.mediaPlayer5.play();
                         
+                        
                         break;
                     }              
                 }
@@ -654,37 +702,15 @@ public class First_levelController implements Initializable {
             }
         }                    
     }
-   
-    private void changeImageToAble(){  
-        try {
-            refresh = new FileInputStream("src\\lasen\\image\\refresh.png");
-            get_help = new FileInputStream("src\\lasen\\image\\get_help.png");
-            Image able_refresh = new Image(refresh);
-            Image able_get_help = new Image(get_help);
-            refresh_img.setImage(able_refresh);
-            get_help_img.setImage(able_get_help);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    private void changeImageToDisable(){
-        try {            
-            unable_refresh = new FileInputStream("src\\lasen\\image\\unable_refresh.png");
-            unable_character = new FileInputStream("src\\lasen\\image\\unable_character.png");
-            Image disable_refresh = new Image(unable_refresh);
-            Image disable_get_help = new Image(unable_character);
-            refresh_img.setImage(disable_refresh);
-            get_help_img.setImage(disable_get_help);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    boolean StartORStop=true;
-    
+
+    boolean StartORStop=true;        
     @FXML
     private void record_sound(ActionEvent event) throws LineUnavailableException, IOException {
-  
+        
+        
+        
+        
+        
         mediaPlayer.seek(Duration.seconds(0));
         mediaPlayer.play();
         
@@ -695,8 +721,6 @@ public class First_levelController implements Initializable {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
        
         if(StartORStop)
         {
@@ -711,13 +735,12 @@ public class First_levelController implements Initializable {
            recording.setVisible(false);
            System.out.print(result);
            
-        Session session8 = HibernateUtil.getSessionFactory().openSession();      
+        Session session = HibernateUtil.getSessionFactory().openSession();      
             List<user_pronounce_word> record_list = null;
             String queryStr = "from user_pronounce_word";
-            Query query8 = session8.createQuery(queryStr);
-            record_list =  query8.list();
-            session8.close(); 
-            
+            Query query = session.createQuery(queryStr);
+            record_list =  query.list();
+            session.close();           
            int Distance=0;
            int oldRow=0;
            StartORStop=true;            
@@ -735,14 +758,15 @@ public class First_levelController implements Initializable {
                             if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()))
                             {
                                 if(u.getCorrect_count()==0)
-                                {                                    
+                                {
+                                    
                                     increaseUserDimonds();
-                                    Session session9 = HibernateUtil.getSessionFactory().openSession();
-                                    session9.beginTransaction();
+                                    Session session5 = HibernateUtil.getSessionFactory().openSession();
+                                    session5.beginTransaction();
                                     u.setCorrect_count(1);
-                                    session9.update(u);
-                                    session9.getTransaction().commit();
-                                    session9.close(); 
+                                    session5.update(u);
+                                    session5.getTransaction().commit();
+                                    session5.close(); 
                                     System.out.println("yes row updated");
                                 }
                                 else 
@@ -762,15 +786,24 @@ public class First_levelController implements Initializable {
                             w.setEmail(userSignInNow.userSignIn);
                             w.setCorrect_count(1);
                             w.setIncorrect_count(w.getIncorrect_count());               
-                            Session session10 = HibernateUtil.getSessionFactory().openSession();
-                            Transaction tx = session10.beginTransaction();
-                            session10.save(w);
+                            Session session3 = HibernateUtil.getSessionFactory().openSession();
+                            Transaction tx = session3.beginTransaction();
+                            session3.save(w);
                             tx.commit();
-                            session10.close();                
+                            session3.close();                
                             System.out.println("new row recorded"); 
 
                         }
-                        select[index_image]=true;
+                        
+                        
+                       select[index_image]=true;
+                     
+                     
+//                        for(int k=0 ; k < image_name.length ; k++){
+//                           
+//                                select[k]=true; 
+//                            } 
+//                        }
                         character.setVisible(true);
                         media3 = new Media(getClass().getResource(getRandomStringCorr()).toExternalForm());
                         mediaPlayer3 = new MediaPlayer(media3);
@@ -781,24 +814,18 @@ public class First_levelController implements Initializable {
                     } 
                 }
             }
-            Session session11 = HibernateUtil.getSessionFactory().openSession();      
-            List<user_pronounce_word> record_list1 = null;
-            String queryStr1 = "from user_pronounce_word";
-            Query query11 = session11.createQuery(queryStr1);
-            record_list1 =  query11.list();
-            session11.close(); 
             if(Distance>0)
             {
                 for(user_pronounce_word x: record_list)
                 {
                     if (w_id == x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail()))
                     {
-                        Session session12 = HibernateUtil.getSessionFactory().openSession();
-                        session12.beginTransaction();
+                        Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
                         x.setIncorrect_count(x.getIncorrect_count()+1);
-                        session12.update(x);
-                        session12.getTransaction().commit();
-                        session12.close(); 
+                        session5.update(x);
+                        session5.getTransaction().commit();
+                        session5.close(); 
                         System.out.println("yes row updated");
                         oldRow++;
                         break;
@@ -812,11 +839,11 @@ public class First_levelController implements Initializable {
                         w.setEmail(userSignInNow.userSignIn);
                         w.setCorrect_count(w.getCorrect_count());
                         w.setIncorrect_count(w.getIncorrect_count()+1);               
-                        Session session13 = HibernateUtil.getSessionFactory().openSession();
-                        Transaction tx = session13.beginTransaction();
-                        session13.save(w);
+                        Session session6 = HibernateUtil.getSessionFactory().openSession();
+                        Transaction tx = session6.beginTransaction();
+                        session6.save(w);
                         tx.commit();
-                        session13.close();                
+                        session6.close();                
                         System.out.println("new row recorded");  
                 }
                 media4 = new Media(getClass().getResource(getRandomStringInCorr()).toExternalForm());
@@ -824,28 +851,37 @@ public class First_levelController implements Initializable {
                 mediaPlayer4.seek(Duration.seconds(0));
                 Lasen.mediaPlayer4.play(); 
                 increaseUserCurrrentBalance();
-                coins.setText(getCurrrentBalance());               
+                coins.setText(getCurrrentBalance());
             }
-            
-            Session session14 = HibernateUtil.getSessionFactory().openSession();      
-            List<user_pronounce_word> record_list12 = null;
-            String queryStr2 = "from user_pronounce_word";
-            Query query14 = session14.createQuery(queryStr2);
-            record_list12 =  query14.list();
-            session14.close(); 
-            for(user_pronounce_word x: record_list12)
+            for(user_pronounce_word u: record_list)
                 {
-                    if (w_id == x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail()) && x.getIncorrect_count()>=3)
+                    if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()) && u.getIncorrect_count()>=3)
                     {
-                        changeImageToAble(); 
-                        break;
-                    }else {                        
-                        changeImageToDisable();
-                        break;
+                        try {
+                        FileInputStream refresh = new FileInputStream("src\\lasen\\image\\refresh.png");
+                        FileInputStream get_help = new FileInputStream("src\\lasen\\image\\get_help.png");
+                        Image able_refresh = new Image(refresh);
+                        Image able_get_help = new Image(get_help); 
+                        //refresh_img.setImage(able_refresh);
+                        //refresh_bt.setGraphic(refresh_img);
+                        //get_help_img.setImage(able_get_help);
+                        } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else {
+                        try {
+                        FileInputStream unable_refresh = new FileInputStream("src\\lasen\\image\\unable_refresh.png");
+                        FileInputStream unable_character = new FileInputStream("src\\lasen\\image\\unable_character.png");
+                        Image disable_refresh = new Image(unable_refresh);
+                        Image disable_get_help = new Image(unable_character); 
+                      //  refresh_img.setImage(disable_refresh);
+                       // get_help_img.setImage(disable_get_help);
+                        } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-                    
+                    break;
                 }
-            
         } 
     }
                                                            

@@ -353,12 +353,12 @@ public class Third_levelController implements Initializable {
             String buttonId = ((Control)event.getSource()).getId();
             firstButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
             System.out.println(" the  "+firstButtonIndex);
-            String Image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
-            System.out.println("it is "+Image_value);
+            image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
+            System.out.println("it is "+image_value);
 
            for(int i=0; i< WordList.size();i++)
            {
-             if(WordList.get(i).getText().equals(Image_value))
+             if(WordList.get(i).getText().equals(image_value))
              {
                 photo=WordList.get(i).getImg();
                 w_id=WordList.get(i).getWord_id();
@@ -385,12 +385,12 @@ public class Third_levelController implements Initializable {
         String buttonId = ((Control)event.getSource()).getId();
         secondButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
         System.out.println(" the2  "+secondButtonIndex);
-        String Image_value=memoryGame.getOptionAtIndex(secondButtonIndex);
-        System.out.println("it is "+Image_value);
+        image_value=memoryGame.getOptionAtIndex(secondButtonIndex);
+        System.out.println("it is "+image_value);
            
         for(int i=0; i< WordList.size();i++)
         {
-            if(WordList.get(i).getText().equals(Image_value))
+            if(WordList.get(i).getText().equals(image_value))
             {
                 photo=WordList.get(i).getImg();
                 w_id=WordList.get(i).getWord_id();
@@ -640,8 +640,11 @@ public class Third_levelController implements Initializable {
                 ImageView view = new ImageView(selectedImage);
                 view.setFitWidth(160);
                 view.setFitHeight(160);
+                ImageView view2 = new ImageView(selectedImage);
+                view2.setFitWidth(160);
+                view2.setFitHeight(160);
                 buttons.get(firstButtonIndex).setGraphic(view);
-                buttons.get(secondButtonIndex).setGraphic(view);
+                buttons.get(secondButtonIndex).setGraphic(view2);
                 image_recod_pane.setImage(selectedImage);
             }
         }        

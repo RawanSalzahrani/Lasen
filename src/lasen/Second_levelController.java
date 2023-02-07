@@ -126,9 +126,9 @@ public class Second_levelController implements Initializable {
     public GridPane gameMatrix;
     boolean voice_pane=false;
     byte[] photo;
-    int w_id;
-    int lvl_num;
-    String word_text=null;
+    public static int w_id;
+    public static int lvl_num;
+    public static String word_text=null;
     List<word> WordList = null; 
     AudioRecording AudioRecording = new AudioRecording();
     int Ismatch=0; 
@@ -321,7 +321,7 @@ public class Second_levelController implements Initializable {
             String buttonId = ((Control)event.getSource()).getId();
             firstButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
             System.out.println(" the  "+firstButtonIndex);     
-             image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
+             image_value =memoryGame.getOptionAtIndex(firstButtonIndex);
             System.out.println("it is "+image_value); 
                
            for(int i=0; i< WordList.size();i++)
