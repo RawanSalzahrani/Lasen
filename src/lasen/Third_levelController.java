@@ -769,7 +769,7 @@ public class Third_levelController implements Initializable {
             Query query = session.createQuery(queryStr);
             record_list =  query.list();
             session.close();
-           
+           String ph="null";
            int Distance=0;
            int oldRow=0;
            StartORStop=true;            
@@ -780,6 +780,7 @@ public class Third_levelController implements Initializable {
                     LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
                     Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(WordList.get(i).getPhoneme(), result);                                                
                     System.out.print(Distance);
+                     ph=WordList.get(i).getPhoneme();
                     if(Distance==0)
                     {   
                         for(user_pronounce_word u: record_list)
@@ -884,6 +885,7 @@ public class Third_levelController implements Initializable {
                     }
                     
                 }
+             WriteInFile.writeFile(userSignInNow.userName,word_text,ph,result,Distance);
         }      
     }
      
