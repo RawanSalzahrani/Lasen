@@ -616,6 +616,7 @@ public class First_levelController implements Initializable {
                         w_id=WordList.get(i).getWord_id();
                         lvl_num=WordList.get(i).getLevel_no();
                         word_text=WordList.get(i).getText();
+                        
                         break;
                     }
                 }
@@ -743,6 +744,7 @@ public class First_levelController implements Initializable {
             session.close();           
            int Distance=0;
            int oldRow=0;
+           String ph="null";
            StartORStop=true;            
            for(int i=0; i<WordList.size(); i++)
             {
@@ -751,6 +753,7 @@ public class First_levelController implements Initializable {
                     LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
                     Distance = LevenshteinDistanceDP.compute_Levenshtein_distanceDP(WordList.get(i).getPhoneme(), result);                                                
                     System.out.print(Distance);
+                    ph=WordList.get(i).getPhoneme();
                     if(Distance==0)
                     {   
                         for(user_pronounce_word u: record_list)
@@ -882,7 +885,9 @@ public class First_levelController implements Initializable {
                     }
                     break;
                 }
-        } 
+            WriteInFile.writeFile(userSignInNow.userName,word_text,ph,result,Distance);
+        }
+        
     }
                                                            
  @FXML

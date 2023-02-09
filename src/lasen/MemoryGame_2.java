@@ -22,7 +22,7 @@ public class MemoryGame_2 {
     private final int boardSize = 2*3;
     private final Random random = new Random();
     private final ArrayList<String> memoryBoard = new ArrayList<>(Arrays.asList("","","","","",""));
-    private final String[] image_value = {"SHAMS","QAMOS","NAMO","QUNDUS","ANANAS","LABAS"};
+    private final String[] image_value = {"SHAMS","QAMOS","NAMOS","QUNDUS","ANANAS","LBAS"};
     boolean[] index_select ={false,false,false,false,false,false};
     String[] phonemes = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,Z]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,Z]","SHAMS[SH,AE,M,Z]"};
     String[] phonemes2 = {"QUNDUS[K,W,N,D,AH,S]","QAMOS[K,AE,M,AH,Z]","LBAS[L,B,AE,S]","NAMOS[N,AE,M,AH,Z]","ANANAS[AE,N,AH,N,AH,S]","SHAMS[SH,AE,M,Z]"};
@@ -65,7 +65,8 @@ public class MemoryGame_2 {
             }
             
              memoryBoard.set(position, memoryOption);
-              fill_button2[position]=memoryOption;
+             
+             fill_button2[position]=memoryOption;
               
             int position2 = random.nextInt(boardSize);
         
@@ -73,6 +74,7 @@ public class MemoryGame_2 {
                 position2 = random.nextInt(boardSize );
             }
              memoryBoard.set(position2, memoryOption);
+             
               fill_button2[position2]=memoryOption;
              
             System.out.println(position+","+position2);

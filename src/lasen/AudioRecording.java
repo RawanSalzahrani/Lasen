@@ -44,7 +44,7 @@ public class AudioRecording {
                @Override public void run()
                {
                   AudioInputStream recordingStream = new AudioInputStream(targetLine);
-                  fileName = userSignInNow.userName + "_" + userSignInNow.userAge + "_" + First_levelController.word_text+".wav";
+                  fileName = userSignInNow.userName + "_" +First_levelController.word_text+".wav";
                   File outputFile = new File(fileName); // path of the wav file
                   
                   try
