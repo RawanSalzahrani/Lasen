@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author Rawan
  */
-public class LevenshteinDistanceDP {
+public class ComputeDistance{
    
    
      static int compute_distance(String str1, String str2)

@@ -777,8 +777,7 @@ public class Third_levelController implements Initializable {
             {
                 if(WordList.get(i).getText().equals(word_text))
                 {
-                    LevenshteinDistanceDP LevenshteinDistanceDP = new LevenshteinDistanceDP();        
-                    Distance = LevenshteinDistanceDP.compute_distance(WordList.get(i).getPhoneme(), result);                                                
+                    Distance = ComputeDistance.compute_distance(WordList.get(i).getPhoneme(), result);                                                
                     System.out.print(Distance);
                      ph=WordList.get(i).getPhoneme();
                     if(Distance==0)
