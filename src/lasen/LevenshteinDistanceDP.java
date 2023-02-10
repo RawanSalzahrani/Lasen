@@ -13,69 +13,44 @@ import java.util.Arrays;
  */
 public class LevenshteinDistanceDP {
    
-    static int compute_Levenshtein_distanceDP(String str1, String str2)
+   
+     static int compute_distance(String str1, String str2)
     {
- 
-        // A 2-D matrix to store previously calculated
-        // answers of subproblems in order
-        // to obtain the final
- 
-        int[][] dp = new int[str1.length() + 1][str2.length() + 1];
- 
-        for (int i = 0; i <= str1.length(); i++)
+        int d=0;
+        int size;
+        int size2;
+
+       int count1 = str1.length() - str1.replaceAll("\\ ","").length()+1;
+       int count2 = str2.length() - str2.replaceAll("\\ ","").length()+1;
+       
+       //System.out.print(count1+" "+count2);
+       
+       String strArray1[] = str1.split(" ");
+       String strArray2[] = str2.split(" ");
+       
+        
+       if(count1>count2)
+      { size=strArray2.length;
+        size2=strArray1.length;
+      }
+       else
+       {size=strArray1.length;
+           size2=strArray2.length;
+       }
+       
+        int i;
+        for (i=0;i<size; i++) 
         {
-            for (int j = 0; j <= str2.length(); j++) {
- 
-                // If str1 is empty, all characters of
-                // str2 are inserted into str1, which is of
-                // the only possible method of conversion
-                // with minimum operations.
-                if (i == 0) {
-                    dp[i][j] = j;
-                }
- 
-                // If str2 is empty, all characters of str1
-                // are removed, which is the only possible
-                //  method of conversion with minimum
-                //  operations.
-                else if (j == 0) {
-                    dp[i][j] = i;
-                }
- 
-                else {
-                    // find the minimum among three
-                    // operations below
- 
-                     
-                    dp[i][j] = minm_edits(dp[i - 1][j - 1]
-                        + NumOfReplacement(str1.charAt(i - 1),str2.charAt(j - 1)), // replace
-                        dp[i - 1][j] + 1, // delete
-                        dp[i][j - 1] + 1); // insert
-                }
+            if(!strArray1[i].equals(strArray2[i])){
+                d++;
             }
+     
         }
- 
-        return dp[str1.length()][str2.length()];
+        
+        d=d+Math.abs(count2-count1);
+                
+       
+        return d;
     }
- 
-    // check for distinct characters
-    // in str1 and str2
-   
-    static int NumOfReplacement(char c1, char c2)
-    {
-        return c1 == c2 ? 0 : 1;
-    }
- 
-    // receives the count of different
-    // operations performed and returns the
-    // minimum value among them.
-   
-    static int minm_edits(int... nums)
-    {
- 
-        return Arrays.stream(nums).min().orElse(
-            Integer.MAX_VALUE);
-    }
- 
    
 }
