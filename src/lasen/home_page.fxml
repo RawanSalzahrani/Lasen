@@ -29,7 +29,7 @@
             <Image url="@image/gray_line2.png" />
          </image>
       </ImageView>
-      <Button fx:id="dimonds" layoutX="-5.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="-5.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Engravers MT" size="24.0" />
          </font>
@@ -41,12 +41,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="16.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="59.999998189508915">
+      <Text fx:id="dimonds" fill="WHITE" layoutX="16.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="59.999998189508915">
          <font>
             <Font name="Engravers MT" size="24.0" />
          </font>
       </Text>
-      <Button fx:id="coins" layoutX="-5.0" layoutY="93.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="-5.0" layoutY="93.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Engravers MT" size="24.0" />
          </font>
@@ -58,14 +58,14 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="18.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" textAlignment="CENTER" wrappingWidth="59.999998189508915">
+      <Text fx:id="coins" fill="WHITE" layoutX="18.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="59.999998189508915">
          <font>
             <Font name="Engravers MT" size="24.0" />
          </font>
       </Text>
       <Button fx:id="certification" layoutX="1.0" layoutY="178.0" mnemonicParsing="false" onAction="#to_show_certification" onMouseEntered="#enlarge_certification" onMouseExited="#minimize_certification" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="certification_img" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/disable_certification.png" />
                </image>
@@ -81,7 +81,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="instructions" layoutX="-5.0" layoutY="720.0" mnemonicParsing="false" onAction="#to_instructions" onMouseEntered="#enlarge_instructions" onMouseExited="#minimize_instructions" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
+      <Button fx:id="instructions" layoutX="-5.0" layoutY="720.0" mnemonicParsing="false" onMouseEntered="#enlarge_instructions" onMouseExited="#minimize_instructions" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -92,7 +92,7 @@
       </Button>
       <Button fx:id="first_level" layoutX="77.0" layoutY="597.0" mnemonicParsing="false" onAction="#to_first_level" onMouseEntered="#enlarge_first" onMouseExited="#minimize_first" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="lvl_1_img" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/1_unlocked.png" />
                </image>
@@ -101,7 +101,7 @@
       </Button>
       <Button fx:id="second_level" layoutX="163.0" layoutY="529.0" mnemonicParsing="false" onAction="#to_second_level" onMouseEntered="#enlarge_second" onMouseExited="#minimize_second" prefHeight="55.0" prefWidth="72.0" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="lvl_2_img" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/2_locked.png" />
                </image>
@@ -110,7 +110,7 @@
       </Button>
       <Button fx:id="third_level" layoutX="154.0" layoutY="424.0" mnemonicParsing="false" onAction="#to_third_level" onMouseEntered="#enlarge_third" onMouseExited="#minimize_third" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="lvl_3_img" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/3_locked.png" />
                </image>

@@ -69,7 +69,9 @@ public class Sign_inController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
+  
 
     public  void initialize(){
         txt_show_passwod.setVisible(false);
@@ -176,7 +178,7 @@ public class Sign_inController implements Initializable {
         Query query = session.createQuery(queryStr);
         sList = query.list();
         session.close();
-        
+      
 
         int index=1;
         String domain = "";
@@ -203,8 +205,9 @@ public class Sign_inController implements Initializable {
                                 if(u.getEmail().equals(email.getText())){ flag =true;
                                     
                                     if(u.getPassword().equals(txt_hide_Password.getText())){                                        
-                                        userSignInNow.userSignIn = email.getText();
-                                        
+                                        userSignInNow.userSignIn = email.getText(); 
+                                        userSignInNow.userName = u.getName();
+                                        userSignInNow.userAge = u.getAge();
                                         Parent root = FXMLLoader.load(getClass().getResource("home_page.fxml"));
                                         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                                         scene = new Scene(root);

@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,10 +28,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import static lasen.userSignInNow.getCorrect_countForLevel_1;
+import static lasen.userSignInNow.getCorrect_countForLevel_2;
+import static lasen.userSignInNow.getCorrect_countForLevel_3;
+import static lasen.userSignInNow.getCurrrentBalance;
+import static lasen.userSignInNow.getDimonds;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -40,9 +49,9 @@ import static lasen.Lasen.mediaPlayer2;
 public class Home_pageController implements Initializable {
 
     @FXML
-    private Button dimonds;
+    private Text dimonds;
     @FXML
-    private Button coins;
+    private Text coins;
     @FXML
     private Button certification;
     @FXML
@@ -77,6 +86,15 @@ public class Home_pageController implements Initializable {
     private ImageView sound_img;
     @FXML
     private ImageView music_img;
+   
+    @FXML
+    private ImageView lvl_1_img;
+    @FXML
+    private ImageView lvl_2_img;
+    @FXML
+    private ImageView lvl_3_img;
+    @FXML
+    private ImageView certification_img;
     
 
     /**
@@ -84,7 +102,11 @@ public class Home_pageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO                           
+        // TODO 
+        
+        dimonds.setText(getDimonds());
+        coins.setText(getCurrrentBalance());
+        
         sound_slider.setValue(mediaPlayer.getVolume()*100);
         sound_slider.valueProperty().addListener(new InvalidationListener(){
             @Override
@@ -99,7 +121,40 @@ public class Home_pageController implements Initializable {
             public void invalidated(Observable observable) {
               mediaPlayer2.setVolume(music_slider.getValue()/100);
             }
-        });        
+        }); 
+        
+        if (getCorrect_countForLevel_1() >= 2){
+            try {
+            FileInputStream unlocked = new FileInputStream("src\\lasen\\image\\2_unlocked.png");
+            Image unlockImage = new Image(unlocked);                 
+            lvl_2_img.setImage(unlockImage);                 
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("there is "+ getCorrect_countForLevel_1()+" rows");
+        }
+        
+        if (getCorrect_countForLevel_2() >= 3){
+            try {
+            FileInputStream unlocked = new FileInputStream("src\\lasen\\image\\3_unlocked.png");
+            Image unlockImage = new Image(unlocked);                 
+            lvl_3_img.setImage(unlockImage);                 
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(getCorrect_countForLevel_2());
+        }
+        
+        if (getCorrect_countForLevel_3() >= 4){
+            try {
+            FileInputStream unlocked = new FileInputStream("src\\lasen\\image\\certification.png");
+            Image unlockImage = new Image(unlocked);                 
+            certification_img.setImage(unlockImage);                 
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }   
+        }
+    
     }
 
     @FXML
@@ -159,17 +214,6 @@ public class Home_pageController implements Initializable {
     }
 
     @FXML
-    private void to_instructions(ActionEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Parent root = FXMLLoader.load(getClass().getResource("instructions.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
     private void minimize_first(MouseEvent event) {
         first_level.setPrefHeight(first_level.getPrefHeight()-5);
         first_level.setPrefWidth(first_level.getPrefWidth()-5);
@@ -209,16 +253,20 @@ public class Home_pageController implements Initializable {
         second_level.setTranslateX(second_level.getTranslateX()-5);
     }
 
+    
     @FXML
     private void to_second_level(ActionEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Lasen.mediaPlayer2.pause();
-        Parent root = FXMLLoader.load(getClass().getResource("second_level.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (getCorrect_countForLevel_1() >= 2){
+          System.out.println(getCorrect_countForLevel_1());
+          mediaPlayer.seek(Duration.seconds(0));
+          mediaPlayer.play();
+          Lasen.mediaPlayer2.pause();
+          Parent root = FXMLLoader.load(getClass().getResource("second_level.fxml"));
+          stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+          scene = new Scene(root);
+          stage.setScene(scene);
+          stage.show();
+        }
     }
 
     @FXML
@@ -237,14 +285,17 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void to_third_level(ActionEvent event) throws IOException {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-        Lasen.mediaPlayer2.pause();
-        Parent root = FXMLLoader.load(getClass().getResource("third_level.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (getCorrect_countForLevel_2() >= 3){
+            System.out.println(getCorrect_countForLevel_2());
+            mediaPlayer.seek(Duration.seconds(0));
+            mediaPlayer.play();
+            Lasen.mediaPlayer2.pause();
+            Parent root = FXMLLoader.load(getClass().getResource("third_level.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+         }
     }
 
     @FXML
@@ -294,7 +345,7 @@ public class Home_pageController implements Initializable {
     }
 
     @FXML
-    private void change_sound_img(MouseEvent event) {
+    private void change_sound_img(MouseEvent event){
         try {
             FileInputStream muteFile = new FileInputStream("src\\lasen\\image\\blocked_sound.png");
             Image muteImage = new Image(muteFile);

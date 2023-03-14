@@ -22,6 +22,8 @@ public class word  implements java.io.Serializable {
      private String phoneme;
      @Column(name="img")
      private byte[] img;
+     @Column(name="correct_pronounce")
+     private String correct_pronounce;
 
      public word() {
     }
@@ -72,6 +74,14 @@ public class word  implements java.io.Serializable {
 
     public void setImg(byte[] img) {
         this.img = img;
+    }
+
+    public String getCorrect_pronounce() {
+        return correct_pronounce;
+    }
+
+    public void setCorrect_pronounce(String correct_voice) {
+        this.correct_pronounce = correct_voice;
     }
 
      

@@ -5,36 +5,62 @@
  */
 package lasen;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.util.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javax.sound.sampled.LineUnavailableException;
+import static lasen.Lasen.getRandomStringCorr;
+import static lasen.Lasen.getRandomStringInCorr;
+import static lasen.Lasen.media3;
+import static lasen.Lasen.media4;
+import static lasen.Lasen.media5;
 import static lasen.Lasen.mediaPlayer;
 import static lasen.Lasen.mediaPlayer2;
+import static lasen.Lasen.mediaPlayer3;
+import static lasen.Lasen.mediaPlayer4;
+import static lasen.Lasen.mediaPlayer5;
+import static lasen.MemoryGame.fill_button;
+import static lasen.userSignInNow.decreaseUserCurrrentBalance;
+import static lasen.userSignInNow.getCurrrentBalance;
+import static lasen.userSignInNow.getDimonds;
+import static lasen.userSignInNow.increaseUserCurrrentBalance;
+import static lasen.userSignInNow.increaseUserDimonds;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * FXML Controller class
@@ -48,9 +74,9 @@ public class First_levelController implements Initializable {
     @FXML
     private Button home;
     @FXML
-    private Button dimonds;
+    private Text dimonds;
     @FXML
-    private Button coins;
+    private Text coins;
     @FXML
     private Pane pop_wind;
     @FXML
@@ -63,10 +89,6 @@ public class First_levelController implements Initializable {
     private Button sign_out;
     @FXML
     private Slider sound_slider;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private Pane record_pan;
     @FXML
@@ -75,82 +97,341 @@ public class First_levelController implements Initializable {
     private Button get_help_bt;
     @FXML
     private Button micerphone_bt;
-    
-     @FXML
-    public GridPane gameMatrix;
-     
-     
-     
-      Board board = new Board();
-     
-    Cell firstCard = null;
-    Cell secondCard = null;
+    @FXML
+    private ImageView character;
     @FXML
     private ImageView sound_img;
     @FXML
     private ImageView music_img;
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Button button0;
+    @FXML
+    private Button button1;
+    @FXML
+    private Button button2;
+    @FXML
+    private Button button3;
+    @FXML
+    private ImageView image_recod_pane;
+    
+    FileInputStream unmuteFile_back;
+    private boolean firstButtonClicked = false;
+    private int firstButtonIndex;
+    private int secondButtonIndex;
+    private boolean match;
+    String image_value;
+    private ImageView imageDispaly;
+    
+    ImageView view_background_0 ;
+    ImageView view_background_1;
+    ImageView view_background_2 ;
+    ImageView view_background_3;; 
+    ImageView view_background_close0 ;
+    ImageView view_background_close1;
+    ImageView view_background_close2 ;
+    ImageView view_background_close3;    
+    
+    MemoryGame memoryGame = new MemoryGame();
+    FileInputStream unmuteFile_background;
+    
+    boolean[] button_match={false,false, false ,false};
+   
+    
+    ArrayList<Button> buttons = new ArrayList<>();
+    ArrayList<ImageView> images = new ArrayList<>();
+
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> hideButtons()));
+    Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(4), e ->hideRecord()));
+    Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(10), e ->hideRecord()));
+    
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    boolean voice_pane=false;
+    byte[] photo;
+    public static int w_id;
+    public static int lvl_num;
+    public static String word_text=null;
+    List<word> WordList = null; 
+    AudioRecording AudioRecording = new AudioRecording();
+    int Ismatch=0; 
+    @FXML
+    private Circle recording;
+    
+    String[] opened_card ;
+    private final String[] image_name = {"SAYAARA","SIFINA","SAMAKA","SIN","SENJAB","SAYF"};
+    boolean[] select ={false,false,false,false,false,false};
+
+            
+    private final Random random = new Random();
+    @FXML
+    private ImageView refresh_img;
+    @FXML
+    private ImageView get_help_img;
+    int index_image;
+   
+    
+
+        
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-       
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+     
+        dimonds.setText(getDimonds());
+        coins.setText(getCurrrentBalance());
+        
         sound_slider.setValue(mediaPlayer.getVolume()*100);
-        sound_slider.valueProperty().addListener(new InvalidationListener(){
+        sound_slider.valueProperty().addListener(new InvalidationListener()
+        {
             @Override
-            public void invalidated(Observable observable) {
+            public void invalidated(Observable observable) 
+            {
               mediaPlayer.setVolume(sound_slider.getValue()/100);
             }
         });
         
         music_slider.setValue(mediaPlayer2.getVolume()*400);
-        music_slider.valueProperty().addListener(new InvalidationListener(){
+        music_slider.valueProperty().addListener(new InvalidationListener()
+        {
             @Override
-            public void invalidated(Observable observable) {
+            public void invalidated(Observable observable) 
+            {
               mediaPlayer2.setVolume(music_slider.getValue()/100);
             }
         });
         
+        buttons.addAll(Arrays.asList(button0, button1, button2, button3));
+     
         
-         board.populateMatrix();
-            
-         FileInputStream input;
-                
-        try {
-            
-       
-        for (int row = 0; row <2; row++) {
-            for (int col = 0; col <2; col++) {
-               input = new FileInputStream(
-                       "src\\lasen\\image\\background.png");
-                 
-               Image image = new Image(input);
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(170);
-                imageView.setFitHeight(170);
-                imageView.setUserData(row+","+col);
-                
-                imageView.setOnMouseClicked(event -> {
-                    try {
-                        cardListener(event);}
-                    
-                    catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }});
-                
-                gameMatrix.add(imageView,row, col);
-            }}
-        
-        
-        
-        
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(First_levelController.class.getName()).log(Level.SEVERE, null, ex);
+        try 
+        {
+           unmuteFile_back = new FileInputStream("src\\lasen\\image\\background.png");
+        } 
+        catch (FileNotFoundException ex)
+        {
+           Logger.getLogger(First_levelController.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
+           Image img = new Image(unmuteFile_back);
+           
+           view_background_0 = new ImageView(img);   
+           view_background_0.setFitWidth(160);
+           view_background_0.setFitHeight(160); 
+          // view_background_0.setPreserveRatio(true);
+          
+           view_background_1 = new ImageView(img);   
+           view_background_1.setFitWidth(160);
+           view_background_1.setFitHeight(160); 
+          
+           view_background_2 = new ImageView(img);   
+           view_background_2.setFitWidth(160);
+           view_background_2.setFitHeight(160);  
+           
+           view_background_3 = new ImageView(img);   
+           view_background_3.setFitWidth(160);
+           view_background_3.setFitHeight(160); 
+           
+           view_background_close0 = new ImageView(img);   
+           view_background_close0.setFitWidth(160);
+           view_background_close0.setFitHeight(160);
+           
+           view_background_close1 = new ImageView(img);   
+           view_background_close1.setFitWidth(160);
+           view_background_close1.setFitHeight(160);
+           
+           view_background_close2 = new ImageView(img);   
+           view_background_close2.setFitWidth(160);
+           view_background_close2.setFitHeight(160); 
+           
+           view_background_close3 = new ImageView(img);   
+           view_background_close3.setFitWidth(160);
+           view_background_close3.setFitHeight(160); 
+          
+           buttons.get(0).setGraphic(view_background_0);
+           buttons.get(1).setGraphic(view_background_1);
+           buttons.get(2).setGraphic(view_background_2);
+           buttons.get(3).setGraphic(view_background_3);
+           
+           memoryGame.setupGame();
         
+           for(int p =0; p <image_name.length; p++) {
+               for(int h=0;h<fill_button.length;h++) {
+
+               if(fill_button[h].equals(image_name[p]))
+                {
+                           select[p]=true;
+                }
+          }
+          } 
+    
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        WordList = null;
+        String queryStr = "from word WHERE level_no=1";
+        Query query = session.createQuery(queryStr);
+        WordList = query.list();       
+        session.close();
+                             
+    }
+    
+    @FXML
+    void buttonClickedCard(ActionEvent event) throws FileNotFoundException 
+    {
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        if(!firstButtonClicked)
+        {
+                //If next turn is started before old buttons are hidden
+
+                 // timeline2.play();
+            if(!match)
+            {
+                hideButtons();
+                timeline.stop();
+            }
+
+            match = false;
+            firstButtonClicked = true;
+
+            //Get clicked button memory letter
+            String buttonId = ((Control)event.getSource()).getId();
+            firstButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
+            System.out.println(" the  "+firstButtonIndex);
+           
+            image_value=memoryGame.getOptionAtIndex(firstButtonIndex);
+          
+                   
+            System.out.println("it is "+image_value);                  
+
+            for(int i=0; i< WordList.size();i++)
+            {
+                if(WordList.get(i).getText().equals(image_value))
+                {
+                    photo=WordList.get(i).getImg();
+                    w_id=WordList.get(i).getWord_id();
+                    lvl_num=WordList.get(i).getLevel_no();
+                    word_text=WordList.get(i).getText();
+                    System.out.println(word_text);
+                    break;
+                }
+            }
+
+            Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
+            ImageView view = new ImageView(selectedImage);
+            view.setFitWidth(160);
+            view.setFitHeight(160);
+            buttons.get(firstButtonIndex).setGraphic(view);
+            System.out.println(", thre button is : "+buttonId);
+            return;
+
+        }
+
+        //Get clicked button memory letter
+        String buttonId = ((Control)event.getSource()).getId();
+        secondButtonIndex = Integer.parseInt(buttonId.substring(buttonId.length() - 1));
+        System.out.println(" the2  "+secondButtonIndex);       
+        image_value=memoryGame.getOptionAtIndex(secondButtonIndex);
+        System.out.println("it is "+image_value);
+
+        for(int i=0; i< WordList.size();i++)
+        {
+            if(WordList.get(i).getText().equals(image_value))
+            {
+                photo=WordList.get(i).getImg();
+                w_id=WordList.get(i).getWord_id();
+                lvl_num=WordList.get(i).getLevel_no();
+                word_text=WordList.get(i).getText();
+                System.out.println(word_text);
+                break;
+            }
+        }
+
+        Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
+        ImageView view = new ImageView(selectedImage);
+        view.setFitWidth(160);
+        view.setFitHeight(160);
+        buttons.get(secondButtonIndex).setGraphic(view);
+ 
+        System.out.println("value of secand card "+image_value );
+        System.out.println(" thre button is :"+buttonId);
+        firstButtonClicked = false;
+
+         //Check if the two clicked button match
+
+        if(memoryGame.checkTwoPositions(firstButtonIndex,secondButtonIndex))
+        {
+            int i = 0 ;
+            System.out.println("Match");
+            button_match[firstButtonIndex]=true;
+            button_match[secondButtonIndex]=true;
+            match = true;
+            
+            Session session = HibernateUtil.getSessionFactory().openSession();      
+            List<user_pronounce_word> record_list = null;
+            String queryStr = "from user_pronounce_word";
+            Query query = session.createQuery(queryStr);
+            record_list =  query.list();
+            session.close();
+            for(user_pronounce_word u: record_list){
+                if (userSignInNow.userSignIn.equals(u.getEmail()) && w_id == u.getWord_id() ){
+                    Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
+                        u.setIncorrect_count(0);
+                        session5.update(u);
+                        session5.getTransaction().commit();
+                        session5.close(); 
+                        System.out.println("Now Incorrect count is 0");
+                }
+            }
+            
+            for(int k=0 ; k < image_name.length ; k++){
+                 
+                if(image_value.equals(image_name[k]))
+                { 
+                    index_image=k;
+                }
+                 System.out.println("is selet  "+select[k]+ "at index: "+k);
+                 System.out.println("");
+            }
+            image_recod_pane.setImage(selectedImage);
+           
+            shwoRecord();
+            
+            // timeline2.stop();
+            
+            
+            return;
+        }
+
+        timeline.play();
+
+    }
+    
+    private void shwoRecord()
+    {         
+         record_pan.setVisible(true);
+         image_recod_pane.setVisible(true);
+    }
+    
+    private void hideRecord()
+    {        
+         record_pan.setVisible(false);
+         image_recod_pane.setVisible(false);
+         character.setVisible(false);
+    }
+
+    private void hideButtons()
+    {    
+        if(firstButtonIndex==0){ buttons.get(firstButtonIndex).setGraphic(view_background_close0); }      
+        if(firstButtonIndex==1){ buttons.get(firstButtonIndex).setGraphic(view_background_close1); }
+        if(firstButtonIndex==2){ buttons.get(firstButtonIndex).setGraphic(view_background_close2); }
+        if(firstButtonIndex==3){ buttons.get(firstButtonIndex).setGraphic(view_background_close3); }      
+        if(secondButtonIndex==0){ buttons.get(secondButtonIndex).setGraphic(view_background_close0); }
+        if(secondButtonIndex==1){ buttons.get(secondButtonIndex).setGraphic(view_background_close1); }
+        if(secondButtonIndex==2){ buttons.get(secondButtonIndex).setGraphic(view_background_close2); }
+        if(secondButtonIndex==3){ buttons.get(secondButtonIndex).setGraphic(view_background_close3); }  
     }
       
-
     @FXML
     private void minimize_setting(MouseEvent event) {
         setting.setPrefHeight(setting.getPrefHeight()-5);
@@ -230,79 +511,385 @@ public class First_levelController implements Initializable {
     }
 
     @FXML
-    private void refresh_cards(ActionEvent event) {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-    }
-
-    @FXML
-    private void get_help(ActionEvent event) {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-    }
-
-    @FXML
-    private void record_sound(ActionEvent event) {
-        mediaPlayer.seek(Duration.seconds(0));
-        mediaPlayer.play();
-    }
-    
-     public void cardListener(MouseEvent event) throws FileNotFoundException {
-         mediaPlayer.seek(Duration.seconds(0));
-         mediaPlayer.play();
-         
-        Node sourceComponent = (Node) event.getSource();
-        String rowAndColumn = (String)sourceComponent.getUserData();
-
-        int rowSelected = Integer.parseInt(rowAndColumn.split(",")[0]);
-        int colSelected = Integer.parseInt(rowAndColumn.split(",")[1]);
-
-        String image = board.board[rowSelected][colSelected].value;
-
-        FileInputStream imageFile = new FileInputStream("src\\lasen\\image\\"+image+".png");
-
-        Image selectedImage = new Image(imageFile);
+    private void refresh_cards(ActionEvent event){
         
-        ((ImageView)sourceComponent).setImage(selectedImage);
-        checkIfMatchingPairWasFound(rowSelected,colSelected);
-
-    }
-     
-     
-      public void checkIfMatchingPairWasFound(int rowSelected, int colSelected) throws FileNotFoundException {
-
-        if(firstCard == null){
-            firstCard = board.board[rowSelected][colSelected];
-        }else if(secondCard ==null){
-            secondCard = board.board[rowSelected][colSelected];
-        }else {
-            if(firstCard.value.equals(secondCard.value)){
-                //matching pair
-                   record_pan.setVisible(true);
-                board.board[firstCard.row][firstCard.col].wasGuessed = true;
-                board.board[secondCard.row][secondCard.col].wasGuessed = true;
+        select[index_image]=false;
+        
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        try {
+            
+        FileInputStream unable_refresh = new FileInputStream("src\\lasen\\image\\unable_refresh.png");
+        FileInputStream unable_character = new FileInputStream("src\\lasen\\image\\unable_character.png");
+        Image disable_refresh = new Image(unable_refresh);
+        Image disable_get_help = new Image(unable_character); 
+        refresh_img.setImage(disable_refresh);
+        get_help_img.setImage(disable_get_help);
+        
+        
+        } catch (FileNotFoundException ex) {
+        Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+////        ///هذا الكود شغال 
+////         index_image =random.nextInt(image_name.length);
+////                
+////                while(select[index_image] )
+////                {
+////                   index_image=random.nextInt(image_name.length);
+////                }
+////                
+////               for(int k=0 ; k < image_name.length ; k++){
+////                System.out.println("is selet  "+select[k]+ "at index:  "+k);
+////            }
+////               System.out.print(" ///////// " );
+////                String update_img = image_name[index_image];
+////                
+////                for(int i=0; i< WordList.size();i++)
+////                {
+////                    if(WordList.get(i).getText().equals(update_img))
+////                    {
+////                        photo=WordList.get(i).getImg();
+////                        w_id=WordList.get(i).getWord_id();
+////                        lvl_num=WordList.get(i).getLevel_no();
+////                        word_text=WordList.get(i).getText();
+////                        break;
+////                    }
+////                }
+////                
+////              Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
+////                ImageView view = new ImageView(selectedImage);
+////                view.setFitWidth(160);
+////                view.setFitHeight(160);
+////                buttons.get(firstButtonIndex).setGraphic(view);
+////                buttons.get(secondButtonIndex).setGraphic(view);
+////                image_recod_pane.setImage(selectedImage);  
                 
-               
                 
-            } else {
-                int indexFirstCardInList = (firstCard.row * 2) + firstCard.col;
+        
+        Session session2 = HibernateUtil.getSessionFactory().openSession();      
+        List<user_pronounce_word> record_list = null;
+        String queryStr2 = "from user_pronounce_word";
+        Query query2 = session2.createQuery(queryStr2);
+        record_list =  query2.list();
+        session2.close();
 
-                FileInputStream questionFile = new FileInputStream("src\\lasen\\image\\background.png");
+
+        for(user_pronounce_word u: record_list)
+        {
+            if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail())&& u.getIncorrect_count()>=3)
+            {   
+//                
                 
-                Image questionImage = new Image(questionFile);
-                ((ImageView)gameMatrix.getChildren().get(indexFirstCardInList)).setImage(questionImage);
-
-                int indexSecondCardInList = (secondCard.row * 2) + secondCard.col;
-                ((ImageView)gameMatrix.getChildren().get(indexSecondCardInList)).setImage(questionImage);
+                 index_image =random.nextInt(image_name.length);
+                
+               while(select[index_image] )
+                {
+                   index_image=random.nextInt(image_name.length);
+                }
+                
+               for(int k=0 ; k < image_name.length ; k++){
+                System.out.println("is selet  "+select[k]+ "at index:  "+k);
             }
+               System.out.print(" ///////// " );
+                String update_img = image_name[index_image];
+                
+                for(int i=0; i< WordList.size();i++)
+                {
+                    if(WordList.get(i).getText().equals(update_img))
+                    {
+                        photo=WordList.get(i).getImg();
+                        w_id=WordList.get(i).getWord_id();
+                        lvl_num=WordList.get(i).getLevel_no();
+                        word_text=WordList.get(i).getText();
+                        break;
+                    }
+                }
+                
+              
+                
+                for(int i=0; i< WordList.size();i++)
+                {
+                    if(WordList.get(i).getText().equals(update_img))
+                    {
+                        photo=WordList.get(i).getImg();
+                        w_id=WordList.get(i).getWord_id();
+                        lvl_num=WordList.get(i).getLevel_no();
+                        word_text=WordList.get(i).getText();
+                        
+                        break;
+                    }
+                }
+                for(user_pronounce_word v: record_list)
+                {
+                    if (w_id == v.getWord_id() && userSignInNow.userSignIn.equals(v.getEmail()))
+                    {
+                        Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
+                        v.setIncorrect_count(0);
+                        session5.update(v);
+                        session5.getTransaction().commit();
+                        session5.close(); 
+                        System.out.println("yes row updated");
+                        break;         
+                    }
+                }
+                Image selectedImage = new Image(new ByteArrayInputStream(photo)); 
+                ImageView view = new ImageView(selectedImage);
+                view.setFitWidth(160);
+                view.setFitHeight(160);
+                buttons.get(firstButtonIndex).setGraphic(view);
+                buttons.get(secondButtonIndex).setGraphic(view);
+                image_recod_pane.setImage(selectedImage);
+            }
+        }        
+    }
 
-            firstCard= board.board[rowSelected][colSelected];
-            secondCard = null;
+    @FXML
+    private void get_help(ActionEvent event) throws LineUnavailableException, IOException{
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        try {
+            FileInputStream helpChar = new FileInputStream("src\\lasen\\image\\stand_smile.png");
+            Image helpCharImage = new Image(helpChar);                 
+            character.setImage(helpCharImage);                 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String wav=null;
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();      
+        List<user> current_balance = null;
+        String queryStr = "from user";
+        Query query = session.createQuery(queryStr);
+        current_balance =  query.list();
+        session.close();
+        for(user b: current_balance)
+        {
+            if(userSignInNow.userSignIn.equals(b.getEmail()) && b.getCurrent_balance()>=15)
+            {
+                Session session2 = HibernateUtil.getSessionFactory().openSession();      
+                List<user_pronounce_word> record_list = null;
+                String queryStr2 = "from user_pronounce_word";
+                Query query2 = session2.createQuery(queryStr2);
+                record_list =  query2.list();
+                session2.close();
+                for(user_pronounce_word u: record_list)
+                {
+                    if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()) && u.getIncorrect_count()>=3)
+                    {
+                        for(int i=0; i<WordList.size(); i++)
+                        {
+                            if(WordList.get(i).getText().equals(word_text))
+                            {       
+                                wav = WordList.get(i).getCorrect_pronounce();
+                                break;
+                            }
+                        } 
+                        decreaseUserCurrrentBalance();
+                        coins.setText(getCurrrentBalance());
+                        character.setVisible(true);
+                        timeline3.play();
+                        media5 = new Media(getClass().getResource(wav).toExternalForm());
+                        mediaPlayer5 = new MediaPlayer(media5);
+                        mediaPlayer5.seek(Duration.seconds(0));
+                        Lasen.mediaPlayer5.play();
+                        
+                        
+                        break;
+                    }              
+                }
+            
+            }
+        }                    
+    }
+
+    boolean StartORStop=true;        
+    @FXML
+    private void record_sound(ActionEvent event) throws LineUnavailableException, IOException {
+        
+        
+        
+        
+        
+        mediaPlayer.seek(Duration.seconds(0));
+        mediaPlayer.play();
+        
+        try {
+            FileInputStream happyChar = new FileInputStream("src\\lasen\\image\\jump_laf.png");
+            Image happyCharImage = new Image(happyChar);                 
+            character.setImage(happyCharImage);                 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        if(StartORStop)
+        {
+            StartORStop=false;
+            AudioRecording.startRecording();
+            recording.setVisible(true);
 
         }
-    }
+        else
+        {            
+           String result = AudioRecording.stopRecording();
+           recording.setVisible(false);
+           System.out.print(result);
+           
+        Session session = HibernateUtil.getSessionFactory().openSession();      
+            List<user_pronounce_word> record_list = null;
+            String queryStr = "from user_pronounce_word";
+            Query query = session.createQuery(queryStr);
+            record_list =  query.list();
+            session.close();           
+           int Distance=0;
+           int oldRow=0;
+           String ph="null";
+           StartORStop=true;            
+           for(int i=0; i<WordList.size(); i++)
+            {
+                if(WordList.get(i).getText().equals(word_text))
+                {
+                    Distance = ComputeDistance.compute_distance(WordList.get(i).getPhoneme(), result);                                                
+                    System.out.print(Distance);
+                    ph=WordList.get(i).getPhoneme();
+                    if(Distance==0)
+                    {   
+                        for(user_pronounce_word u: record_list)
+                        {
+                            if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()))
+                            {
+                                if(u.getCorrect_count()==0)
+                                {
+                                    
+                                    increaseUserDimonds();
+                                    Session session5 = HibernateUtil.getSessionFactory().openSession();
+                                    session5.beginTransaction();
+                                    u.setCorrect_count(1);
+                                    session5.update(u);
+                                    session5.getTransaction().commit();
+                                    session5.close(); 
+                                    System.out.println("yes row updated");
+                                }
+                                else 
+                                {                               
+                                    System.out.println("yes row updated");
+                                }
+                                oldRow++;
+                                break;
+                            }             
+                        }
+                        if(oldRow==0)
+                        {
+                            increaseUserDimonds();
+                            user_pronounce_word w = new user_pronounce_word();
+                            w.setWord_id(w_id);
+                            w.setLevel_no(lvl_num);
+                            w.setEmail(userSignInNow.userSignIn);
+                            w.setCorrect_count(1);
+                            w.setIncorrect_count(w.getIncorrect_count());               
+                            Session session3 = HibernateUtil.getSessionFactory().openSession();
+                            Transaction tx = session3.beginTransaction();
+                            session3.save(w);
+                            tx.commit();
+                            session3.close();                
+                            System.out.println("new row recorded"); 
 
-    @FXML
+                        }
+                        
+                        
+                       select[index_image]=true;
+                     
+                     
+//                        for(int k=0 ; k < image_name.length ; k++){
+//                           
+//                                select[k]=true; 
+//                            } 
+//                        }
+                        character.setVisible(true);
+                        media3 = new Media(getClass().getResource(getRandomStringCorr()).toExternalForm());
+                        mediaPlayer3 = new MediaPlayer(media3);
+                        mediaPlayer3.seek(Duration.seconds(0));
+                        Lasen.mediaPlayer3.play();
+                        timeline2.play();
+                        dimonds.setText(getDimonds());                         
+                    } 
+                }
+            }
+            if(Distance>0)
+            {
+                for(user_pronounce_word x: record_list)
+                {
+                    if (w_id == x.getWord_id() && userSignInNow.userSignIn.equals(x.getEmail()))
+                    {
+                        Session session5 = HibernateUtil.getSessionFactory().openSession();
+                        session5.beginTransaction();
+                        x.setIncorrect_count(x.getIncorrect_count()+1);
+                        session5.update(x);
+                        session5.getTransaction().commit();
+                        session5.close(); 
+                        System.out.println("yes row updated");
+                        oldRow++;
+                        break;
+                    }                   
+                }
+                if(oldRow==0)
+                {
+                        user_pronounce_word w = new user_pronounce_word();
+                        w.setWord_id(w_id);
+                        w.setLevel_no(lvl_num);
+                        w.setEmail(userSignInNow.userSignIn);
+                        w.setCorrect_count(w.getCorrect_count());
+                        w.setIncorrect_count(w.getIncorrect_count()+1);               
+                        Session session6 = HibernateUtil.getSessionFactory().openSession();
+                        Transaction tx = session6.beginTransaction();
+                        session6.save(w);
+                        tx.commit();
+                        session6.close();                
+                        System.out.println("new row recorded");  
+                }
+                media4 = new Media(getClass().getResource(getRandomStringInCorr()).toExternalForm());
+                mediaPlayer4 = new MediaPlayer(media4);
+                mediaPlayer4.seek(Duration.seconds(0));
+                Lasen.mediaPlayer4.play(); 
+                increaseUserCurrrentBalance();
+                coins.setText(getCurrrentBalance());
+            }
+            for(user_pronounce_word u: record_list)
+                {
+                    if (w_id == u.getWord_id() && userSignInNow.userSignIn.equals(u.getEmail()) && u.getIncorrect_count()>=3)
+                    {
+                        try {
+                        FileInputStream refresh = new FileInputStream("src\\lasen\\image\\refresh.png");
+                        FileInputStream get_help = new FileInputStream("src\\lasen\\image\\get_help.png");
+                        Image able_refresh = new Image(refresh);
+                        Image able_get_help = new Image(get_help); 
+                        //refresh_img.setImage(able_refresh);
+                        //refresh_bt.setGraphic(refresh_img);
+                        //get_help_img.setImage(able_get_help);
+                        } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else {
+                        try {
+                        FileInputStream unable_refresh = new FileInputStream("src\\lasen\\image\\unable_refresh.png");
+                        FileInputStream unable_character = new FileInputStream("src\\lasen\\image\\unable_character.png");
+                        Image disable_refresh = new Image(unable_refresh);
+                        Image disable_get_help = new Image(unable_character); 
+                      //  refresh_img.setImage(disable_refresh);
+                       // get_help_img.setImage(disable_get_help);
+                        } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Home_pageController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    break;
+                }
+            WriteInFile.writeFile(userSignInNow.userName,word_text,ph,result,Distance);
+        }
+        
+    }
+                                                           
+ @FXML
     private void change_music_img(MouseEvent event) {
         try {
             FileInputStream muteFile = new FileInputStream("src\\lasen\\image\\blocked_music.png");
